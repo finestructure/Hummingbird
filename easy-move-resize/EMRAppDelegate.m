@@ -447,9 +447,11 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 }
 
 - (IBAction)showPreferences:(id)sender {
-    _prefs = [[EMRPreferencesController alloc] initWithWindowNibName:@"EMRPreferencesController"];
-    _prefs.prefs = preferences;
-    [_prefs.window makeKeyAndOrderFront:nil];
+    if (_prefs == nil) {
+        _prefs = [[EMRPreferencesController alloc] initWithWindowNibName:@"EMRPreferencesController"];
+        _prefs.prefs = preferences;
+    }
+    [_prefs.window makeKeyAndOrderFront:sender];
 }
 
 - (int)moveModifierFlags {
