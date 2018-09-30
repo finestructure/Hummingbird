@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         userDefaults = defaults;
-        for (NSString *key in @[MODIFIER_CLICK_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY]) {
+        for (NSString *key in @[MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY]) {
             NSString *modifierFlagString = [userDefaults stringForKey:key];
             if (modifierFlagString == nil) {
                 // ensure our defaults are initialized
@@ -32,10 +32,6 @@
 
 - (NSString *)keyForFlagSet:(FlagSet)flagSet {
     switch (flagSet) {
-        case clickFlags:
-            return MODIFIER_CLICK_FLAGS_DEFAULTS_KEY;
-            break;
-
         case hoverMoveFlags:
             return MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY;
             break;
@@ -53,7 +49,6 @@
 
 - (NSArray *)modifierDefaultsForKey:(NSString *)key {
     NSDictionary* modifierDefaults = @{
-                                       MODIFIER_CLICK_FLAGS_DEFAULTS_KEY: @[CTRL_KEY, CMD_KEY],
                                        MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY: @[CTRL_KEY, ALT_KEY],
                                        MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY: @[CTRL_KEY, ALT_KEY, CMD_KEY]
                                        };
@@ -116,28 +111,6 @@
 }
 
 
-- (EMRMode)defaultMode {
-    return clickMode;
-}
-
-
-// returns EMR mode - click or hover
-- (EMRMode)mode {
-    NSNumber *mode = [userDefaults objectForKey:EMR_MODE_DEFAULTS_KEY];
-    if (mode == nil) {
-        return [self defaultMode];
-    } else {
-        return mode.integerValue;
-    }
-}
-
-
-// set EMR mode
-- (void)setMode:(EMRMode)mode {
-    [userDefaults setInteger:mode forKey:EMR_MODE_DEFAULTS_KEY];
-}
-
-
 - (void)setToDefaultsForKey:(NSString *)key {
     NSArray *flags = [self modifierDefaultsForKey:key];
     NSString *flagString = [self flagStringForFlags:flags];
@@ -146,12 +119,11 @@
 
 
 - (void)setToDefaults {
-    for (NSString *key in @[MODIFIER_CLICK_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY]) {
+    for (NSString *key in @[MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY, MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY]) {
         NSArray *flags = [self modifierDefaultsForKey:key];
         NSString *flagString = [self flagStringForFlags:flags];
         [self setModifierFlagString:flagString forKey:key];
     }
-    [self setMode:[self defaultMode]];
 }
 
 

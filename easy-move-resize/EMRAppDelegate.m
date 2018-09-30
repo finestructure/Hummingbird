@@ -222,7 +222,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
     int moveKeyModifierFlags = [ourDelegate moveModifierFlags];
     int resizeKeyModifierFlags = [ourDelegate resizeModifierFlags];
-    bool alwaysResizeBottomRight = (ourDelegate.mode == hoverMode);
+    bool alwaysResizeBottomRight = YES;
 
     if (moveKeyModifierFlags == 0 && resizeKeyModifierFlags == 0) {
         // No modifier keys set. Disable behaviour.
@@ -452,26 +452,12 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
     [_prefs.window makeKeyAndOrderFront:nil];
 }
 
-- (EMRMode)mode {
-    return preferences.mode;
-}
-
 - (int)moveModifierFlags {
-    if (preferences.mode == clickMode) {
-        int flags = [preferences modifierFlagsForFlagSet:clickFlags];
-        return flags | kCGEventLeftMouseDown;
-    } else {
-        return [preferences modifierFlagsForFlagSet:hoverMoveFlags];
-    }
+    return [preferences modifierFlagsForFlagSet:hoverMoveFlags];
 }
 
 - (int)resizeModifierFlags {
-    if (preferences.mode == clickMode) {
-        int flags = [preferences modifierFlagsForFlagSet:clickFlags];
-        return flags | kCGEventRightMouseDown;
-    } else {
-        return [preferences modifierFlagsForFlagSet:hoverResizeFlags];
-    }
+    return [preferences modifierFlagsForFlagSet:hoverResizeFlags];
 }
 
 @end

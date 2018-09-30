@@ -8,10 +8,8 @@
 #ifndef EMRPreferences_h
 #define EMRPreferences_h
 
-#define MODIFIER_CLICK_FLAGS_DEFAULTS_KEY @"ModifierFlags"
 #define MODIFIER_HOVER_MOVE_FLAGS_DEFAULTS_KEY @"HoverMoveModifierFlags"
 #define MODIFIER_HOVER_RESIZE_FLAGS_DEFAULTS_KEY @"HoverResizeModifierFlags"
-#define EMR_MODE_DEFAULTS_KEY @"EMRMode"
 #define CTRL_KEY @"CTRL"
 #define SHIFT_KEY @"SHIFT"
 #define CAPS_KEY @"CAPS" // CAPS lock
@@ -21,13 +19,6 @@
 
 
 typedef enum : NSUInteger {
-    clickMode,
-    hoverMode
-} EMRMode;
-
-
-typedef enum : NSUInteger {
-    clickFlags,
     hoverMoveFlags,
     hoverResizeFlags,
 } FlagSet;
@@ -47,12 +38,6 @@ typedef enum : NSUInteger {
 
 // returns a set of the currently persisted key constants
 - (NSSet*) getFlagStringSetForFlagSet:(FlagSet)flagSet;
-
-// returns EMR mode - click or hover
-- (EMRMode)mode;
-
-// set EMR mode
-- (void)setMode:(EMRMode)mode;
 
 // reset preferences to the defaults
 - (void)setToDefaults;

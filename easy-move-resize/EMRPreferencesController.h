@@ -18,12 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property EMRPreferences *prefs;
 
-@property (weak) IBOutlet NSButton *altClickButton;
-@property (weak) IBOutlet NSButton *commandClickButton;
-@property (weak) IBOutlet NSButton *controlClickButton;
-@property (weak) IBOutlet NSButton *fnClickButton;
-@property (weak) IBOutlet NSButton *shiftClickButton;
-
 @property (weak) IBOutlet NSButton *altHoverMoveButton;
 @property (weak) IBOutlet NSButton *commandHoverMoveButton;
 @property (weak) IBOutlet NSButton *controlHoverMoveButton;
@@ -37,13 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSButton *shiftHoverResizeButton;
 
 
-@property (weak) IBOutlet NSButton *clickModeButton;
-@property (weak) IBOutlet NSButton *hoverModeButton;
-
 - (IBAction)modifierClicked:(NSButton *)sender;
-
-- (IBAction)clickModeClicked:(id)sender;
-- (IBAction)hoverModeClicked:(id)sender;
 
 @end
 
