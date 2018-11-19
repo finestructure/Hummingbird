@@ -6,7 +6,7 @@ Hold down a modifier (combination) and move you mouse pointer over a window to "
 
 Hummingbird brings the move and resize behaviour known from Unix window managers to macOS.
 
-[![Watch the video](assets/video-still.png)](https://vimeo.com/manage/301631645)
+[![Watch the video](assets/video-still.png)](https://vimeo.com/301631645)
 
 In the video above, holding `fn` and `ctrl` while moving the mouse moves the window, and holding `alt` in addition allows the window to be resized simply by moving the mouse pointer. This is great for mouse users but is particularly helpful when using a trackpad, where clicking and holding can be a harder gesture to do precisely.
 
