@@ -1,10 +1,14 @@
-# ![icon](easy-move-resize/Images.xcassets/AppIcon.appiconset/icon_32x32.png) Easy Move+Resize
+# Hummingbird
 
-Easy Move+Resize and an easy `modifier key + mouse move` operation to OSX.
+**Easily move and resize windows anywhere by holding modifiers and moving the mouse alone, on macOS. Windows do not require focus, nor do you need to find the window edges.**
 
 Hold down a modifier (combination) and move you mouse pointer over a window to "grab" it anywhere to move it. Similarly, hold down another modifier (combination) to resize the window as is you were dragging from the bottom right window corner from within anywhere in the window.
 
-For instance, in the follow screencast, holding `fn` and `ctrl` while moving the mouse moves the window, and holding `alt` in addition the window is being resized simply by moving the mouse pointer. This is great for mouse user but is particularly helpful when using a trackpad, where clicking and holding can be a harder gesture to do precisely.
+Hummingbird brings the move and resize behaviour known from Unix window managers to macOS.
+
+[![Watch the video](assets/video-still.png)](https://youtu.be/T-D1KVIuvjA)
+
+In the video above, holding `fn` and `ctrl` while moving the mouse moves the window, and holding `alt` in addition allows the window to be resized simply by moving the mouse pointer. This is great for mouse users but is particularly helpful when using a trackpad, where clicking and holding can be a harder gesture to do precisely.
 
 ## Usage
 
@@ -36,9 +40,8 @@ For instance, in the follow screencast, holding `fn` and `ctrl` while moving the
 
 [Contributions](contributing.md) welcome!
 
-## Credits
+## Credits: Easy Move+Resize by Daniel Marcotte
 
-This is a fork of the [original project](https://github.com/dmarcotte/easy-move-resize/releases) by [Daniel Marcotte](https://github.com/dmarcotte). His project uses mouse click based tracking, which I modified to use mouse moving. I initially tried to consolidate both modes and make them a preference but I did not manage to preserve Daniel's functionality.
+This is a fork of the [original project](https://github.com/dmarcotte/easy-move-resize/releases) by [Daniel Marcotte](https://github.com/dmarcotte). His project uses mouse click based tracking, which I modified to use mouse moving instead.
 
-I believe I was pretty close and the current state is still preserved in the code base. I have simply hidden the configuration options for "mouse click" mode in the preference window.
-
+Daniel suggested to fork and rename the project to avoid confusion.
