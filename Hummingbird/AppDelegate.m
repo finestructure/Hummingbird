@@ -2,7 +2,7 @@
 #import "HBMoveResize.h"
 #import "HBPreferences.h"
 #import "HBHelper.h"
-#import "EMRPreferencesController.h"
+#import "HBPreferencesController.h"
 
 typedef enum : NSUInteger {
     idle = 0,
@@ -13,7 +13,7 @@ typedef enum : NSUInteger {
 
 @implementation AppDelegate {
     HBPreferences *preferences;
-    EMRPreferencesController *_prefs;
+    HBPreferencesController *_prefs;
 }
 
 - (id) init  {
@@ -448,7 +448,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
 - (IBAction)showPreferences:(id)sender {
     if (_prefs == nil) {
-        _prefs = [[EMRPreferencesController alloc] initWithWindowNibName:@"EMRPreferencesController"];
+        _prefs = [[HBPreferencesController alloc] initWithWindowNibName:@"EMRPreferencesController"];
         _prefs.prefs = preferences;
     }
     [_prefs.window makeKeyAndOrderFront:sender];

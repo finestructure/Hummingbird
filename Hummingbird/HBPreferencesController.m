@@ -6,13 +6,13 @@
 //  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
-#import "EMRPreferencesController.h"
+#import "HBPreferencesController.h"
 
-@interface EMRPreferencesController ()
+@interface HBPreferencesController ()
 
 @end
 
-@implementation EMRPreferencesController
+@implementation HBPreferencesController
 
 - (void)windowDidLoad {
     [super windowDidLoad];
