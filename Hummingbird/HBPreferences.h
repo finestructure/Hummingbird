@@ -1,8 +1,8 @@
 // Preferences can alternativevly be managed from the Terminal:
 //   Read:
-//     `defaults write org.dmarcotte.Easy-Move-Resize ModifierFlags CMD,CTRL`
+//     `defaults write co.finestructure.Hummingbird ModifierFlags CMD,CTRL`
 //   Write:
-//     `defaults write org.dmarcotte.Easy-Move-Resize ModifierFlags CMD,CTRL`
+//     `defaults write co.finestructure.Hummingbird ModifierFlags CMD,CTRL`
 //   Note that deleting this preference or writing invalid keys may cause trouble and require that
 //     you choose "Reset to Defaults from the app menu.
 #ifndef EMRPreferences_h

@@ -13,7 +13,7 @@
 - (void)setUp {
     [super setUp];
     NSString *uuid = [[NSUUID UUID] UUIDString];
-    testDefaultsName = [@"org.dmarcotte.Easy-Move-Resize." stringByAppendingString:uuid];
+    testDefaultsName = [@"co.finestructure.Hummingbird." stringByAppendingString:uuid];
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:testDefaultsName];
     preferences = [[HBPreferences alloc] initWithUserDefaults:userDefaults];
 }

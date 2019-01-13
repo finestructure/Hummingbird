@@ -474,7 +474,7 @@
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -490,7 +490,7 @@
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
