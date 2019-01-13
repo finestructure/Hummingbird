@@ -49,7 +49,7 @@
 		65CF01641F229C34002259F2 /* EMRPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRPreferencesTest.m; sourceTree = "<group>"; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		6ED47B61183BF3E800859244 /* Easy Move+Resize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Move+Resize.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ED47B61183BF3E800859244 /* Hummingbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hummingbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ED47B64183BF3E800859244 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6ED47B67183BF3E800859244 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		6ED47B68183BF3E800859244 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -91,21 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		65CF01631F229C34002259F2 /* easy-move-resizeTests */ = {
+		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
 				65CF01641F229C34002259F2 /* EMRPreferencesTest.m */,
 				5ABC799020CD6D0E00B22173 /* EMRHelperTest.m */,
 				65CF01661F229C34002259F2 /* Info.plist */,
 			);
-			path = "easy-move-resizeTests";
+			path = HummingbirdTests;
 			sourceTree = "<group>";
 		};
 		6ED47B58183BF3E800859244 = {
 			isa = PBXGroup;
 			children = (
-				6ED47B6A183BF3E800859244 /* easy-move-resize */,
-				65CF01631F229C34002259F2 /* easy-move-resizeTests */,
+				6ED47B6A183BF3E800859244 /* Hummingbird */,
+				65CF01631F229C34002259F2 /* HummingbirdTests */,
 				6ED47B63183BF3E800859244 /* Frameworks */,
 				6ED47B62183BF3E800859244 /* Products */,
 				F907AB0E17E61960C00A089F /* .gitignore */,
@@ -118,7 +118,7 @@
 		6ED47B62183BF3E800859244 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6ED47B61183BF3E800859244 /* Easy Move+Resize.app */,
+				6ED47B61183BF3E800859244 /* Hummingbird.app */,
 				65CF01621F229C34002259F2 /* HummingbirdTests.xctest */,
 			);
 			name = Products;
@@ -145,7 +145,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		6ED47B6A183BF3E800859244 /* easy-move-resize */ = {
+		6ED47B6A183BF3E800859244 /* Hummingbird */ = {
 			isa = PBXGroup;
 			children = (
 				6ED47B76183BF3E800859244 /* AppDelegate.h */,
@@ -163,7 +163,7 @@
 				5A6B5BCA20D1720000F7A36C /* EMRPreferencesController.m */,
 				5A6B5BCB20D1720000F7A36C /* EMRPreferencesController.xib */,
 			);
-			path = "easy-move-resize";
+			path = Hummingbird;
 			sourceTree = "<group>";
 		};
 		6ED47B6B183BF3E800859244 /* Supporting Files */ = {
@@ -212,7 +212,7 @@
 			);
 			name = Hummingbird;
 			productName = "easy-move-resize";
-			productReference = 6ED47B61183BF3E800859244 /* Easy Move+Resize.app */;
+			productReference = 6ED47B61183BF3E800859244 /* Hummingbird.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -340,13 +340,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "easy-move-resizeTests/Info.plist";
+				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.easy-move-resizeTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Easy Move+Resize.app/Contents/MacOS/Easy Move+Resize";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Debug;
 		};
@@ -362,13 +361,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "easy-move-resizeTests/Info.plist";
+				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.easy-move-resizeTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Easy Move+Resize.app/Contents/MacOS/Easy Move+Resize";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Release;
 		};
@@ -473,11 +471,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "easy-move-resize/Hummingbird-Prefix.pch";
-				INFOPLIST_FILE = "easy-move-resize/Hummingbird-Info.plist";
+				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
+				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "Easy Move+Resize";
+				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -489,11 +487,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "easy-move-resize/Hummingbird-Prefix.pch";
-				INFOPLIST_FILE = "easy-move-resize/Hummingbird-Info.plist";
+				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
+				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "Easy Move+Resize";
+				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
