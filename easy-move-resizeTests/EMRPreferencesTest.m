@@ -25,19 +25,28 @@
 
 - (void)testResetPreferences {
     [preferences setToDefaults];
-    NSSet *flagStringSet = [preferences getFlagStringSetForFlagSet:clickFlags];
-    NSSet *expectedSet = [NSSet setWithArray:@[@"CTRL", @"CMD"]];
-    XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the expected defaults");
 
-    [preferences setModifierKey:@"CTRL" enabled:NO flagSet:clickFlags];
-    flagStringSet = [preferences getFlagStringSetForFlagSet:clickFlags];
-    expectedSet = [NSSet setWithArray:@[@"CMD"]];
-    XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the modified defaults");
+    {
+        NSSet *flagStringSet = [preferences getFlagStringSetForFlagSet:hoverResizeFlags];
+        NSSet *expectedSet = [NSSet setWithArray:@[@"CTRL", @"ALT", @"CMD"]];
+        XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the expected defaults");
+    }
 
-    [preferences setToDefaults];
-    flagStringSet = [preferences getFlagStringSetForFlagSet:clickFlags];
-    expectedSet = [NSSet setWithArray:@[@"CMD", @"CTRL"]];
-    XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the restored defaults");
+    {
+        NSSet *flagStringSet = [preferences getFlagStringSetForFlagSet:hoverMoveFlags];
+        NSSet *expectedSet = [NSSet setWithArray:@[@"CTRL", @"ALT"]];
+        XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the expected defaults");
+
+        [preferences setModifierKey:@"CTRL" enabled:NO flagSet:hoverMoveFlags];
+        flagStringSet = [preferences getFlagStringSetForFlagSet:hoverMoveFlags];
+        expectedSet = [NSSet setWithArray:@[@"ALT"]];
+        XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the modified defaults");
+
+        [preferences setToDefaults];
+        flagStringSet = [preferences getFlagStringSetForFlagSet:hoverMoveFlags];
+        expectedSet = [NSSet setWithArray:@[@"ALT", @"CTRL"]];
+        XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the restored defaults");
+    }
 }
 
 @end
