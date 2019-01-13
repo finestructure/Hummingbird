@@ -448,7 +448,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
 - (IBAction)showPreferences:(id)sender {
     if (_prefs == nil) {
-        _prefs = [[HBPreferencesController alloc] initWithWindowNibName:@"EMRPreferencesController"];
+        _prefs = [[HBPreferencesController alloc] initWithWindowNibName:@"HBPreferencesController"];
         _prefs.prefs = preferences;
     }
     [_prefs.window makeKeyAndOrderFront:sender];
