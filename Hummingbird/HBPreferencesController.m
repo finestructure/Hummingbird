@@ -1,9 +1,7 @@
 //
-//  EMRPreferencesController.m
-//  easy-move-resize
+//  PreferencesController.m
 //
 //  Created by Sven A. Schmidt on 13/06/2018.
-//  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
 #import "HBPreferencesController.h"

@@ -1,9 +1,7 @@
 //
-//  EMRPreferencesController.h
-//  easy-move-resize
+//  HBPreferencesController.h
 //
 //  Created by Sven A. Schmidt on 13/06/2018.
-//  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
