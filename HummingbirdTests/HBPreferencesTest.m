@@ -1,11 +1,11 @@
 #import <XCTest/XCTest.h>
 #import "HBPreferences.h"
 
-@interface EMRPreferencesTest : XCTestCase
+@interface HBPreferencesTest : XCTestCase
 
 @end
 
-@implementation EMRPreferencesTest {
+@implementation HBPreferencesTest {
     NSString *testDefaultsName;
     HBPreferences *preferences;
 }

@@ -11,9 +11,9 @@
 		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
 		5ABC799320CD78C100B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
-		5ABC799620CD78D900B22173 /* EMRHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799020CD6D0E00B22173 /* EMRHelperTest.m */; };
+		5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799020CD6D0E00B22173 /* HBHelperTest.m */; };
 		5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
-		65CF01651F229C34002259F2 /* EMRPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF01641F229C34002259F2 /* EMRPreferencesTest.m */; };
+		65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF01641F229C34002259F2 /* HBPreferencesTest.m */; };
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
 		6ED47B71183BF3E800859244 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B70183BF3E800859244 /* main.m */; };
@@ -42,11 +42,11 @@
 		5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferencesController.h; sourceTree = "<group>"; };
 		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
-		5ABC799020CD6D0E00B22173 /* EMRHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRHelperTest.m; sourceTree = "<group>"; };
+		5ABC799020CD6D0E00B22173 /* HBHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelperTest.m; sourceTree = "<group>"; };
 		5ABC799220CD78C100B22173 /* HBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelper.m; sourceTree = "<group>"; };
 		5ABC799720CD78F000B22173 /* HBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBHelper.h; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CF01641F229C34002259F2 /* EMRPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRPreferencesTest.m; sourceTree = "<group>"; };
+		65CF01641F229C34002259F2 /* HBPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesTest.m; sourceTree = "<group>"; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6ED47B61183BF3E800859244 /* Hummingbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hummingbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,8 +94,8 @@
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
-				65CF01641F229C34002259F2 /* EMRPreferencesTest.m */,
-				5ABC799020CD6D0E00B22173 /* EMRHelperTest.m */,
+				65CF01641F229C34002259F2 /* HBPreferencesTest.m */,
+				5ABC799020CD6D0E00B22173 /* HBHelperTest.m */,
 				65CF01661F229C34002259F2 /* Info.plist */,
 			);
 			path = HummingbirdTests;
@@ -279,9 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ABC799620CD78D900B22173 /* EMRHelperTest.m in Sources */,
+				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
 				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
-				65CF01651F229C34002259F2 /* EMRPreferencesTest.m in Sources */,
+				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
