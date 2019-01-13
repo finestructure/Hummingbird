@@ -45,7 +45,7 @@
 		5ABC799020CD6D0E00B22173 /* EMRHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRHelperTest.m; sourceTree = "<group>"; };
 		5ABC799220CD78C100B22173 /* EMRHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRHelper.m; sourceTree = "<group>"; };
 		5ABC799720CD78F000B22173 /* EMRHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMRHelper.h; sourceTree = "<group>"; };
-		65CF01621F229C34002259F2 /* easy-move-resizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "easy-move-resizeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF01641F229C34002259F2 /* EMRPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRPreferencesTest.m; sourceTree = "<group>"; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -54,10 +54,10 @@
 		6ED47B67183BF3E800859244 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		6ED47B68183BF3E800859244 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6ED47B69183BF3E800859244 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		6ED47B6C183BF3E800859244 /* easy-move-resize-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "easy-move-resize-Info.plist"; sourceTree = "<group>"; };
+		6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hummingbird-Info.plist"; sourceTree = "<group>"; };
 		6ED47B6E183BF3E800859244 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6ED47B70183BF3E800859244 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6ED47B72183BF3E800859244 /* easy-move-resize-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "easy-move-resize-Prefix.pch"; sourceTree = "<group>"; };
+		6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Prefix.pch"; sourceTree = "<group>"; };
 		6ED47B76183BF3E800859244 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6ED47B77183BF3E800859244 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6ED47B7C183BF3E800859244 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				6ED47B61183BF3E800859244 /* Easy Move+Resize.app */,
-				65CF01621F229C34002259F2 /* easy-move-resizeTests.xctest */,
+				65CF01621F229C34002259F2 /* HummingbirdTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,10 +169,10 @@
 		6ED47B6B183BF3E800859244 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6ED47B6C183BF3E800859244 /* easy-move-resize-Info.plist */,
+				6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */,
 				6ED47B6D183BF3E800859244 /* InfoPlist.strings */,
 				6ED47B70183BF3E800859244 /* main.m */,
-				6ED47B72183BF3E800859244 /* easy-move-resize-Prefix.pch */,
+				6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -180,9 +180,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		65CF01611F229C34002259F2 /* easy-move-resizeTests */ = {
+		65CF01611F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65CF01691F229C34002259F2 /* Build configuration list for PBXNativeTarget "easy-move-resizeTests" */;
+			buildConfigurationList = 65CF01691F229C34002259F2 /* Build configuration list for PBXNativeTarget "HummingbirdTests" */;
 			buildPhases = (
 				65CF015E1F229C34002259F2 /* Sources */,
 				65CF015F1F229C34002259F2 /* Frameworks */,
@@ -193,14 +193,14 @@
 			dependencies = (
 				65CF01681F229C34002259F2 /* PBXTargetDependency */,
 			);
-			name = "easy-move-resizeTests";
+			name = HummingbirdTests;
 			productName = "easy-move-resizeTests";
-			productReference = 65CF01621F229C34002259F2 /* easy-move-resizeTests.xctest */;
+			productReference = 65CF01621F229C34002259F2 /* HummingbirdTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6ED47B60183BF3E800859244 /* easy-move-resize */ = {
+		6ED47B60183BF3E800859244 /* Hummingbird */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6ED47B92183BF3E800859244 /* Build configuration list for PBXNativeTarget "easy-move-resize" */;
+			buildConfigurationList = 6ED47B92183BF3E800859244 /* Build configuration list for PBXNativeTarget "Hummingbird" */;
 			buildPhases = (
 				6ED47B5D183BF3E800859244 /* Sources */,
 				6ED47B5E183BF3E800859244 /* Frameworks */,
@@ -210,7 +210,7 @@
 			);
 			dependencies = (
 			);
-			name = "easy-move-resize";
+			name = Hummingbird;
 			productName = "easy-move-resize";
 			productReference = 6ED47B61183BF3E800859244 /* Easy Move+Resize.app */;
 			productType = "com.apple.product-type.application";
@@ -232,7 +232,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6ED47B5C183BF3E800859244 /* Build configuration list for PBXProject "easy-move-resize" */;
+			buildConfigurationList = 6ED47B5C183BF3E800859244 /* Build configuration list for PBXProject "Hummingbird" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -245,8 +245,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6ED47B60183BF3E800859244 /* easy-move-resize */,
-				65CF01611F229C34002259F2 /* easy-move-resizeTests */,
+				6ED47B60183BF3E800859244 /* Hummingbird */,
+				65CF01611F229C34002259F2 /* HummingbirdTests */,
 			);
 		};
 /* End PBXProject section */
@@ -303,7 +303,7 @@
 /* Begin PBXTargetDependency section */
 		65CF01681F229C34002259F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6ED47B60183BF3E800859244 /* easy-move-resize */;
+			target = 6ED47B60183BF3E800859244 /* Hummingbird */;
 			targetProxy = 653CC7461F8EB8AA009485A4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -473,8 +473,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "easy-move-resize/easy-move-resize-Prefix.pch";
-				INFOPLIST_FILE = "easy-move-resize/easy-move-resize-Info.plist";
+				GCC_PREFIX_HEADER = "easy-move-resize/Hummingbird-Prefix.pch";
+				INFOPLIST_FILE = "easy-move-resize/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Easy Move+Resize";
@@ -489,8 +489,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "easy-move-resize/easy-move-resize-Prefix.pch";
-				INFOPLIST_FILE = "easy-move-resize/easy-move-resize-Info.plist";
+				GCC_PREFIX_HEADER = "easy-move-resize/Hummingbird-Prefix.pch";
+				INFOPLIST_FILE = "easy-move-resize/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.dmarcotte.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "Easy Move+Resize";
@@ -502,7 +502,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		65CF01691F229C34002259F2 /* Build configuration list for PBXNativeTarget "easy-move-resizeTests" */ = {
+		65CF01691F229C34002259F2 /* Build configuration list for PBXNativeTarget "HummingbirdTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65CF016A1F229C34002259F2 /* Debug */,
@@ -511,7 +511,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6ED47B5C183BF3E800859244 /* Build configuration list for PBXProject "easy-move-resize" */ = {
+		6ED47B5C183BF3E800859244 /* Build configuration list for PBXProject "Hummingbird" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6ED47B90183BF3E800859244 /* Debug */,
@@ -520,7 +520,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6ED47B92183BF3E800859244 /* Build configuration list for PBXNativeTarget "easy-move-resize" */ = {
+		6ED47B92183BF3E800859244 /* Build configuration list for PBXNativeTarget "Hummingbird" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6ED47B93183BF3E800859244 /* Debug */,
