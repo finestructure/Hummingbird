@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -675,7 +674,7 @@
             </items>
             <point key="canvasLocation" x="-156" y="484.5"/>
         </menu>
-        <customObject id="494" customClass="EMRAppDelegate">
+        <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="disabledMenu" destination="Q0w-G0-Ppy" id="D3v-HP-HjG"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="YfI-Jt-Lpf"/>

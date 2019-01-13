@@ -17,7 +17,7 @@
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
 		6ED47B71183BF3E800859244 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B70183BF3E800859244 /* main.m */; };
-		6ED47B78183BF3E800859244 /* EMRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B77183BF3E800859244 /* EMRAppDelegate.m */; };
+		6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B77183BF3E800859244 /* AppDelegate.m */; };
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
 		6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B7C183BF3E800859244 /* Images.xcassets */; };
 		B02F18934323BB42D8CCAB05 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02F125CE1BC18D269C53372 /* QuartzCore.framework */; };
@@ -58,8 +58,8 @@
 		6ED47B6E183BF3E800859244 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6ED47B70183BF3E800859244 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6ED47B72183BF3E800859244 /* easy-move-resize-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "easy-move-resize-Prefix.pch"; sourceTree = "<group>"; };
-		6ED47B76183BF3E800859244 /* EMRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMRAppDelegate.h; sourceTree = "<group>"; };
-		6ED47B77183BF3E800859244 /* EMRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMRAppDelegate.m; sourceTree = "<group>"; };
+		6ED47B76183BF3E800859244 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6ED47B77183BF3E800859244 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6ED47B7C183BF3E800859244 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6ED47B83183BF3E800859244 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B02F125CE1BC18D269C53372 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -148,8 +148,8 @@
 		6ED47B6A183BF3E800859244 /* easy-move-resize */ = {
 			isa = PBXGroup;
 			children = (
-				6ED47B76183BF3E800859244 /* EMRAppDelegate.h */,
-				6ED47B77183BF3E800859244 /* EMRAppDelegate.m */,
+				6ED47B76183BF3E800859244 /* AppDelegate.h */,
+				6ED47B77183BF3E800859244 /* AppDelegate.m */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
@@ -292,7 +292,7 @@
 				6ED47B71183BF3E800859244 /* main.m in Sources */,
 				5ABC799320CD78C100B22173 /* EMRHelper.m in Sources */,
 				52B5E8F61C513E3D0055C181 /* EMRPreferences.m in Sources */,
-				6ED47B78183BF3E800859244 /* EMRAppDelegate.m in Sources */,
+				6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */,
 				F907A25928093AED2C89550E /* EMRMoveResize.m in Sources */,
 				5A6B5BCC20D1720000F7A36C /* EMRPreferencesController.m in Sources */,
 			);

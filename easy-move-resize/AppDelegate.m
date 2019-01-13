@@ -1,4 +1,4 @@
-#import "EMRAppDelegate.h"
+#import "AppDelegate.h"
 #import "EMRMoveResize.h"
 #import "EMRPreferences.h"
 #import "EMRHelper.h"
@@ -11,7 +11,7 @@ typedef enum : NSUInteger {
 } State;
 
 
-@implementation EMRAppDelegate {
+@implementation AppDelegate {
     EMRPreferences *preferences;
     EMRPreferencesController *_prefs;
 }
@@ -218,7 +218,7 @@ void keepResizing(CGEventRef event, EMRMoveResize* moveResize) {
 CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, CGEventRef event, void *refcon) {
     static State state = idle;
 
-    EMRAppDelegate *ourDelegate = (__bridge EMRAppDelegate*)refcon;
+    AppDelegate *ourDelegate = (__bridge AppDelegate*)refcon;
 
     int moveKeyModifierFlags = [ourDelegate moveModifierFlags];
     int resizeKeyModifierFlags = [ourDelegate resizeModifierFlags];

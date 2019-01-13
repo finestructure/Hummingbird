@@ -5,7 +5,7 @@
 static const double kMoveFilterInterval = 0.01;
 static const double kResizeFilterInterval = 0.02;
 
-@interface EMRAppDelegate : NSObject <NSApplicationDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
     IBOutlet NSMenu *statusMenu;
     NSStatusItem * statusItem;
 }
