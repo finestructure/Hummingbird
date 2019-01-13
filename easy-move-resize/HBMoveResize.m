@@ -1,6 +1,6 @@
-#import "EMRMoveResize.h"
+#import "HBMoveResize.h"
 
-@implementation EMRMoveResize
+@implementation HBMoveResize
 @synthesize eventTap = _eventTap;
 @synthesize resizeSection = _resizeSection;
 @synthesize tracking = _tracking;
@@ -8,11 +8,11 @@
 @synthesize wndSize = _wndSize;
 @synthesize alwaysResizeBottomRight = _alwaysResizeBottomRight;
 
-+ (EMRMoveResize*)instance {
-    static EMRMoveResize *instance = nil;
++ (HBMoveResize*)instance {
+    static HBMoveResize *instance = nil;
 
     if (instance == nil) {
-        instance = [[EMRMoveResize alloc] init];
+        instance = [[HBMoveResize alloc] init];
     }
 
     return instance;

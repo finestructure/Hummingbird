@@ -8,15 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "EMRPreferences.h"
+#import "HBPreferences.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EMRPreferencesController : NSWindowController {
-    EMRPreferences *_prefs;
+    HBPreferences *_prefs;
 }
 
-@property EMRPreferences *prefs;
+@property HBPreferences *prefs;
 
 @property (weak) IBOutlet NSButton *altHoverMoveButton;
 @property (weak) IBOutlet NSButton *commandHoverMoveButton;

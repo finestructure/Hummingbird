@@ -17,7 +17,7 @@ struct ResizeSection {
     enum ResizeSectionY yResizeDirection;
 };
 
-@interface EMRMoveResize : NSObject {
+@interface HBMoveResize : NSObject {
     CFMachPortRef _eventTap;
     CFRunLoopSourceRef _runLoopSource;
     struct ResizeSection _resizeSection;

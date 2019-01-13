@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
-#import "EMRMoveResize.h"
-#import "EMRPreferences.h"
-#import "EMRHelper.h"
+#import "HBMoveResize.h"
+#import "HBPreferences.h"
+#import "HBHelper.h"
 #import "EMRPreferencesController.h"
 
 typedef enum : NSUInteger {
@@ -12,7 +12,7 @@ typedef enum : NSUInteger {
 
 
 @implementation AppDelegate {
-    EMRPreferences *preferences;
+    HBPreferences *preferences;
     EMRPreferencesController *_prefs;
 }
 
@@ -20,13 +20,13 @@ typedef enum : NSUInteger {
     self = [super init];
     if (self) {
         NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"userPrefs"];
-        preferences = [[EMRPreferences alloc] initWithUserDefaults:userDefaults];
+        preferences = [[HBPreferences alloc] initWithUserDefaults:userDefaults];
     }
     return self;
 }
 
 
-void startTracking(CGEventRef event, EMRMoveResize *moveResize) {
+void startTracking(CGEventRef event, HBMoveResize *moveResize) {
     CGPoint mouseLocation = CGEventGetLocation(event);
     [moveResize setTracking:CACurrentMediaTime()];
 
@@ -70,12 +70,12 @@ void startTracking(CGEventRef event, EMRMoveResize *moveResize) {
 }
 
 
-void stopTracking(EMRMoveResize* moveResize) {
+void stopTracking(HBMoveResize* moveResize) {
     [moveResize setTracking:0];
 }
 
 
-void keepMoving(CGEventRef event, EMRMoveResize* moveResize) {
+void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
     AXUIElementRef _clickedWindow = [moveResize window];
     double deltaX = CGEventGetDoubleValueField(event, kCGMouseEventDeltaX);
     double deltaY = CGEventGetDoubleValueField(event, kCGMouseEventDeltaY);
@@ -98,7 +98,7 @@ void keepMoving(CGEventRef event, EMRMoveResize* moveResize) {
 }
 
 
-bool determineResizeParams(CGEventRef event, EMRMoveResize* moveResize) {
+bool determineResizeParams(CGEventRef event, HBMoveResize* moveResize) {
     AXUIElementRef _clickedWindow = [moveResize window];
 
     CGPoint clickPoint = CGEventGetLocation(event);
@@ -150,7 +150,7 @@ bool determineResizeParams(CGEventRef event, EMRMoveResize* moveResize) {
 }
 
 
-void keepResizing(CGEventRef event, EMRMoveResize* moveResize) {
+void keepResizing(CGEventRef event, HBMoveResize* moveResize) {
     AXUIElementRef _clickedWindow = [moveResize window];
     struct ResizeSection resizeSection = [moveResize resizeSection];
     int deltaX = (int) CGEventGetDoubleValueField(event, kCGMouseEventDeltaX);
@@ -229,7 +229,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
         return event;
     }
     
-    EMRMoveResize* moveResize = [EMRMoveResize instance];
+    HBMoveResize* moveResize = [HBMoveResize instance];
     moveResize.alwaysResizeBottomRight = alwaysResizeBottomRight;
 
     if ((type == kCGEventTapDisabledByTimeout || type == kCGEventTapDisabledByUserInput)) {
@@ -391,12 +391,12 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
     [[statusMenu itemAtIndex:0] setEnabled:NO];
 }
 
-- (void)enableRunLoopSource:(EMRMoveResize*)moveResize {
+- (void)enableRunLoopSource:(HBMoveResize*)moveResize {
     CFRunLoopAddSource(CFRunLoopGetCurrent(), [moveResize runLoopSource], kCFRunLoopCommonModes);
     CGEventTapEnable([moveResize eventTap], true);
 }
 
-- (void)disableRunLoopSource:(EMRMoveResize*)moveResize {
+- (void)disableRunLoopSource:(HBMoveResize*)moveResize {
     CGEventTapEnable([moveResize eventTap], false);
     CFRunLoopRemoveSource(CFRunLoopGetCurrent(), [moveResize runLoopSource], kCFRunLoopCommonModes);
 }
@@ -421,7 +421,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
     CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
 
 
-    EMRMoveResize *moveResize = [EMRMoveResize instance];
+    HBMoveResize *moveResize = [HBMoveResize instance];
     [moveResize setEventTap:eventTap];
     [moveResize setRunLoopSource:runLoopSource];
     [self enableRunLoopSource:moveResize];
@@ -431,7 +431,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
 - (void)disable {
     [_disabledMenu setState:YES];
-    EMRMoveResize* moveResize = [EMRMoveResize instance];
+    HBMoveResize* moveResize = [HBMoveResize instance];
     [self disableRunLoopSource:moveResize];
 }
 

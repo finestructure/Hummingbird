@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "EMRHelper.h"
+#import "HBHelper.h"
 
 @interface EMRHelperTest : XCTestCase
 

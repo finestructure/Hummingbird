@@ -1,12 +1,10 @@
 //
-//  EMRHelper.m
-//  easy-move-resize
+//  HBHelper.m
 //
 //  Created by Sven A. Schmidt on 10/06/2018.
-//  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
-#import "EMRHelper.h"
+#import "HBHelper.h"
 
 
 MaskComparison compareMasks(int mask1, int mask2) {

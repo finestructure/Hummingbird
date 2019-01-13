@@ -1,13 +1,11 @@
 //
-//  EMRHelper.h
-//  easy-move-resize
+//  HBHelper.h
 //
 //  Created by Sven A. Schmidt on 10/06/2018.
-//  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
-#ifndef EMRHelper_h
-#define EMRHelper_h
+#ifndef HBHelper_h
+#define HBHelper_h
 
 #import <Foundation/Foundation.h>
 

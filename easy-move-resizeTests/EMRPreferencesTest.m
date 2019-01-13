@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import "EMRPreferences.h"
+#import "HBPreferences.h"
 
 @interface EMRPreferencesTest : XCTestCase
 
@@ -7,7 +7,7 @@
 
 @implementation EMRPreferencesTest {
     NSString *testDefaultsName;
-    EMRPreferences *preferences;
+    HBPreferences *preferences;
 }
 
 - (void)setUp {
@@ -15,7 +15,7 @@
     NSString *uuid = [[NSUUID UUID] UUIDString];
     testDefaultsName = [@"org.dmarcotte.Easy-Move-Resize." stringByAppendingString:uuid];
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:testDefaultsName];
-    preferences = [[EMRPreferences alloc] initWithUserDefaults:userDefaults];
+    preferences = [[HBPreferences alloc] initWithUserDefaults:userDefaults];
 }
 
 - (void)tearDown {

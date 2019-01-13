@@ -23,7 +23,7 @@ typedef enum : NSUInteger {
     hoverResizeFlags,
 } FlagSet;
 
-@interface EMRPreferences : NSObject {
+@interface HBPreferences : NSObject {
     
 }
 

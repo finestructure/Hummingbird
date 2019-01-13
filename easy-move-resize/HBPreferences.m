@@ -1,9 +1,9 @@
-#import "EMRPreferences.h"
+#import "HBPreferences.h"
 
 #define DEFAULT_CLICK_MODIFIER_FLAGS kCGEventFlagMaskCommand | kCGEventFlagMaskControl
 
 
-@implementation EMRPreferences {
+@implementation HBPreferences {
 @private
     NSUserDefaults *userDefaults;
 }
