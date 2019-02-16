@@ -1,8 +1,7 @@
 //
-//  EMRHelperTest.m
+//  HBHelperTest.m
 //
 //  Created by Sven A. Schmidt on 10/06/2018.
-//  Copyright © 2018 Daniel Marcotte. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
