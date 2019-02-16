@@ -1,13 +1,13 @@
 {
   "images" : [
     {
-      "filename" : "menu_icon.png",
       "idiom" : "mac",
+      "filename" : "icon-16.png",
       "scale" : "1x"
     },
     {
-      "filename" : "menu_icon@2x.png",
       "idiom" : "mac",
+      "filename" : "icon-32.png",
       "scale" : "2x"
     }
   ],
