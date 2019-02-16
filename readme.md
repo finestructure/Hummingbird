@@ -10,19 +10,18 @@ Hummingbird brings the move and resize behaviour known from Unix window managers
 
 In the video above, holding `fn` and `ctrl` while moving the mouse moves the window, and holding `alt` in addition allows the window to be resized simply by moving the mouse pointer. This is great for mouse users but is particularly helpful when using a trackpad, where clicking and holding can be a harder gesture to perform precisely.
 
-## Usage
-
 ## Installation
 
-**FIXME: link**
-* Grab the latest version from the [Releases page](https://github.com/finestructure/easy-move-resize/releases)
+* Get the latest version from the [Releases page](https://github.com/finestructure/Hummingbird/releases)
 * Unzip and run!
-* Select **Exit** from the application icon to quit
 
-    ![Icon](asset-sources/doc-img/running-icon.png)
+## Usage
 
-    ![Icon Exit](asset-sources/doc-img/running-icon-exit.png)
+TODO:
 
+- launch
+- allow accessibility
+- preferences
 
 ## Contributing
 
