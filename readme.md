@@ -15,13 +15,29 @@ In the video above, holding `fn` and `ctrl` while moving the mouse moves the win
 * Get the latest version from the [Releases page](https://github.com/finestructure/Hummingbird/releases)
 * Unzip and run!
 
+
+Hummingbird has been tested on macOS 10.14 Mojave but it should run on earlier macOS versions as well.
+
 ## Usage
 
-TODO:
+- After launching, Hummingbird is accessible via a menu bar item:
 
-- launch
-- allow accessibility
-- preferences
+    ![Munu bar item](assets/docs/menu-preferences.png)
+
+- However, on first use you will need to grant permissions for Accessibility Access. This is required so Hummingbird can move and resize windows. You will see an alert directing you to System Preferences:
+
+    ![Accessibility alert](assets/docs/accessibility-access.png)
+
+    Please click on "Open System Preferences" here.
+
+- In System Preferences / Security & Privacy / Privacy, please authenticate and make sure the entry for "Hummingbird" under "Accessibility" is checked as indicated below.
+
+    ![System preferences](assets/docs/privacy-accessibility.png)
+
+- You can configure the move and resize keyboard shortcuts in Hummingbird's preferences:
+
+    ![Preferences](assets/docs/preferences.png)
+
 
 ## Contributing
 
