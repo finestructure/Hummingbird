@@ -45,6 +45,6 @@ Hummingbird has been tested on macOS 10.14 Mojave but it should run on earlier m
 
 ## Credits: Easy Move+Resize by Daniel Marcotte
 
-This project is a fork of the [original project](https://github.com/dmarcotte/easy-move-resize/releases) by [Daniel Marcotte](https://github.com/dmarcotte). His project uses mouse click based tracking, which I modified to use mouse moving instead.
+This project is a fork of the [original project](https://github.com/dmarcotte/easy-move-resize) by [Daniel Marcotte](https://github.com/dmarcotte). His project uses mouse click based tracking, which I modified to use mouse moving instead.
 
 Daniel suggested to fork and rename the project to avoid confusion.
