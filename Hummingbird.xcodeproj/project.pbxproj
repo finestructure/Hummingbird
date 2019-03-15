@@ -39,6 +39,7 @@
 /* Begin PBXFileReference section */
 		52B5E8F51C513E3D0055C181 /* HBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPreferences.m; sourceTree = "<group>"; };
 		52B5E8F81C513E7A0055C181 /* HBPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferences.h; sourceTree = "<group>"; };
+		5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hummingbird.entitlements; sourceTree = "<group>"; };
 		5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferencesController.h; sourceTree = "<group>"; };
 		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 		6ED47B6A183BF3E800859244 /* Hummingbird */ = {
 			isa = PBXGroup;
 			children = (
+				5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */,
 				6ED47B76183BF3E800859244 /* AppDelegate.h */,
 				6ED47B77183BF3E800859244 /* AppDelegate.m */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
@@ -229,6 +231,15 @@
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6ED47B60183BF3E800859244;
+					};
+					6ED47B60183BF3E800859244 = {
+						DevelopmentTeam = A42K5AU657;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -469,13 +480,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A42K5AU657;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -485,13 +501,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A42K5AU657;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
