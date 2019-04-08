@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "HBPreferences.h"
+#import "HummingbirdTests-Swift.h"
 
 @interface HBPreferencesTest : XCTestCase
 
@@ -47,6 +48,13 @@
         expectedSet = [NSSet setWithArray:@[@"ALT", @"CTRL"]];
         XCTAssertEqualObjects(flagStringSet, expectedSet, "Should contain the restored defaults");
     }
+}
+
+- (void)testHSBDefaults {
+    [preferences setToDefaults];
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:testDefaultsName];
+    HBSDefaults* defaults = [[HBSDefaults alloc] initWithDefaults: userDefaults];
+//    XCTAssertEqual([defaults move, )
 }
 
 @end

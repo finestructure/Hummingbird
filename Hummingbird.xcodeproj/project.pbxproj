@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B5E8F51C513E3D0055C181 /* HBPreferences.m */; };
+		5A1C2D94225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
+		5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
 		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
 		5ABC799320CD78C100B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
@@ -39,6 +41,9 @@
 /* Begin PBXFileReference section */
 		52B5E8F51C513E3D0055C181 /* HBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPreferences.m; sourceTree = "<group>"; };
 		52B5E8F81C513E7A0055C181 /* HBPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferences.h; sourceTree = "<group>"; };
+		5A1C2D91225B6E20002EC3AD /* Hummingbird-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A1C2D92225B6E20002EC3AD /* HummingbirdTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HummingbirdTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSDefaults.swift; sourceTree = "<group>"; };
 		5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hummingbird.entitlements; sourceTree = "<group>"; };
 		5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferencesController.h; sourceTree = "<group>"; };
 		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
@@ -92,6 +97,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A1C2D96225B6E2F002EC3AD /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */,
+				5A1C2D91225B6E20002EC3AD /* Hummingbird-Bridging-Header.h */,
+				5A1C2D92225B6E20002EC3AD /* HummingbirdTests-Bridging-Header.h */,
+			);
+			name = Swift;
+			sourceTree = "<group>";
+		};
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +179,7 @@
 				5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */,
 				5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A1C2D96225B6E2F002EC3AD /* Swift */,
 			);
 			path = Hummingbird;
 			sourceTree = "<group>";
@@ -230,11 +246,13 @@
 					65CF01611F229C34002259F2 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = A42K5AU657;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6ED47B60183BF3E800859244;
 					};
 					6ED47B60183BF3E800859244 = {
 						DevelopmentTeam = A42K5AU657;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -293,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
+				5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
 				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
 				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
 			);
@@ -303,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ED47B71183BF3E800859244 /* main.m in Sources */,
+				5A1C2D94225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
 				5ABC799320CD78C100B22173 /* HBHelper.m in Sources */,
 				52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */,
 				6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */,
@@ -344,6 +364,7 @@
 		65CF016A1F229C34002259F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -357,6 +378,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/HummingbirdTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Debug;
@@ -364,6 +388,7 @@
 		65CF016B1F229C34002259F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -377,6 +402,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/HummingbirdTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Release;
@@ -486,15 +513,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/Hummingbird-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -503,15 +535,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/Hummingbird-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
