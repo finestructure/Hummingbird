@@ -6,7 +6,6 @@
 @synthesize tracking = _tracking;
 @synthesize wndPosition = _wndPosition;
 @synthesize wndSize = _wndSize;
-@synthesize alwaysResizeBottomRight = _alwaysResizeBottomRight;
 
 + (HBMoveResize*)instance {
     static HBMoveResize *instance = nil;

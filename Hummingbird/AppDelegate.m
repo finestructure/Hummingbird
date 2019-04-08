@@ -121,27 +121,8 @@ bool determineResizeParams(CGEventRef event, HBMoveResize* moveResize) {
 
     // record which direction we should resize in on the drag
     struct ResizeSection resizeSection;
-    if (moveResize.alwaysResizeBottomRight) {
-        resizeSection.yResizeDirection = bottom;
-        resizeSection.xResizeDirection = right;
-    } else {
-        // original behaviour
-        if (clickPoint.x < wndSize.width/3) {
-            resizeSection.xResizeDirection = left;
-        } else if (clickPoint.x > wndSize.width/3) {
-            resizeSection.xResizeDirection = right;
-        } else {
-            resizeSection.xResizeDirection = noX;
-        }
-
-        if (clickPoint.y < wndSize.height/3) {
-            resizeSection.yResizeDirection = bottom;
-        } else  if (clickPoint.y > wndSize.height/3) {
-            resizeSection.yResizeDirection = top;
-        } else {
-            resizeSection.yResizeDirection = noY;
-        }
-    }
+    resizeSection.yResizeDirection = bottom;
+    resizeSection.xResizeDirection = right;
 
     [moveResize setWndSize:wndSize];
     [moveResize setResizeSection:resizeSection];
@@ -159,41 +140,8 @@ void keepResizing(CGEventRef event, HBMoveResize* moveResize) {
     NSPoint cTopLeft = [moveResize wndPosition];
     NSSize wndSize = [moveResize wndSize];
 
-    if (moveResize.alwaysResizeBottomRight) {
-        wndSize.width += deltaX;
-        wndSize.height += deltaY;
-    } else {
-        // original behaviour
-        switch (resizeSection.xResizeDirection) {
-            case right:
-                wndSize.width += deltaX;
-                break;
-            case left:
-                wndSize.width -= deltaX;
-                cTopLeft.x += deltaX;
-                break;
-            case noX:
-                // nothing to do
-                break;
-            default:
-                [NSException raise:@"Unknown xResizeSection" format:@"No case for %d", resizeSection.xResizeDirection];
-        }
-
-        switch (resizeSection.yResizeDirection) {
-            case top:
-                wndSize.height += deltaY;
-                break;
-            case bottom:
-                wndSize.height -= deltaY;
-                cTopLeft.y += deltaY;
-                break;
-            case noY:
-                // nothing to do
-                break;
-            default:
-                [NSException raise:@"Unknown yResizeSection" format:@"No case for %d", resizeSection.yResizeDirection];
-        }
-    }
+    wndSize.width += deltaX;
+    wndSize.height += deltaY;
 
     [moveResize setWndPosition:cTopLeft];
     [moveResize setWndSize:wndSize];
@@ -222,7 +170,6 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
     int moveKeyModifierFlags = [ourDelegate moveModifierFlags];
     int resizeKeyModifierFlags = [ourDelegate resizeModifierFlags];
-    bool alwaysResizeBottomRight = YES;
 
     if (moveKeyModifierFlags == 0 && resizeKeyModifierFlags == 0) {
         // No modifier keys set. Disable behaviour.
@@ -230,7 +177,6 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
     }
     
     HBMoveResize* moveResize = [HBMoveResize instance];
-    moveResize.alwaysResizeBottomRight = alwaysResizeBottomRight;
 
     if ((type == kCGEventTapDisabledByTimeout || type == kCGEventTapDisabledByUserInput)) {
         // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
