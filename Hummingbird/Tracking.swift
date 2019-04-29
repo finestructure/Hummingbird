@@ -74,6 +74,15 @@ func getTopLeft(window: AXUIElement) -> CGPoint {
 }
 
 
+func newPosition(event: CGEvent, from position: CGPoint) -> CGPoint {
+    let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
+    let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
+
+    let topLeft = position
+    return CGPoint(x: topLeft.x + dx, y: topLeft.y + dy)
+}
+
+
 struct Tracking {
     let time: CFTimeInterval
     let window: AXUIElement
@@ -81,7 +90,7 @@ struct Tracking {
 }
 
 
-func startTracking(event: CGEvent) -> Tracking? {
+func _startTracking(event: CGEvent) -> Tracking? {
     let time = CACurrentMediaTime()
 
     guard let clickedWindow = getWindow(at: event.location) else { return nil }
@@ -91,12 +100,8 @@ func startTracking(event: CGEvent) -> Tracking? {
 }
 
 
-func keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
-    let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
-    let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
-
-    let topLeft = tracking.position
-    var newPos = CGPoint(x: topLeft.x + dx, y: topLeft.y + dy)
+func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
+    var newPos = newPosition(event: event, from: tracking.position)
 
     let kMoveFilterInterval = 0.01
     guard (CACurrentMediaTime() - tracking.time) < kMoveFilterInterval else { return nil }
@@ -111,4 +116,30 @@ func keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
     }
 
     return newTracking
+}
+
+
+@objc public class HBSTracking: NSObject {
+
+    @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
+        if let tracking = _startTracking(event: event) {
+            moveResize.tracking = tracking.time
+            moveResize.wndPosition = tracking.position
+            moveResize.window = tracking.window
+        }
+    }
+
+    @objc class func keepMoving(event: CGEvent, moveResize: HBMoveResize) {
+        guard moveResize.window != nil else {
+            print("No window!")
+            return
+        }
+        let tracking = Tracking(time: moveResize.tracking, window: moveResize.window, position: moveResize.wndPosition)
+//        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
+        if let tracking = _keepMoving(event: event, tracking: tracking) {
+            moveResize.wndPosition = tracking.position
+            moveResize.tracking = tracking.time
+        }
+    }
+
 }

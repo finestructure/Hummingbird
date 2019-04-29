@@ -13,6 +13,8 @@
 		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
 		5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
+		5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
+		5A81BBC82276E14B00881E2F /* SwiftMigrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */; };
 		5ABC799320CD78C100B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
 		5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799020CD6D0E00B22173 /* HBHelperTest.m */; };
 		5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
@@ -50,6 +52,7 @@
 		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
+		5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftMigrationTests.m; sourceTree = "<group>"; };
 		5ABC799020CD6D0E00B22173 /* HBHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelperTest.m; sourceTree = "<group>"; };
 		5ABC799220CD78C100B22173 /* HBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelper.m; sourceTree = "<group>"; };
 		5ABC799720CD78F000B22173 /* HBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBHelper.h; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
+				5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */,
 				65CF01641F229C34002259F2 /* HBPreferencesTest.m */,
 				5ABC799020CD6D0E00B22173 /* HBHelperTest.m */,
 				65CF01661F229C34002259F2 /* Info.plist */,
@@ -313,9 +317,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */,
 				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
 				5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
 				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
+				5A81BBC82276E14B00881E2F /* SwiftMigrationTests.m in Sources */,
 				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,6 +3,7 @@
 #import "HBPreferences.h"
 #import "HBHelper.h"
 #import "HBPreferencesController.h"
+#import "Hummingbird-Swift.h"
 
 typedef enum : NSUInteger {
     idle = 0,
@@ -67,6 +68,20 @@ void startTracking(CGEventRef event, HBMoveResize *moveResize) {
     [moveResize setWndPosition:cTopLeft];
     [moveResize setWindow:_clickedWindow];
     if (_clickedWindow != nil) CFRelease(_clickedWindow);
+
+//    {
+//        HBMoveResize *temp = [[HBMoveResize alloc] init];
+//        [HBSTracking startTrackingWithEvent:event moveResize:temp];
+//        if (temp.window == moveResize.window) {
+//            if (temp.window == NULL) {
+//                NSLog(@"SUCCESS - BUT NULL");
+//            } else {
+//                NSLog(@"SUCCESS");
+//            }
+//        } else {
+//            NSLog(@"DISCREPANCY");
+//        }
+//    }
 }
 
 
@@ -95,6 +110,10 @@ void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
         if (_position != NULL) CFRelease(_position);
         [moveResize setTracking:CACurrentMediaTime()];
     }
+
+    NSLog(@"Window: %@", moveResize.window);
+
+//    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
 }
 
 
