@@ -27,11 +27,6 @@ typedef enum : NSUInteger {
 }
 
 
-void stopTracking(HBMoveResize* moveResize) {
-    [moveResize setTracking:0];
-}
-
-
 void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
     [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
 }
@@ -156,7 +151,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
                 case idle:
                     // NSLog(@"moving -> idle");
-                    stopTracking(moveResize);
+                    [HBSTracking stopTrackingWithMoveResize:moveResize];
                     break;
 
                 case resizing:
@@ -180,7 +175,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
                 case idle:
                     // NSLog(@"resizing -> idle");
-                    stopTracking(moveResize);
+                    [HBSTracking stopTrackingWithMoveResize:moveResize];
                     break;
 
                 case moving:

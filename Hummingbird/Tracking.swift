@@ -155,6 +155,10 @@ func newSize(window: AXUIElement) -> CGSize? {
         }
     }
 
+    @objc class func stopTracking(moveResize: HBMoveResize) {
+        moveResize.tracking = 0
+    }
+
     @objc class func keepMoving(event: CGEvent, moveResize: HBMoveResize) {
         guard moveResize.window != nil else {
             print("No window!")
@@ -170,6 +174,7 @@ func newSize(window: AXUIElement) -> CGSize? {
         }
     }
 
+    @discardableResult
     @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
         guard let size = newSize(window: moveResize.window) else { return false }
 
