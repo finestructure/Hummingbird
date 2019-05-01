@@ -55,13 +55,14 @@ func getWindow(at position: CGPoint) -> AXUIElement? {
 
 func getTopLeft(window: AXUIElement) -> CGPoint {
     var topLeft = CGPoint.zero
-    var pos: CFTypeRef?
-    withUnsafeMutablePointer(to: &pos) { posPtr in
-        switch AXUIElementCopyAttributeValue(window, NSAccessibility.Attribute.position as CFString, posPtr) {
+
+    var ref: CFTypeRef?
+    withUnsafeMutablePointer(to: &ref) { refPtr in
+        switch AXUIElementCopyAttributeValue(window, NSAccessibility.Attribute.position as CFString, refPtr) {
         case .success:
-            guard let pos = posPtr.pointee else { break }
-            let success = withUnsafeMutablePointer(to: &topLeft) { topLeftPtr in
-                AXValueGetValue(pos as! AXValue, .cgPoint, topLeftPtr)
+            guard let ref = refPtr.pointee else { break }
+            let success = withUnsafeMutablePointer(to: &topLeft) { ptr in
+                AXValueGetValue(ref as! AXValue, .cgSize, ptr)
             }
             if !success {
                 print("ERROR: Could not decode position")
@@ -70,7 +71,9 @@ func getTopLeft(window: AXUIElement) -> CGPoint {
             break
         }
     }
+
     return topLeft
+
 }
 
 
@@ -101,13 +104,17 @@ func _startTracking(event: CGEvent) -> Tracking? {
 
 
 func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
-    var res = false
     var pos = position
-    withUnsafePointer(to: &pos) { posPtr in
+    let res = withUnsafePointer(to: &pos) { posPtr -> Bool in
         if let position = AXValueCreate(.cgPoint, posPtr) {
-            AXUIElementSetAttributeValue(window, NSAccessibility.Attribute.position as CFString, position)
-            res = true
+            switch AXUIElementSetAttributeValue(window, NSAccessibility.Attribute.position as CFString, position) {
+            case .success:
+                return true
+            default:
+                return false
+            }
         }
+        return false
     }
     return res
 }
