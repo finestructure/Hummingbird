@@ -28,60 +28,7 @@ typedef enum : NSUInteger {
 
 
 void startTracking(CGEventRef event, HBMoveResize *moveResize) {
-    CGPoint mouseLocation = CGEventGetLocation(event);
-    [moveResize setTracking:CACurrentMediaTime()];
-
-    AXUIElementRef _systemWideElement;
-    AXUIElementRef _clickedWindow = NULL;
-    _systemWideElement = AXUIElementCreateSystemWide();
-
-    AXUIElementRef _element;
-    if ((AXUIElementCopyElementAtPosition(_systemWideElement, (float) mouseLocation.x, (float) mouseLocation.y, &_element) == kAXErrorSuccess) && _element) {
-        CFTypeRef _role;
-        if (AXUIElementCopyAttributeValue(_element, (__bridge CFStringRef)NSAccessibilityRoleAttribute, &_role) == kAXErrorSuccess) {
-            if ([(__bridge NSString *)_role isEqualToString:NSAccessibilityWindowRole]) {
-                _clickedWindow = _element;
-            }
-            if (_role != NULL) CFRelease(_role);
-        }
-        CFTypeRef _window;
-        if (AXUIElementCopyAttributeValue(_element, (__bridge CFStringRef)NSAccessibilityWindowAttribute, &_window) == kAXErrorSuccess) {
-            if (_element != NULL) CFRelease(_element);
-            _clickedWindow = (AXUIElementRef)_window;
-        }
-    }
-    CFRelease(_systemWideElement);
-
-    CFTypeRef _cPosition = nil;
-    NSPoint cTopLeft;
-    if (AXUIElementCopyAttributeValue((AXUIElementRef)_clickedWindow, (__bridge CFStringRef)NSAccessibilityPositionAttribute, &_cPosition) == kAXErrorSuccess) {
-        if (!AXValueGetValue(_cPosition, kAXValueCGPointType, (void *)&cTopLeft)) {
-            NSLog(@"ERROR: Could not decode position");
-            cTopLeft = NSMakePoint(0, 0);
-        }
-        CFRelease(_cPosition);
-    }
-
-    cTopLeft.x = (int) cTopLeft.x;
-    cTopLeft.y = (int) cTopLeft.y;
-
-    [moveResize setWndPosition:cTopLeft];
-    [moveResize setWindow:_clickedWindow];
-    if (_clickedWindow != nil) CFRelease(_clickedWindow);
-
-//    {
-//        HBMoveResize *temp = [[HBMoveResize alloc] init];
-//        [HBSTracking startTrackingWithEvent:event moveResize:temp];
-//        if (temp.window == moveResize.window) {
-//            if (temp.window == NULL) {
-//                NSLog(@"SUCCESS - BUT NULL");
-//            } else {
-//                NSLog(@"SUCCESS");
-//            }
-//        } else {
-//            NSLog(@"DISCREPANCY");
-//        }
-//    }
+    [HBSTracking startTrackingWithEvent:event moveResize:moveResize];
 }
 
 
@@ -111,7 +58,7 @@ void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
         [moveResize setTracking:CACurrentMediaTime()];
     }
 
-    NSLog(@"Window: %@", moveResize.window);
+//    NSLog(@"Window: %@", moveResize.window);
 
 //    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
 }

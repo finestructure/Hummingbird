@@ -111,7 +111,7 @@ func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
     withUnsafePointer(to: &newPos) { newPosPtr in
         if let position = AXValueCreate(.cgPoint, newPosPtr) {
             AXUIElementSetAttributeValue(tracking.window, NSAccessibility.Attribute.position as CFString, position)
-            newTracking = Tracking(time: CACurrentMediaTime(), window: tracking.window, position: position as! CGPoint)
+            newTracking = Tracking(time: CACurrentMediaTime(), window: tracking.window, position: newPosPtr.pointee)
         }
     }
 
