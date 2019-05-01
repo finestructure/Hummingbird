@@ -100,25 +100,6 @@ func _startTracking(event: CGEvent) -> Tracking? {
 }
 
 
-func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
-    var newPos = newPosition(event: event, from: tracking.position)
-
-    let kMoveFilterInterval = 0.01
-    guard (CACurrentMediaTime() - tracking.time) > kMoveFilterInterval else { return nil }
-
-    var newTracking: Tracking? = nil
-
-    withUnsafePointer(to: &newPos) { newPosPtr in
-        if let position = AXValueCreate(.cgPoint, newPosPtr) {
-            AXUIElementSetAttributeValue(tracking.window, NSAccessibility.Attribute.position as CFString, position)
-            newTracking = Tracking(time: CACurrentMediaTime(), window: tracking.window, position: newPosPtr.pointee)
-        }
-    }
-
-    return newTracking
-}
-
-
 func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
     var res = false
     var pos = position
