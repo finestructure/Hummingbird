@@ -113,6 +113,31 @@ func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
 }
 
 
+func newSize(window: AXUIElement) -> CGSize? {
+    var size: CGSize = CGSize.zero
+
+    var ref: CFTypeRef?
+    let success = withUnsafeMutablePointer(to: &ref) { refPtr -> Bool in
+        switch AXUIElementCopyAttributeValue(window, NSAccessibility.Attribute.size as CFString, refPtr) {
+        case .success:
+            guard let ref = refPtr.pointee else { break }
+            let success = withUnsafeMutablePointer(to: &size) { sizePtr in
+                AXValueGetValue(ref as! AXValue, .cgSize, sizePtr)
+            }
+            if !success {
+                print("ERROR: Could not decode size")
+            }
+            return success
+        default:
+            break
+        }
+        return false
+    }
+
+    return success ? size : nil
+}
+
+
 @objc public class HBSTracking: NSObject {
 
     @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
@@ -136,6 +161,16 @@ func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
         if setTopLeft(position: moveResize.wndPosition, window: moveResize.window) {
             moveResize.tracking = CACurrentMediaTime()
         }
+    }
+
+    @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
+        guard let size = newSize(window: moveResize.window) else { return false }
+
+        // TODO: remove hard-coded resize direction (right bottom)
+        let resizeSection = ResizeSection.init(xResizeDirection: ResizeDirectionX(rawValue: 0), yResizeDirection: ResizeSectionY(rawValue: 1))
+        moveResize.resizeSection = resizeSection
+        moveResize.wndSize = size
+        return true
     }
 
 }

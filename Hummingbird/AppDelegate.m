@@ -42,39 +42,6 @@ void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
 }
 
 
-bool determineResizeParams(CGEventRef event, HBMoveResize* moveResize) {
-    AXUIElementRef _clickedWindow = [moveResize window];
-
-    CGPoint clickPoint = CGEventGetLocation(event);
-
-    NSPoint cTopLeft = [moveResize wndPosition];
-
-    clickPoint.x -= cTopLeft.x;
-    clickPoint.y -= cTopLeft.y;
-
-    CFTypeRef _cSize;
-    NSSize cSize;
-    if (!(AXUIElementCopyAttributeValue((AXUIElementRef)_clickedWindow, (__bridge CFStringRef)NSAccessibilitySizeAttribute, &_cSize) == kAXErrorSuccess)
-        || !AXValueGetValue(_cSize, kAXValueCGSizeType, (void *)&cSize)) {
-        NSLog(@"ERROR: Could not decode size");
-        return false;
-    }
-    CFRelease(_cSize);
-
-    NSSize wndSize = cSize;
-
-    // record which direction we should resize in on the drag
-    struct ResizeSection resizeSection;
-    resizeSection.yResizeDirection = bottom;
-    resizeSection.xResizeDirection = right;
-
-    [moveResize setWndSize:wndSize];
-    [moveResize setResizeSection:resizeSection];
-
-    return true;
-}
-
-
 void keepResizing(CGEventRef event, HBMoveResize* moveResize) {
     AXUIElementRef _clickedWindow = [moveResize window];
     struct ResizeSection resizeSection = [moveResize resizeSection];
@@ -174,7 +141,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
                 case resizing:
                     // NSLog(@"idle -> moving/resizing");
                     startTracking(event, moveResize);
-                    determineResizeParams(event, moveResize);
+                    [HBSTracking determineResizeParamsWithEvent:event moveResize:moveResize];
                     absorbEvent = true;
                     break;
 
@@ -199,7 +166,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
 
                 case resizing:
                     // NSLog(@"moving -> resizing");
-                    absorbEvent = determineResizeParams(event, moveResize);
+                    absorbEvent = [HBSTracking determineResizeParamsWithEvent:event moveResize:moveResize];
                     break;
 
                 default:
