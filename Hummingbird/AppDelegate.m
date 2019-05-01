@@ -27,11 +27,6 @@ typedef enum : NSUInteger {
 }
 
 
-void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
-    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
-}
-
-
 void keepResizing(CGEventRef event, HBMoveResize* moveResize) {
     AXUIElementRef _clickedWindow = [moveResize window];
     struct ResizeSection resizeSection = [moveResize resizeSection];
@@ -146,7 +141,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
             switch (nextState) {
                 case moving:
                     // NSLog(@"moving");
-                    keepMoving(event, moveResize);
+                    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
                     break;
 
                 case idle:
