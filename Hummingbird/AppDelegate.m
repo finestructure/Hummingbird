@@ -27,38 +27,6 @@ typedef enum : NSUInteger {
 }
 
 
-void keepResizing(CGEventRef event, HBMoveResize* moveResize) {
-    AXUIElementRef _clickedWindow = [moveResize window];
-    struct ResizeSection resizeSection = [moveResize resizeSection];
-    int deltaX = (int) CGEventGetDoubleValueField(event, kCGMouseEventDeltaX);
-    int deltaY = (int) CGEventGetDoubleValueField(event, kCGMouseEventDeltaY);
-
-    NSPoint cTopLeft = [moveResize wndPosition];
-    NSSize wndSize = [moveResize wndSize];
-
-    wndSize.width += deltaX;
-    wndSize.height += deltaY;
-
-    [moveResize setWndPosition:cTopLeft];
-    [moveResize setWndSize:wndSize];
-
-    // actually applying the change is expensive, so only do it every kResizeFilterInterval events
-    if (CACurrentMediaTime() - [moveResize tracking] > kResizeFilterInterval) {
-        // only make a call to update the position if we need to
-        if (resizeSection.xResizeDirection == left || resizeSection.yResizeDirection == bottom) {
-            CFTypeRef _position = (CFTypeRef)(AXValueCreate(kAXValueCGPointType, (const void *)&cTopLeft));
-            AXUIElementSetAttributeValue(_clickedWindow, (__bridge CFStringRef)NSAccessibilityPositionAttribute, (CFTypeRef *)_position);
-            CFRelease(_position);
-        }
-
-        CFTypeRef _size = (CFTypeRef)(AXValueCreate(kAXValueCGSizeType, (const void *)&wndSize));
-        AXUIElementSetAttributeValue((AXUIElementRef)_clickedWindow, (__bridge CFStringRef)NSAccessibilitySizeAttribute, (CFTypeRef *)_size);
-        CFRelease(_size);
-        [moveResize setTracking:CACurrentMediaTime()];
-    }
-}
-
-
 CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, CGEventRef event, void *refcon) {
     static State state = idle;
 
@@ -165,7 +133,7 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
             switch (nextState) {
                 case resizing:
                     // NSLog(@"resizing");
-                    keepResizing(event, moveResize);
+                    [HBSTracking keepResizingWithEvent:event moveResize:moveResize];
                     break;
 
                 case idle:

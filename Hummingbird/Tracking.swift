@@ -80,9 +80,14 @@ func getTopLeft(window: AXUIElement) -> CGPoint {
 func newPosition(event: CGEvent, from position: CGPoint) -> CGPoint {
     let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
     let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
+    return CGPoint(x: position.x + dx, y: position.y + dy)
+}
 
-    let topLeft = position
-    return CGPoint(x: topLeft.x + dx, y: topLeft.y + dy)
+
+func newSize(event: CGEvent, from size: CGSize) -> CGSize {
+    let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
+    let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
+    return CGSize(width: size.width + dx, height: size.height + dy)
 }
 
 
@@ -120,7 +125,7 @@ func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
 }
 
 
-func newSize(window: AXUIElement) -> CGSize? {
+func getSize(window: AXUIElement) -> CGSize? {
     var size: CGSize = CGSize.zero
 
     var ref: CFTypeRef?
@@ -142,6 +147,23 @@ func newSize(window: AXUIElement) -> CGSize? {
     }
 
     return success ? size : nil
+}
+
+
+func setSize(_ size: CGSize, window: AXUIElement) -> Bool {
+    var _size = size
+    let res = withUnsafePointer(to: &_size) { ptr -> Bool in
+        if let size = AXValueCreate(.cgSize, ptr) {
+            switch AXUIElementSetAttributeValue(window, NSAccessibility.Attribute.size as CFString, size) {
+            case .success:
+                return true
+            default:
+                return false
+            }
+        }
+        return false
+    }
+    return res
 }
 
 
@@ -176,13 +198,29 @@ func newSize(window: AXUIElement) -> CGSize? {
 
     @discardableResult
     @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
-        guard let size = newSize(window: moveResize.window) else { return false }
+        guard let size = getSize(window: moveResize.window) else { return false }
 
         // TODO: remove hard-coded resize direction (right bottom)
         let resizeSection = ResizeSection.init(xResizeDirection: ResizeDirectionX(rawValue: 0), yResizeDirection: ResizeSectionY(rawValue: 1))
         moveResize.resizeSection = resizeSection
         moveResize.wndSize = size
         return true
+    }
+
+    @objc class func keepResizing(event: CGEvent, moveResize: HBMoveResize) {
+        guard moveResize.window != nil else {
+            print("No window!")
+            return
+        }
+        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
+        moveResize.wndSize = newSize(event: event, from: moveResize.wndSize)
+
+        let kMoveFilterInterval = 0.01
+        guard (CACurrentMediaTime() - moveResize.tracking) > kMoveFilterInterval else { return }
+
+        if setSize(moveResize.wndSize, window: moveResize.window) {
+            moveResize.tracking = CACurrentMediaTime()
+        }
     }
 
 }
