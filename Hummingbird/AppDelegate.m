@@ -38,29 +38,7 @@ void stopTracking(HBMoveResize* moveResize) {
 
 
 void keepMoving(CGEventRef event, HBMoveResize* moveResize) {
-    AXUIElementRef _clickedWindow = [moveResize window];
-    double deltaX = CGEventGetDoubleValueField(event, kCGMouseEventDeltaX);
-    double deltaY = CGEventGetDoubleValueField(event, kCGMouseEventDeltaY);
-
-    NSPoint cTopLeft = [moveResize wndPosition];
-    NSPoint thePoint;
-    thePoint.x = cTopLeft.x + deltaX;
-    thePoint.y = cTopLeft.y + deltaY;
-    [moveResize setWndPosition:thePoint];
-    CFTypeRef _position;
-
-    // actually applying the change is expensive, so only do it every kMoveFilterInterval seconds
-    if (CACurrentMediaTime() - [moveResize tracking] > kMoveFilterInterval) {
-        _position = (CFTypeRef) (AXValueCreate(kAXValueCGPointType, (const void *) &thePoint));
-        //            NSLog(@"applying change (delta %.1f, %.1f)", deltaX, deltaY);
-        AXUIElementSetAttributeValue(_clickedWindow, (__bridge CFStringRef) NSAccessibilityPositionAttribute, (CFTypeRef *) _position);
-        if (_position != NULL) CFRelease(_position);
-        [moveResize setTracking:CACurrentMediaTime()];
-    }
-
-//    NSLog(@"Window: %@", moveResize.window);
-
-//    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
+    [HBSTracking keepMovingWithEvent:event moveResize:moveResize];
 }
 
 

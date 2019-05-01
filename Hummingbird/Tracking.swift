@@ -104,7 +104,7 @@ func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
     var newPos = newPosition(event: event, from: tracking.position)
 
     let kMoveFilterInterval = 0.01
-    guard (CACurrentMediaTime() - tracking.time) < kMoveFilterInterval else { return nil }
+    guard (CACurrentMediaTime() - tracking.time) > kMoveFilterInterval else { return nil }
 
     var newTracking: Tracking? = nil
 
@@ -116,6 +116,19 @@ func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
     }
 
     return newTracking
+}
+
+
+func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
+    var res = false
+    var pos = position
+    withUnsafePointer(to: &pos) { posPtr in
+        if let position = AXValueCreate(.cgPoint, posPtr) {
+            AXUIElementSetAttributeValue(window, NSAccessibility.Attribute.position as CFString, position)
+            res = true
+        }
+    }
+    return res
 }
 
 
@@ -134,11 +147,13 @@ func _keepMoving(event: CGEvent, tracking: Tracking) -> Tracking? {
             print("No window!")
             return
         }
-        let tracking = Tracking(time: moveResize.tracking, window: moveResize.window, position: moveResize.wndPosition)
-//        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
-        if let tracking = _keepMoving(event: event, tracking: tracking) {
-            moveResize.wndPosition = tracking.position
-            moveResize.tracking = tracking.time
+        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
+
+        let kMoveFilterInterval = 0.01
+        guard (CACurrentMediaTime() - moveResize.tracking) > kMoveFilterInterval else { return }
+
+        if setTopLeft(position: moveResize.wndPosition, window: moveResize.window) {
+            moveResize.tracking = CACurrentMediaTime()
         }
     }
 
