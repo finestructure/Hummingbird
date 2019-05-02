@@ -93,6 +93,16 @@ import Cocoa
         CFRunLoopRemoveSource(CFRunLoopGetCurrent(), moveResize.runLoopSource, .commonModes);
     }
 
+    @objc class func checkAXIsProcessTrusted() -> Bool {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
+    }
+
+    @objc class func preferences() -> HBPreferences {
+        let userDefaults = UserDefaults(suiteName: "userPrefs")
+        return HBPreferences(userDefaults: userDefaults)
+    }
+
 }
 
 

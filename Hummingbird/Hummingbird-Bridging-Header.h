@@ -3,3 +3,4 @@
 //
 
 #import "HBMoveResize.h"
+#import "HBPreferences.h"

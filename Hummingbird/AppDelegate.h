@@ -10,9 +10,6 @@ static const double kResizeFilterInterval = 0.02;
     NSStatusItem * statusItem;
 }
 
-- (int)moveModifierFlags;
-- (int)resizeModifierFlags;
-
 - (IBAction)toggleDisabled:(id)sender;
 - (IBAction)showPreferences:(id)sender;
 

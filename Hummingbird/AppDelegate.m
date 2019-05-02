@@ -5,45 +5,18 @@
 #import "HBPreferencesController.h"
 #import "Hummingbird-Swift.h"
 
-typedef enum : NSUInteger {
-    idle = 0,
-    moving,
-    resizing
-} State;
-
 
 @implementation AppDelegate {
-    HBPreferences *preferences;
     HBPreferencesController *_prefs;
-}
-
-- (id) init  {
-    self = [super init];
-    if (self) {
-        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"userPrefs"];
-        preferences = [[HBPreferences alloc] initWithUserDefaults:userDefaults];
-    }
-    return self;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    const void * keys[] = { kAXTrustedCheckOptionPrompt };
-    const void * values[] = { kCFBooleanTrue };
-
-    CFDictionaryRef options = CFDictionaryCreate(
-            kCFAllocatorDefault,
-            keys,
-            values,
-            sizeof(keys) / sizeof(*keys),
-            &kCFCopyStringDictionaryKeyCallBacks,
-            &kCFTypeDictionaryValueCallBacks);
-
-    if (!AXIsProcessTrustedWithOptions(options)) {
-        // don't have permission to do our thing right now... AXIsProcessTrustedWithOptions prompted the user to fix
-        [_disabledMenu setState:YES];
-    } else {
+    if ([HBSTracking checkAXIsProcessTrusted]) {
         [self enable];
+    } else {
+        // don't have permission to do our thing right now... AXIsProcessTrustedWithOptions prompted the user to fix
+        [_disabledMenu setState: YES];
     }
 }
 
@@ -83,17 +56,9 @@ typedef enum : NSUInteger {
 - (IBAction)showPreferences:(id)sender {
     if (_prefs == nil) {
         _prefs = [[HBPreferencesController alloc] initWithWindowNibName:@"HBPreferencesController"];
-        _prefs.prefs = preferences;
+        _prefs.prefs = [HBSTracking preferences];
     }
     [_prefs.window makeKeyAndOrderFront:sender];
-}
-
-- (int)moveModifierFlags {
-    return [preferences modifierFlagsForFlagSet:hoverMoveFlags];
-}
-
-- (int)resizeModifierFlags {
-    return [preferences modifierFlagsForFlagSet:hoverResizeFlags];
 }
 
 @end
