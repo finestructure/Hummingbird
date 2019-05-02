@@ -167,7 +167,7 @@ func setSize(_ size: CGSize, window: AXUIElement) -> Bool {
 }
 
 
-struct Flags: OptionSet {
+struct Flags: OptionSet, Hashable {
     let rawValue: UInt64
 
     static let shift  = Flags(rawValue: CGEventFlags.maskShift.rawValue)

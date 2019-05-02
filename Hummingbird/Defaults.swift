@@ -15,6 +15,16 @@ enum DefaultsKeys: String {
 }
 
 
+let DefaultMoveModifiers: Flags = [.fn, .control]
+let DefaultResizeModifiers: Flags = [.fn, .control, .alt]
+
+
+let DefaultPreferences = [
+    DefaultsKeys.moveFlags.rawValue: DefaultMoveModifiers.rawValue,
+    DefaultsKeys.resizeFlags.rawValue: DefaultResizeModifiers.rawValue,
+]
+
+
 func saveFlags(_ value: Flags, key: DefaultsKeys, defaults: UserDefaults = .standard) {
     defaults.set(value.rawValue, forKey: key.rawValue)
 }
@@ -26,3 +36,14 @@ func readFlags(key: DefaultsKeys, defaults: UserDefaults = .standard) -> Flags? 
 }
 
 
+extension Flags {
+
+    func toggle(_ flag: Flags) -> Flags {
+        if self.contains(flag) {
+            return self.subtracting(flag)
+        } else {
+            return self.union(flag)
+        }
+    }
+
+}

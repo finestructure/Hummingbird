@@ -16,6 +16,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var disabledMenuItem: NSMenuItem!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        UserDefaults.standard.register(defaults: DefaultPreferences)
+
         if HBSTracking.checkAXIsProcessTrusted() {
             enable()
         } else {

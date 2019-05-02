@@ -47,4 +47,10 @@ class TrackingTests: XCTestCase {
         XCTAssertEqual(Flags(rawValue: fetched), orig)
     }
 
+    func testFlagToggle() {
+        let flags: Flags = [.fn, .control, .alt]
+        XCTAssertEqual(flags.toggle(.control), [.fn, .alt])
+        XCTAssertEqual(flags.toggle(.command), [.fn, .control, .alt, .command])
+    }
+
 }

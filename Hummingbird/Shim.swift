@@ -11,7 +11,7 @@ import Cocoa
 
 @objc public class HBSTracking: NSObject {
 
-    static var prefs: HBPreferencesController? = nil
+    static var prefs: PreferencesController? = nil
 
     @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
         if let tracking = _startTracking(event: event) {
@@ -113,8 +113,7 @@ import Cocoa
 
     @objc class func showPreferences(sender: Any) {
         if prefs == nil {
-            prefs = HBPreferencesController(windowNibName: "HBPreferencesController")
-            prefs?.prefs = HBPreferences(userDefaults: UserDefaults(suiteName: "userPrefs"))
+            prefs = PreferencesController(windowNibName: "HBPreferencesController")
         }
         prefs?.window?.makeKeyAndOrderFront(sender)
     }

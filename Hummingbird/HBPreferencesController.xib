@@ -6,18 +6,18 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="HBPreferencesController">
+        <customObject id="-2" userLabel="File's Owner" customClass="PreferencesController" customModule="Hummingbird" customModuleProvider="target">
             <connections>
-                <outlet property="altHoverMoveButton" destination="Sj9-Rc-bDN" id="eVv-G2-wrH"/>
-                <outlet property="altHoverResizeButton" destination="frh-8a-H0z" id="Fnb-mx-fD2"/>
-                <outlet property="commandHoverMoveButton" destination="ihP-uA-QNF" id="7Fw-g1-Nws"/>
-                <outlet property="commandHoverResizeButton" destination="IHA-Hv-cF2" id="d2O-xb-JzB"/>
-                <outlet property="controlHoverMoveButton" destination="f0u-93-rmH" id="VaT-d7-ckP"/>
-                <outlet property="controlHoverResizeButton" destination="Vho-Wo-heQ" id="944-zB-rRg"/>
-                <outlet property="fnHoverMoveButton" destination="RzX-et-TGM" id="96d-iQ-LTh"/>
-                <outlet property="fnHoverResizeButton" destination="ZoB-Ah-hDB" id="sRf-XB-Zj9"/>
-                <outlet property="shiftHoverMoveButton" destination="cBr-VD-5GB" id="V84-0c-rPe"/>
-                <outlet property="shiftHoverResizeButton" destination="t0H-b4-ute" id="KNa-cC-CXw"/>
+                <outlet property="moveAlt" destination="Sj9-Rc-bDN" id="UaS-BH-HzV"/>
+                <outlet property="moveCommand" destination="ihP-uA-QNF" id="zfQ-wo-1XF"/>
+                <outlet property="moveControl" destination="f0u-93-rmH" id="RUw-k3-LWp"/>
+                <outlet property="moveFn" destination="RzX-et-TGM" id="NgG-2Q-2T0"/>
+                <outlet property="moveShift" destination="cBr-VD-5GB" id="fW9-dz-vKk"/>
+                <outlet property="resizeAlt" destination="frh-8a-H0z" id="5fk-e9-bQq"/>
+                <outlet property="resizeCommand" destination="IHA-Hv-cF2" id="qMk-Cv-bBg"/>
+                <outlet property="resizeControl" destination="Vho-Wo-heQ" id="hHk-K6-Pom"/>
+                <outlet property="resizeFn" destination="ZoB-Ah-hDB" id="0dw-ya-nGD"/>
+                <outlet property="resizeShift" destination="t0H-b4-ute" id="J8n-RE-hLE"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -47,7 +47,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="PAQ-OB-11D"/>
+                                        <action selector="modifierClicked:" target="-2" id="LjH-w2-ivi"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RzX-et-TGM">
@@ -58,7 +58,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="aMK-0s-0PO"/>
+                                        <action selector="modifierClicked:" target="-2" id="bGY-HD-pCr"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBr-VD-5GB">
@@ -69,7 +69,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="U2s-6f-0PA"/>
+                                        <action selector="modifierClicked:" target="-2" id="Elk-CG-MXC"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f0u-93-rmH">
@@ -80,7 +80,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="Fgd-sn-TvK"/>
+                                        <action selector="modifierClicked:" target="-2" id="8Nu-Wb-wQs"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sj9-Rc-bDN">
@@ -91,7 +91,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="qob-fA-8Pz"/>
+                                        <action selector="modifierClicked:" target="-2" id="Gju-Od-YZ5"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -112,7 +112,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="g04-U6-ijT"/>
+                                        <action selector="modifierClicked:" target="-2" id="lIU-sZ-Ypk"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frh-8a-H0z">
@@ -123,7 +123,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="u48-PV-uwQ"/>
+                                        <action selector="modifierClicked:" target="-2" id="sLP-62-HKW"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vho-Wo-heQ">
@@ -134,7 +134,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="mfe-gl-dqc"/>
+                                        <action selector="modifierClicked:" target="-2" id="4Qw-wI-XK4"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0H-b4-ute">
@@ -145,7 +145,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="DK8-EA-Rjc"/>
+                                        <action selector="modifierClicked:" target="-2" id="V0O-CJ-ks5"/>
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZoB-Ah-hDB">
@@ -156,7 +156,7 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <action selector="modifierClicked:" target="-2" id="pAx-l1-Rm3"/>
+                                        <action selector="modifierClicked:" target="-2" id="eeP-lw-LuY"/>
                                     </connections>
                                 </button>
                             </subviews>
