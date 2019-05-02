@@ -201,48 +201,14 @@ CGEventRef myCGEventCallback(CGEventTapProxy __unused proxy, CGEventType type, C
     [[statusMenu itemAtIndex:0] setEnabled:NO];
 }
 
-- (void)enableRunLoopSource:(HBMoveResize*)moveResize {
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), [moveResize runLoopSource], kCFRunLoopCommonModes);
-    CGEventTapEnable([moveResize eventTap], true);
-}
-
-- (void)disableRunLoopSource:(HBMoveResize*)moveResize {
-    CGEventTapEnable([moveResize eventTap], false);
-    CFRunLoopRemoveSource(CFRunLoopGetCurrent(), [moveResize runLoopSource], kCFRunLoopCommonModes);
-}
-
 - (void)enable {
     [_disabledMenu setState:NO];
-
-    CGEventMask eventMask = CGEventMaskBit( kCGEventMouseMoved );
-
-    CFMachPortRef eventTap = CGEventTapCreate(kCGHIDEventTap,
-                                              kCGHeadInsertEventTap,
-                                              kCGEventTapOptionDefault,
-                                              eventMask,
-                                              myCGEventCallback,
-                                              (__bridge void * _Nullable)self);
-
-    if (!eventTap) {
-        NSLog(@"Couldn't create event tap!");
-        exit(1);
-    }
-
-    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
-
-
-    HBMoveResize *moveResize = [HBMoveResize instance];
-    [moveResize setEventTap:eventTap];
-    [moveResize setRunLoopSource:runLoopSource];
-    [self enableRunLoopSource:moveResize];
-
-    CFRelease(runLoopSource);
+    [HBSTracking enableWithMoveResize:[HBMoveResize instance]];
 }
 
 - (void)disable {
     [_disabledMenu setState:YES];
-    HBMoveResize* moveResize = [HBMoveResize instance];
-    [self disableRunLoopSource:moveResize];
+    [HBSTracking disableWithMoveResize:[HBMoveResize instance]];
 }
 
 - (IBAction)toggleDisabled:(id)sender {

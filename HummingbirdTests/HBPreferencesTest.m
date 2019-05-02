@@ -52,9 +52,9 @@
 
 - (void)testHSBDefaults {
     [preferences setToDefaults];
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:testDefaultsName];
-    HBSDefaults* defaults = [[HBSDefaults alloc] initWithDefaults: userDefaults];
-//    XCTAssertEqual([defaults move, )
+    //    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:testDefaultsName];
+    //    HBSDefaults* defaults = [[HBSDefaults alloc] initWithDefaults: userDefaults];
+    //    XCTAssertEqual([defaults move, )
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B5E8F51C513E3D0055C181 /* HBPreferences.m */; };
+		5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */; };
 		5A1C2D94225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
 		5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
 		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		52B5E8F51C513E3D0055C181 /* HBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPreferences.m; sourceTree = "<group>"; };
 		52B5E8F81C513E7A0055C181 /* HBPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferences.h; sourceTree = "<group>"; };
+		5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
 		5A1C2D91225B6E20002EC3AD /* Hummingbird-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A1C2D92225B6E20002EC3AD /* HummingbirdTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HummingbirdTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSDefaults.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
+				5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */,
 				5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */,
 				65CF01641F229C34002259F2 /* HBPreferencesTest.m */,
 				5ABC799020CD6D0E00B22173 /* HBHelperTest.m */,
@@ -246,7 +249,7 @@
 		6ED47B59183BF3E800859244 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = EMR;
+				CLASSPREFIX = HB;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Daniel Marcotte";
 				TargetAttributes = {
@@ -321,6 +324,7 @@
 				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
 				5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
 				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
+				5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */,
 				5A81BBC82276E14B00881E2F /* SwiftMigrationTests.m in Sources */,
 				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
 			);

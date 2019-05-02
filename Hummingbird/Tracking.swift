@@ -62,7 +62,7 @@ func getTopLeft(window: AXUIElement) -> CGPoint {
         case .success:
             guard let ref = refPtr.pointee else { break }
             let success = withUnsafeMutablePointer(to: &topLeft) { ptr in
-                AXValueGetValue(ref as! AXValue, .cgSize, ptr)
+                AXValueGetValue(ref as! AXValue, .cgPoint, ptr)
             }
             if !success {
                 print("ERROR: Could not decode position")
@@ -223,4 +223,141 @@ func setSize(_ size: CGSize, window: AXUIElement) -> Bool {
         }
     }
 
+    @objc class func enable(moveResize: HBMoveResize) {
+        // https://stackoverflow.com/a/31898592/1444152
+
+        let eventMask = (1 << CGEventType.mouseMoved.rawValue)
+        guard let eventTap = CGEvent.tapCreate(
+            tap: .cghidEventTap,
+            place: .headInsertEventTap,
+            options: .defaultTap,
+            eventsOfInterest: CGEventMask(eventMask),
+            callback: myCGEventCallback,
+            userInfo: nil
+            ) else {
+                print("failed to create event tap")
+                exit(1)
+        }
+
+        let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+        CGEvent.tapEnable(tap: eventTap, enable: true)
+        moveResize.eventTap = eventTap
+        moveResize.runLoopSource = runLoopSource
+    }
+
+    @objc class func disable(moveResize: HBMoveResize) {
+        CGEvent.tapEnable(tap: moveResize.eventTap, enable: false)
+        CFRunLoopRemoveSource(CFRunLoopGetCurrent(), moveResize.runLoopSource, .commonModes);
+    }
+
 }
+
+
+struct Flags: OptionSet {
+    let rawValue: UInt64
+
+    static let shift  = Flags(rawValue: CGEventFlags.maskShift.rawValue)
+    static let control  = Flags(rawValue: CGEventFlags.maskControl.rawValue)
+    static let alt  = Flags(rawValue: CGEventFlags.maskAlternate.rawValue)
+    static let command  = Flags(rawValue: CGEventFlags.maskCommand.rawValue)
+    static let fn  = Flags(rawValue: CGEventFlags.maskSecondaryFn.rawValue)
+
+    static var all: Flags = [.shift, .control, .alt, .command, .fn]
+
+    func exclusivelySet(in eventFlags: CGEventFlags) -> Bool {
+        return self.intersection(.all) == Flags(rawValue: eventFlags.rawValue).intersection(.all)
+    }
+}
+
+
+enum State: Int {
+    case idle
+    case moving
+    case resizing
+}
+
+
+var currentState: State = .idle
+var tracking: Tracking? = nil
+
+
+func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+
+    // TODO: read from prefs
+    let moveFlags: Flags = [.fn, .control]
+    let resizeFlags: Flags = [.fn, .control, .alt]
+
+    if moveFlags.isEmpty && resizeFlags.isEmpty {
+        return Unmanaged.passRetained(event)
+    }
+
+    // TODO: re-enable tap if necessary
+    //    if ((type == kCGEventTapDisabledByTimeout || type == kCGEventTapDisabledByUserInput)) {
+    //        // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
+    //        CGEventTapEnable([moveResize eventTap], true);
+    //        NSLog(@"Re-enabling...");
+    //        return event;
+    //    }
+
+    let eventFlags = event.flags
+    let move = moveFlags.exclusivelySet(in: eventFlags)
+    let resize = resizeFlags.exclusivelySet(in: eventFlags)
+
+    let nextState: State
+    switch (move, resize) {
+    case (true, false):
+        nextState = .moving
+    case (false, true):
+        nextState = .resizing
+    case (true, true):
+        // unreachable unless both options are identical, in which case we default to .moving
+        nextState = .moving
+    case (false, false):
+        // event is not for us
+        nextState = .idle
+    }
+
+    var absortEvent = false
+    let moveResize = HBMoveResize.instance() as! HBMoveResize
+
+    //    if currentState != nextState {
+    //        print(currentState, nextState)
+    //    }
+
+    switch (currentState, nextState) {
+    // .idle -> X
+    case (.idle, .idle):
+        // event is not for us
+        break
+    case (.idle, .moving):
+        HBSTracking.startTracking(event: event, moveResize: moveResize)
+        absortEvent = true
+    case (.idle, .resizing):
+        HBSTracking.startTracking(event: event, moveResize: moveResize)
+        HBSTracking.determineResizeParams(event: event, moveResize: moveResize)
+        absortEvent = true
+
+    // .moving -> X
+    case (.moving, .idle):
+        HBSTracking.stopTracking(moveResize: moveResize)
+    case (.moving, .moving):
+        HBSTracking.keepMoving(event: event, moveResize: moveResize)
+    case (.moving, .resizing):
+        absortEvent = HBSTracking.determineResizeParams(event: event, moveResize: moveResize)
+
+    // .resizing -> X
+    case (.resizing, .idle):
+        HBSTracking.stopTracking(moveResize: moveResize)
+    case (.resizing, .moving):
+        HBSTracking.startTracking(event: event, moveResize: moveResize)
+        absortEvent = true
+    case (.resizing, .resizing):
+        HBSTracking.keepResizing(event: event, moveResize: moveResize)
+    }
+
+    currentState = nextState
+
+    return absortEvent ? nil : Unmanaged.passRetained(event)
+}
+
