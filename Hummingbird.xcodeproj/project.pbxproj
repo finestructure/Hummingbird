@@ -12,19 +12,15 @@
 		5A1C2D94225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
 		5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */; };
 		5A45FBAF227B1BB800DC184E /* Shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Shim.swift */; };
+		5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCC227B281E00DC184E /* AppDelegate.swift */; };
+		5A45FBCE227B301E00DC184E /* Shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Shim.swift */; };
 		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
 		5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
 		5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
-		5A81BBC82276E14B00881E2F /* SwiftMigrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */; };
-		5ABC799320CD78C100B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
-		5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799020CD6D0E00B22173 /* HBHelperTest.m */; };
-		5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
 		65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF01641F229C34002259F2 /* HBPreferencesTest.m */; };
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
-		6ED47B71183BF3E800859244 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B70183BF3E800859244 /* main.m */; };
-		6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B77183BF3E800859244 /* AppDelegate.m */; };
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
 		6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B7C183BF3E800859244 /* Images.xcassets */; };
 		B02F18934323BB42D8CCAB05 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02F125CE1BC18D269C53372 /* QuartzCore.framework */; };
@@ -52,14 +48,11 @@
 		5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSDefaults.swift; sourceTree = "<group>"; };
 		5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hummingbird.entitlements; sourceTree = "<group>"; };
 		5A45FBAE227B1BB800DC184E /* Shim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shim.swift; sourceTree = "<group>"; };
+		5A45FBCC227B281E00DC184E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferencesController.h; sourceTree = "<group>"; };
 		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
-		5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftMigrationTests.m; sourceTree = "<group>"; };
-		5ABC799020CD6D0E00B22173 /* HBHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelperTest.m; sourceTree = "<group>"; };
-		5ABC799220CD78C100B22173 /* HBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelper.m; sourceTree = "<group>"; };
-		5ABC799720CD78F000B22173 /* HBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBHelper.h; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF01641F229C34002259F2 /* HBPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesTest.m; sourceTree = "<group>"; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,10 +64,7 @@
 		6ED47B69183BF3E800859244 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hummingbird-Info.plist"; sourceTree = "<group>"; };
 		6ED47B6E183BF3E800859244 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6ED47B70183BF3E800859244 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Prefix.pch"; sourceTree = "<group>"; };
-		6ED47B76183BF3E800859244 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6ED47B77183BF3E800859244 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6ED47B7C183BF3E800859244 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6ED47B83183BF3E800859244 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B02F125CE1BC18D269C53372 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -111,6 +101,7 @@
 			children = (
 				5A1C2D91225B6E20002EC3AD /* Hummingbird-Bridging-Header.h */,
 				5A1C2D92225B6E20002EC3AD /* HummingbirdTests-Bridging-Header.h */,
+				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
 				5A1C2D93225B6E21002EC3AD /* HBSDefaults.swift */,
 				5A45FBAE227B1BB800DC184E /* Shim.swift */,
 				5A81BBC42276D8CC00881E2F /* Tracking.swift */,
@@ -122,9 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */,
-				5A81BBC72276E14B00881E2F /* SwiftMigrationTests.m */,
 				65CF01641F229C34002259F2 /* HBPreferencesTest.m */,
-				5ABC799020CD6D0E00B22173 /* HBHelperTest.m */,
 				65CF01661F229C34002259F2 /* Info.plist */,
 			);
 			path = HummingbirdTests;
@@ -178,8 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */,
-				6ED47B76183BF3E800859244 /* AppDelegate.h */,
-				6ED47B77183BF3E800859244 /* AppDelegate.m */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
@@ -187,8 +174,6 @@
 				F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */,
 				52B5E8F81C513E7A0055C181 /* HBPreferences.h */,
 				52B5E8F51C513E3D0055C181 /* HBPreferences.m */,
-				5ABC799720CD78F000B22173 /* HBHelper.h */,
-				5ABC799220CD78C100B22173 /* HBHelper.m */,
 				5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */,
 				5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
@@ -202,7 +187,6 @@
 			children = (
 				6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */,
 				6ED47B6D183BF3E800859244 /* InfoPlist.strings */,
-				6ED47B70183BF3E800859244 /* main.m */,
 				6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -258,7 +242,6 @@
 				TargetAttributes = {
 					65CF01611F229C34002259F2 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = A42K5AU657;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6ED47B60183BF3E800859244;
@@ -323,12 +306,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A45FBCE227B301E00DC184E /* Shim.swift in Sources */,
 				5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */,
-				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
 				5A1C2D95225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
-				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
 				5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */,
-				5A81BBC82276E14B00881E2F /* SwiftMigrationTests.m in Sources */,
 				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,14 +318,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ED47B71183BF3E800859244 /* main.m in Sources */,
 				5A1C2D94225B6E21002EC3AD /* HBSDefaults.swift in Sources */,
-				5ABC799320CD78C100B22173 /* HBHelper.m in Sources */,
 				52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */,
 				5A45FBAF227B1BB800DC184E /* Shim.swift in Sources */,
 				5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */,
-				6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */,
 				F907A25928093AED2C89550E /* HBMoveResize.m in Sources */,
+				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
 				5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,14 +367,18 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/HummingbirdTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -412,14 +395,18 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/HummingbirdTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";

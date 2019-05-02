@@ -26,4 +26,10 @@ class TrackingTests: XCTestCase {
         XCTAssert(!flags.exclusivelySet(in: [.maskSecondaryFn]))
     }
 
+    func testPrefs() {
+        let uuid = UUID().uuidString
+//        let bundle = Bundle(for: TrackingTests.Type)
+        let defName = "co.finestructure.Hummingbird"
+    }
+
 }
