@@ -103,6 +103,17 @@ import Cocoa
         return HBPreferences(userDefaults: userDefaults)
     }
 
+    @objc class func configure(menu: NSMenu) -> NSStatusItem {
+        let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.menu = menu
+        statusItem.image = NSImage(named: "MenuIcon")
+        statusItem.alternateImage = NSImage(named: "MenuIconHighlight")
+        statusItem.highlightMode = true
+        menu.autoenablesItems = false
+        menu.item(at: 0)?.isEnabled = false
+        return statusItem
+    }
+
 }
 
 
