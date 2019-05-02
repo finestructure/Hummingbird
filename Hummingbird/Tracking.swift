@@ -321,10 +321,6 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
 
     var absortEvent = false
 
-    //    if currentState != nextState {
-    //        print(currentState, nextState)
-    //    }
-
     switch (currentState, nextState) {
     // .idle -> X
     case (.idle, .idle):
