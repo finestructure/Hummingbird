@@ -3,7 +3,7 @@
 //  Hummingbird
 //
 //  Created by Sven A. Schmidt on 08/04/2019.
-//  Copyright © 2019 Daniel Marcotte. All rights reserved.
+//  Copyright © 2019 finestructure. All rights reserved.
 //
 
 import Foundation

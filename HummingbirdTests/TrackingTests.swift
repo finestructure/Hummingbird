@@ -3,7 +3,7 @@
 //  HummingbirdTests
 //
 //  Created by Sven A. Schmidt on 02/05/2019.
-//  Copyright © 2019 Daniel Marcotte. All rights reserved.
+//  Copyright © 2019 finestructure. All rights reserved.
 //
 
 import XCTest
