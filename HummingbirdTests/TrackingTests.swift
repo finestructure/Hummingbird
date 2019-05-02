@@ -27,9 +27,24 @@ class TrackingTests: XCTestCase {
     }
 
     func testPrefs() {
-        let uuid = UUID().uuidString
-//        let bundle = Bundle(for: TrackingTests.Type)
-        let defName = "co.finestructure.Hummingbird"
+        let bundleId = Bundle.main.bundleIdentifier!
+        let suiteName = "\(bundleId).tests"
+        let prefs = UserDefaults.init(suiteName: suiteName)!
+        prefs.removePersistentDomain(forName: suiteName)
+
+        let orig: Flags = [.fn, .control]
+
+        // test read
+        prefs.set(orig.rawValue, forKey: DefaultsKeys.moveFlags.rawValue)
+        XCTAssertEqual(readFlags(key: .moveFlags, defaults: prefs), orig)
+
+        // test save
+        saveFlags(orig, key: .moveFlags, defaults: prefs)
+        guard let fetched = prefs.object(forKey: DefaultsKeys.moveFlags.rawValue) as? UInt64 else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(Flags(rawValue: fetched), orig)
     }
 
 }
