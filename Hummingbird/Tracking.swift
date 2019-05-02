@@ -292,13 +292,14 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         return Unmanaged.passRetained(event)
     }
 
-    // TODO: re-enable tap if necessary
-    //    if ((type == kCGEventTapDisabledByTimeout || type == kCGEventTapDisabledByUserInput)) {
-    //        // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
-    //        CGEventTapEnable([moveResize eventTap], true);
-    //        NSLog(@"Re-enabling...");
-    //        return event;
-    //    }
+    let moveResize = HBMoveResize.instance() as! HBMoveResize
+
+    if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
+        // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
+        CGEvent.tapEnable(tap: moveResize.eventTap, enable: true)
+        print("Re-enabling")
+        return Unmanaged.passRetained(event)
+    }
 
     let eventFlags = event.flags
     let move = moveFlags.exclusivelySet(in: eventFlags)
@@ -319,7 +320,6 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
     }
 
     var absortEvent = false
-    let moveResize = HBMoveResize.instance() as! HBMoveResize
 
     //    if currentState != nextState {
     //        print(currentState, nextState)
