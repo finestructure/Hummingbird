@@ -6,9 +6,7 @@
 #import "Hummingbird-Swift.h"
 
 
-@implementation AppDelegate {
-    HBPreferencesController *_prefs;
-}
+@implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -46,11 +44,7 @@
 }
 
 - (IBAction)showPreferences:(id)sender {
-    if (_prefs == nil) {
-        _prefs = [[HBPreferencesController alloc] initWithWindowNibName:@"HBPreferencesController"];
-        _prefs.prefs = [HBSTracking preferences];
-    }
-    [_prefs.window makeKeyAndOrderFront:sender];
+    [HBSTracking showPreferencesWithSender: sender];
 }
 
 @end

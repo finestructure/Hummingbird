@@ -11,6 +11,8 @@ import Cocoa
 
 @objc public class HBSTracking: NSObject {
 
+    static var prefs: HBPreferencesController? = nil
+
     @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
         if let tracking = _startTracking(event: event) {
             moveResize.tracking = tracking.time
@@ -98,11 +100,6 @@ import Cocoa
         return AXIsProcessTrustedWithOptions(options)
     }
 
-    @objc class func preferences() -> HBPreferences {
-        let userDefaults = UserDefaults(suiteName: "userPrefs")
-        return HBPreferences(userDefaults: userDefaults)
-    }
-
     @objc class func configure(menu: NSMenu) -> NSStatusItem {
         let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.menu = menu
@@ -112,6 +109,14 @@ import Cocoa
         menu.autoenablesItems = false
         menu.item(at: 0)?.isEnabled = false
         return statusItem
+    }
+
+    @objc class func showPreferences(sender: Any) {
+        if prefs == nil {
+            prefs = HBPreferencesController(windowNibName: "HBPreferencesController")
+            prefs?.prefs = HBPreferences(userDefaults: UserDefaults(suiteName: "userPrefs"))
+        }
+        prefs?.window?.makeKeyAndOrderFront(sender)
     }
 
 }

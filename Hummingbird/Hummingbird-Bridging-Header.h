@@ -4,3 +4,4 @@
 
 #import "HBMoveResize.h"
 #import "HBPreferences.h"
+#import "HBPreferencesController.h"
