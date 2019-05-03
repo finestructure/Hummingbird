@@ -116,9 +116,9 @@ class HBSTracking {
 
 
     private func startTracking(event: CGEvent) {
-        guard let clickedWindow = getWindow(at: event.location) else { return }
+        guard let clickedWindow = AXUIElement.window(at: event.location) else { return }
         trackingInfo.time = CACurrentMediaTime()
-        trackingInfo.origin = getTopLeft(window: clickedWindow)
+        trackingInfo.origin = clickedWindow.origin ?? CGPoint.zero
         trackingInfo.window = clickedWindow
     }
 
@@ -138,15 +138,14 @@ class HBSTracking {
 
         guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.moveFilterInterval else { return }
 
-        if setTopLeft(position: trackingInfo.origin, window: window) {
-            trackingInfo.time = CACurrentMediaTime()
-        }
+        window.origin = trackingInfo.origin
+        trackingInfo.time = CACurrentMediaTime()
     }
 
 
     @discardableResult
     private func determineResizeParams(event: CGEvent) -> Bool {
-        guard let window = trackingInfo.window, let size = getSize(window: window) else { return false }
+        guard let window = trackingInfo.window, let size = window.size else { return false }
         trackingInfo.size = size
         return true
     }
@@ -164,9 +163,8 @@ class HBSTracking {
 
         guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.resizeFilterInterval else { return }
 
-        if setSize(trackingInfo.size, window: window) {
-            trackingInfo.time = CACurrentMediaTime()
-        }
+        window.size = trackingInfo.size
+        trackingInfo.time = CACurrentMediaTime()
     }
 
 }

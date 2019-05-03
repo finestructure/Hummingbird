@@ -16,8 +16,8 @@
 		5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCF227B3EF000DC184E /* PreferencesController.swift */; };
 		5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCF227B3EF000DC184E /* PreferencesController.swift */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
-		5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
-		5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* Tracking.swift */; };
+		5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
+		5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
 		5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */; };
 		5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */; };
 		5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910F227C418200B78C47 /* Modifiers.swift */; };
@@ -55,7 +55,7 @@
 		5A45FBCC227B281E00DC184E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A45FBCF227B3EF000DC184E /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
-		5A81BBC42276D8CC00881E2F /* Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
+		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
 		5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
 		5A8F910F227C418200B78C47 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		5A8F9112227C41C800B78C47 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -106,15 +106,23 @@
 				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
 				5A1C2D93225B6E21002EC3AD /* Defaults.swift */,
 				5A8F910F227C418200B78C47 /* Modifiers.swift */,
+				5A8F9115227C460100B78C47 /* Operators.swift */,
 				5A45FBCF227B3EF000DC184E /* PreferencesController.swift */,
 				5A45FBAE227B1BB800DC184E /* Shim.swift */,
 				5A8F9112227C41C800B78C47 /* State.swift */,
-				5A81BBC42276D8CC00881E2F /* Tracking.swift */,
 				5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */,
-				5A8F9115227C460100B78C47 /* Operators.swift */,
-				5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */,
+				5A8F911B227C4CF600B78C47 /* Extensions */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		5A8F911B227C4CF600B78C47 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */,
+				5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
@@ -310,7 +318,7 @@
 				5A45FBCE227B301E00DC184E /* Shim.swift in Sources */,
 				5A8F9111227C418200B78C47 /* Modifiers.swift in Sources */,
 				5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */,
-				5A81BBC62276DC3B00881E2F /* Tracking.swift in Sources */,
+				5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */,
 				5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */,
 				5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */,
 				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
@@ -327,7 +335,7 @@
 				5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */,
 				5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */,
 				5A45FBAF227B1BB800DC184E /* Shim.swift in Sources */,
-				5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */,
+				5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */,
 				5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */,
 				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
 				5A8F9113227C41C800B78C47 /* State.swift in Sources */,
