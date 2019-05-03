@@ -58,12 +58,12 @@ extension AppDelegate {
 
     func enable() {
         disabledMenuItem.state = .off
-        HBSTracking.enable()
+        Tracker.enable()
     }
 
     func disable() {
         disabledMenuItem.state = .on
-        HBSTracking.disable()
+        Tracker.disable()
     }
 
 }

@@ -1,5 +1,5 @@
 //
-//  Shim.swift
+//  Tracker.swift
 //  Hummingbird
 //
 //  Created by Sven A. Schmidt on 02/05/2019.
@@ -9,13 +9,13 @@
 import Cocoa
 
 
-class HBSTracking {
+class Tracker {
 
     // constants to throttle moving and resizing
     static let moveFilterInterval = 0.01
     static let resizeFilterInterval = 0.02
 
-    static var tracker: HBSTracking? = nil
+    static var tracker: Tracker? = nil
 
     static func enable() {
         tracker = .init()
@@ -136,7 +136,7 @@ class HBSTracking {
 
         trackingInfo.origin += event.mouseDelta
 
-        guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.moveFilterInterval else { return }
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
 
         window.origin = trackingInfo.origin
         trackingInfo.time = CACurrentMediaTime()
@@ -161,7 +161,7 @@ class HBSTracking {
         trackingInfo.origin += delta
         trackingInfo.size += delta
 
-        guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.resizeFilterInterval else { return }
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
 
         window.size = trackingInfo.size
         trackingInfo.time = CACurrentMediaTime()
@@ -205,7 +205,7 @@ private func disableTap(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
 
 private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
 
-    guard let tracker = HBSTracking.tracker else {
+    guard let tracker = Tracker.tracker else {
         print("🔴 tracker must not be nil")
         return Unmanaged.passRetained(event)
     }

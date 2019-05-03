@@ -1,8 +1,8 @@
 //
-//  Tracking.swift
+//  AXUIElement+ext.swift
 //  Hummingbird
 //
-//  Created by Sven A. Schmidt on 29/04/2019.
+//  Created by Sven A. Schmidt on 03/05/2019.
 //  Copyright © 2019 finestructure. All rights reserved.
 //
 
@@ -141,5 +141,5 @@ extension AXUIElement {
             }
         }
     }
-    
+
 }
