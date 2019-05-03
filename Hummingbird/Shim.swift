@@ -203,3 +203,16 @@ private func disableTap(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
     CGEvent.tapEnable(tap: eventTap, enable: false)
     CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes);
 }
+
+
+private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
+
+    guard let tracker = HBSTracking.tracker else {
+        print("🔴 tracker must not be nil")
+        return Unmanaged.passRetained(event)
+    }
+
+    let absortEvent = tracker.handleEvent(event, type: type)
+
+    return absortEvent ? nil : Unmanaged.passRetained(event)
+}

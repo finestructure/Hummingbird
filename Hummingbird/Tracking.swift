@@ -134,16 +134,3 @@ func setSize(_ size: CGSize, window: AXUIElement) -> Bool {
     }
     return res
 }
-
-
-func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-
-    guard let tracker = HBSTracking.tracker else {
-        print("🔴 tracker must not be nil")
-        return Unmanaged.passRetained(event)
-    }
-
-    let absortEvent = tracker.handleEvent(event, type: type)
-
-    return absortEvent ? nil : Unmanaged.passRetained(event)
-}
