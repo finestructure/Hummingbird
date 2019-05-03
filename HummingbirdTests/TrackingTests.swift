@@ -41,10 +41,10 @@ class TrackingTests: XCTestCase {
 
         // test read
         prefs.set(orig.rawValue, forKey: DefaultsKeys.moveModifiers.rawValue)
-        XCTAssertEqual(readModifiers(key: .moveModifiers, defaults: prefs), orig)
+        XCTAssertEqual(Modifiers(key: .moveModifiers, defaults: prefs), orig)
 
         // test save
-        saveModifiers(orig, key: .moveModifiers, defaults: prefs)
+        orig.save(key: .moveModifiers, defaults: prefs)
         guard let fetched = prefs.object(forKey: DefaultsKeys.moveModifiers.rawValue) as? UInt64 else {
             XCTFail()
             return

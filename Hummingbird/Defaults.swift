@@ -9,6 +9,23 @@
 import Foundation
 
 
+protocol UserDefaultable {
+    init?(key: DefaultsKeys, defaults: UserDefaults)
+    func save(key: DefaultsKeys, defaults: UserDefaults)
+}
+
+
+extension UserDefaultable {
+    init?(key: DefaultsKeys) {
+        self.init(key: key, defaults: .standard)
+    }
+
+    func save(key: DefaultsKeys) {
+        save(key: key, defaults: .standard)
+    }
+}
+
+
 enum DefaultsKeys: String {
     case moveModifiers = "MoveModifiers"
     case resizeModifiers = "ResizeModifiers"
@@ -23,27 +40,3 @@ let DefaultPreferences = [
     DefaultsKeys.moveModifiers.rawValue: DefaultMoveModifiers.rawValue,
     DefaultsKeys.resizeModifiers.rawValue: DefaultResizeModifiers.rawValue,
 ]
-
-
-func saveModifiers(_ value: Modifiers, key: DefaultsKeys, defaults: UserDefaults = .standard) {
-    defaults.set(value.rawValue, forKey: key.rawValue)
-}
-
-
-func readModifiers(key: DefaultsKeys, defaults: UserDefaults = .standard) -> Modifiers? {
-    guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
-    return Modifiers(rawValue: value)
-}
-
-
-extension Modifiers {
-
-    func toggle(_ modifier: Modifiers) -> Modifiers {
-        if self.contains(modifier) {
-            return self.subtracting(modifier)
-        } else {
-            return self.union(modifier)
-        }
-    }
-
-}

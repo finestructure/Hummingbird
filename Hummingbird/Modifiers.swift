@@ -27,6 +27,29 @@ struct Modifiers: OptionSet, Hashable {
 }
 
 
+extension Modifiers {
+    func toggle(_ modifier: Modifiers) -> Modifiers {
+        if self.contains(modifier) {
+            return self.subtracting(modifier)
+        } else {
+            return self.union(modifier)
+        }
+    }
+}
+
+
+extension Modifiers: UserDefaultable {
+    init?(key: DefaultsKeys, defaults: UserDefaults) {
+        guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
+        self = Modifiers(rawValue: value)
+    }
+
+    func save(key: DefaultsKeys, defaults: UserDefaults) {
+        defaults.set(self.rawValue, forKey: key.rawValue)
+    }
+}
+
+
 extension Modifiers: CustomStringConvertible {
     var description: String {
         func str(_ modifier: Modifiers) -> String {
