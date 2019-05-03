@@ -9,21 +9,6 @@
 import Cocoa
 
 
-class TrackingInfo {
-    var time: CFTimeInterval
-    var window: AXUIElement?
-    var origin: CGPoint
-    var size: CGSize
-
-    init() {
-        self.time = 0
-        self.window = nil
-        self.origin = CGPoint.zero
-        self.size = CGSize.zero
-    }
-}
-
-
 class HBSTracking {
 
     // constants to throttle moving and resizing
