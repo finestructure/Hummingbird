@@ -23,9 +23,27 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeShift: NSButton!
 
 
-    // TODO: do this in the equivalent of viewWillAppear
-    // https://stackoverflow.com/a/25981832/1444152
-    override func windowDidLoad() {
+    @IBAction func modifierClicked(_ sender: NSButton) {
+        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
+        let moveButtons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
+        let resizeButtons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
+        let modifierForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allModifiers + allModifiers))
+        if let modifier = modifierForButton[sender] {
+            if moveButtons.contains(sender) {
+                let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+                saveModifiers(modifiers.toggle(modifier), key: .moveModifiers)
+            } else if resizeButtons.contains(sender) {
+                let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+                saveModifiers(modifiers.toggle(modifier), key: .resizeModifiers)
+            }
+        }
+    }
+    
+}
+
+extension PreferencesController: NSWindowDelegate {
+
+    func windowDidChangeOcclusionState(_ notification: Notification) {
         let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
 
         do {
@@ -47,20 +65,4 @@ class PreferencesController: NSWindowController {
         }
     }
 
-    @IBAction func modifierClicked(_ sender: NSButton) {
-        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
-        let moveButtons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
-        let resizeButtons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
-        let modifierForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allModifiers + allModifiers))
-        if let modifier = modifierForButton[sender] {
-            if moveButtons.contains(sender) {
-                let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
-                saveModifiers(modifiers.toggle(modifier), key: .moveModifiers)
-            } else if resizeButtons.contains(sender) {
-                let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
-                saveModifiers(modifiers.toggle(modifier), key: .resizeModifiers)
-            }
-        }
-    }
-    
 }
