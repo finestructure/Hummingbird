@@ -134,7 +134,7 @@ class HBSTracking {
             return
         }
 
-        trackingInfo.origin = newPosition(event: event, from: trackingInfo.origin)
+        trackingInfo.origin += event.mouseDelta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.moveFilterInterval else { return }
 
@@ -158,8 +158,9 @@ class HBSTracking {
             return
         }
 
-        trackingInfo.origin = newPosition(event: event, from: trackingInfo.origin)
-        trackingInfo.size = newSize(event: event, from: trackingInfo.size)
+        let delta = event.mouseDelta
+        trackingInfo.origin += delta
+        trackingInfo.size += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > HBSTracking.resizeFilterInterval else { return }
 

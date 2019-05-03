@@ -77,20 +77,6 @@ func getTopLeft(window: AXUIElement) -> CGPoint {
 }
 
 
-func newPosition(event: CGEvent, from position: CGPoint) -> CGPoint {
-    let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
-    let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
-    return CGPoint(x: position.x + dx, y: position.y + dy)
-}
-
-
-func newSize(event: CGEvent, from size: CGSize) -> CGSize {
-    let dx = CGFloat(event.getDoubleValueField(.mouseEventDeltaX))
-    let dy = CGFloat(event.getDoubleValueField(.mouseEventDeltaY))
-    return CGSize(width: size.width + dx, height: size.height + dy)
-}
-
-
 func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
     var pos = position
     let res = withUnsafePointer(to: &pos) { posPtr -> Bool in
@@ -161,4 +147,3 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
 
     return absortEvent ? nil : Unmanaged.passRetained(event)
 }
-
