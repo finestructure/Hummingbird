@@ -9,26 +9,14 @@
 import Foundation
 
 
-protocol UserDefaultable {
-    init?(key: DefaultsKeys, defaults: UserDefaults)
-    func save(key: DefaultsKeys, defaults: UserDefaults)
-}
-
-
-extension UserDefaultable {
-    init?(key: DefaultsKeys) {
-        self.init(key: key, defaults: .standard)
-    }
-
-    func save(key: DefaultsKeys) {
-        save(key: key, defaults: .standard)
-    }
-}
+let defaults = UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? .standard
 
 
 enum DefaultsKeys: String {
-    case moveModifiers = "MoveModifiers"
-    case resizeModifiers = "ResizeModifiers"
+    case moveModifiers
+    case resizeModifiers
+    case distanceMoved
+    case areaResized
 }
 
 
@@ -39,4 +27,6 @@ let DefaultResizeModifiers: Modifiers = [.fn, .control, .alt]
 let DefaultPreferences = [
     DefaultsKeys.moveModifiers.rawValue: DefaultMoveModifiers.rawValue,
     DefaultsKeys.resizeModifiers.rawValue: DefaultResizeModifiers.rawValue,
+    DefaultsKeys.distanceMoved.rawValue: 0 as Any,
+    DefaultsKeys.areaResized.rawValue: 0 as Any
 ]

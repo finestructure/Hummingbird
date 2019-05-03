@@ -30,7 +30,7 @@ class Tracker {
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     private var currentState: State = .idle
-    private var metrics = Metrics()
+    private var metrics = Metrics(defaults: defaults)
 
     private init() {
         let res = enableTap()
@@ -125,8 +125,7 @@ class Tracker {
 
     private func stopTracking() {
         trackingInfo.time = 0
-        print("distance: \(metrics.distanceMoved)")
-        print("aread:    \(metrics.areaResized)")
+        metrics.save()
     }
 
 

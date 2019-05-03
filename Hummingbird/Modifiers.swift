@@ -38,13 +38,13 @@ extension Modifiers {
 }
 
 
-extension Modifiers: UserDefaultable {
-    init?(key: DefaultsKeys, defaults: UserDefaults) {
+extension Modifiers {
+    init?(key: DefaultsKeys, defaults: UserDefaults = defaults) {
         guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
         self = Modifiers(rawValue: value)
     }
 
-    func save(key: DefaultsKeys, defaults: UserDefaults) {
+    func save(key: DefaultsKeys, defaults: UserDefaults = defaults) {
         defaults.set(self.rawValue, forKey: key.rawValue)
     }
 }
