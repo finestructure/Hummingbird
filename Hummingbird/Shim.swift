@@ -11,8 +11,6 @@ import Cocoa
 
 @objc public class HBSTracking: NSObject {
 
-    static var prefs: PreferencesController? = nil
-
     @objc class func startTracking(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
@@ -134,13 +132,6 @@ import Cocoa
         menu.autoenablesItems = false
         menu.item(at: 0)?.isEnabled = false
         return statusItem
-    }
-
-    @objc class func showPreferences(sender: Any) {
-        if prefs == nil {
-            prefs = PreferencesController(windowNibName: "HBPreferencesController")
-        }
-        prefs?.window?.makeKeyAndOrderFront(sender)
     }
 
 }

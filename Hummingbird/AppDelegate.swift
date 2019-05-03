@@ -15,6 +15,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     @IBOutlet weak var disabledMenuItem: NSMenuItem!
 
+    lazy var preferencesController: PreferencesController = {
+        return PreferencesController(windowNibName: "HBPreferencesController")
+    }()
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.register(defaults: DefaultPreferences)
 
@@ -50,7 +54,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func showPreferences(_ sender: Any) {
-        HBSTracking.showPreferences(sender: sender)
+        preferencesController.window?.makeKeyAndOrderFront(sender)
     }
 
 }
