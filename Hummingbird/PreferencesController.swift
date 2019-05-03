@@ -25,39 +25,39 @@ class PreferencesController: NSWindowController {
 
     // TODO: do this in the equivalent of viewWillAppear
     override func windowDidLoad() {
-        let allFlags: [Flags] = [.alt, .command, .control, .fn, .shift]
+        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
 
         do {
-            let moveFlags = readFlags(key: .moveFlags) ?? DefaultMoveModifiers
+            let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
             let buttons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
-            let buttonForFlag = Dictionary(uniqueKeysWithValues: zip(allFlags, buttons))
-            for (flag, button) in buttonForFlag {
-                button?.state = moveFlags.contains(flag) ? .on : .off
+            let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
+            for (modifier, button) in buttonForModifier {
+                button?.state = modifiers.contains(modifier) ? .on : .off
             }
         }
 
         do {
-            let resizeFlags = readFlags(key: .resizeFlags) ?? DefaultResizeModifiers
+            let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
             let buttons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
-            let buttonForFlag = Dictionary(uniqueKeysWithValues: zip(allFlags, buttons))
-            for (flag, button) in buttonForFlag {
-                button?.state = resizeFlags.contains(flag) ? .on : .off
+            let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
+            for (modifier, button) in buttonForModifier {
+                button?.state = modifiers.contains(modifier) ? .on : .off
             }
         }
     }
 
     @IBAction func modifierClicked(_ sender: NSButton) {
-        let allFlags: [Flags] = [.alt, .command, .control, .fn, .shift]
+        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
         let moveButtons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
         let resizeButtons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
-        let flagForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allFlags + allFlags))
-        if let flag = flagForButton[sender] {
+        let modifierForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allModifiers + allModifiers))
+        if let modifier = modifierForButton[sender] {
             if moveButtons.contains(sender) {
-                let flags = readFlags(key: .moveFlags) ?? DefaultMoveModifiers
-                saveFlags(flags.toggle(flag), key: .moveFlags)
+                let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+                saveModifiers(modifiers.toggle(modifier), key: .moveModifiers)
             } else if resizeButtons.contains(sender) {
-                let flags = readFlags(key: .resizeFlags) ?? DefaultResizeModifiers
-                saveFlags(flags.toggle(flag), key: .resizeFlags)
+                let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+                saveModifiers(modifiers.toggle(modifier), key: .resizeModifiers)
             }
         }
     }

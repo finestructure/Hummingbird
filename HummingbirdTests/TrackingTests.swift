@@ -11,19 +11,19 @@ import XCTest
 
 class TrackingTests: XCTestCase {
 
-    func testFlags() {
-        XCTAssertEqual(Flags.shift.rawValue, CGEventFlags.maskShift.rawValue)
-        XCTAssertEqual(Flags.control.rawValue, CGEventFlags.maskControl.rawValue)
-        XCTAssertEqual(Flags.alt.rawValue, CGEventFlags.maskAlternate.rawValue)
-        XCTAssertEqual(Flags.command.rawValue, CGEventFlags.maskCommand.rawValue)
-        XCTAssertEqual(Flags.fn.rawValue, CGEventFlags.maskSecondaryFn.rawValue)
+    func testModifiers() {
+        XCTAssertEqual(Modifiers.shift.rawValue, CGEventFlags.maskShift.rawValue)
+        XCTAssertEqual(Modifiers.control.rawValue, CGEventFlags.maskControl.rawValue)
+        XCTAssertEqual(Modifiers.alt.rawValue, CGEventFlags.maskAlternate.rawValue)
+        XCTAssertEqual(Modifiers.command.rawValue, CGEventFlags.maskCommand.rawValue)
+        XCTAssertEqual(Modifiers.fn.rawValue, CGEventFlags.maskSecondaryFn.rawValue)
 
-        let flags: Flags = [.fn, .control]
-        XCTAssert(flags.exclusivelySet(in: [.maskSecondaryFn, .maskControl]))
+        let modifiers: Modifiers = [.fn, .control]
+        XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl]))
         // ignore non-modifier raw values
-        XCTAssert(flags.exclusivelySet(in: [.maskSecondaryFn, .maskControl, CGEventFlags.init(rawValue: 0x1)]))
-        XCTAssert(flags.exclusivelySet(in: [.maskSecondaryFn, .maskControl, .maskAlphaShift]))
-        XCTAssert(!flags.exclusivelySet(in: [.maskSecondaryFn]))
+        XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl, CGEventFlags.init(rawValue: 0x1)]))
+        XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl, .maskAlphaShift]))
+        XCTAssert(!modifiers.exclusivelySet(in: [.maskSecondaryFn]))
     }
 
     func testPrefs() {
@@ -32,25 +32,25 @@ class TrackingTests: XCTestCase {
         let prefs = UserDefaults.init(suiteName: suiteName)!
         prefs.removePersistentDomain(forName: suiteName)
 
-        let orig: Flags = [.fn, .control]
+        let orig: Modifiers = [.fn, .control]
 
         // test read
-        prefs.set(orig.rawValue, forKey: DefaultsKeys.moveFlags.rawValue)
-        XCTAssertEqual(readFlags(key: .moveFlags, defaults: prefs), orig)
+        prefs.set(orig.rawValue, forKey: DefaultsKeys.moveModifiers.rawValue)
+        XCTAssertEqual(readModifiers(key: .moveModifiers, defaults: prefs), orig)
 
         // test save
-        saveFlags(orig, key: .moveFlags, defaults: prefs)
-        guard let fetched = prefs.object(forKey: DefaultsKeys.moveFlags.rawValue) as? UInt64 else {
+        saveModifiers(orig, key: .moveModifiers, defaults: prefs)
+        guard let fetched = prefs.object(forKey: DefaultsKeys.moveModifiers.rawValue) as? UInt64 else {
             XCTFail()
             return
         }
-        XCTAssertEqual(Flags(rawValue: fetched), orig)
+        XCTAssertEqual(Modifiers(rawValue: fetched), orig)
     }
 
-    func testFlagToggle() {
-        let flags: Flags = [.fn, .control, .alt]
-        XCTAssertEqual(flags.toggle(.control), [.fn, .alt])
-        XCTAssertEqual(flags.toggle(.command), [.fn, .control, .alt, .command])
+    func testToggleModifier() {
+        let modifiers: Modifiers = [.fn, .control, .alt]
+        XCTAssertEqual(modifiers.toggle(.control), [.fn, .alt])
+        XCTAssertEqual(modifiers.toggle(.command), [.fn, .control, .alt, .command])
     }
 
 }

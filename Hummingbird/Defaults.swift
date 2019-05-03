@@ -10,39 +10,39 @@ import Foundation
 
 
 enum DefaultsKeys: String {
-    case moveFlags = "MoveModifiers"
-    case resizeFlags = "ResizeModifiers"
+    case moveModifiers = "MoveModifiers"
+    case resizeModifiers = "ResizeModifiers"
 }
 
 
-let DefaultMoveModifiers: Flags = [.fn, .control]
-let DefaultResizeModifiers: Flags = [.fn, .control, .alt]
+let DefaultMoveModifiers: Modifiers = [.fn, .control]
+let DefaultResizeModifiers: Modifiers = [.fn, .control, .alt]
 
 
 let DefaultPreferences = [
-    DefaultsKeys.moveFlags.rawValue: DefaultMoveModifiers.rawValue,
-    DefaultsKeys.resizeFlags.rawValue: DefaultResizeModifiers.rawValue,
+    DefaultsKeys.moveModifiers.rawValue: DefaultMoveModifiers.rawValue,
+    DefaultsKeys.resizeModifiers.rawValue: DefaultResizeModifiers.rawValue,
 ]
 
 
-func saveFlags(_ value: Flags, key: DefaultsKeys, defaults: UserDefaults = .standard) {
+func saveModifiers(_ value: Modifiers, key: DefaultsKeys, defaults: UserDefaults = .standard) {
     defaults.set(value.rawValue, forKey: key.rawValue)
 }
 
 
-func readFlags(key: DefaultsKeys, defaults: UserDefaults = .standard) -> Flags? {
+func readModifiers(key: DefaultsKeys, defaults: UserDefaults = .standard) -> Modifiers? {
     guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
-    return Flags(rawValue: value)
+    return Modifiers(rawValue: value)
 }
 
 
-extension Flags {
+extension Modifiers {
 
-    func toggle(_ flag: Flags) -> Flags {
-        if self.contains(flag) {
-            return self.subtracting(flag)
+    func toggle(_ modifier: Modifiers) -> Modifiers {
+        if self.contains(modifier) {
+            return self.subtracting(modifier)
         } else {
-            return self.union(flag)
+            return self.union(modifier)
         }
     }
 

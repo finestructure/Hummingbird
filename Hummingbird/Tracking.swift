@@ -167,19 +167,19 @@ func setSize(_ size: CGSize, window: AXUIElement) -> Bool {
 }
 
 
-struct Flags: OptionSet, Hashable {
+struct Modifiers: OptionSet, Hashable {
     let rawValue: UInt64
 
-    static let shift  = Flags(rawValue: CGEventFlags.maskShift.rawValue)
-    static let control  = Flags(rawValue: CGEventFlags.maskControl.rawValue)
-    static let alt  = Flags(rawValue: CGEventFlags.maskAlternate.rawValue)
-    static let command  = Flags(rawValue: CGEventFlags.maskCommand.rawValue)
-    static let fn  = Flags(rawValue: CGEventFlags.maskSecondaryFn.rawValue)
+    static let shift  = Modifiers(rawValue: CGEventFlags.maskShift.rawValue)
+    static let control  = Modifiers(rawValue: CGEventFlags.maskControl.rawValue)
+    static let alt  = Modifiers(rawValue: CGEventFlags.maskAlternate.rawValue)
+    static let command  = Modifiers(rawValue: CGEventFlags.maskCommand.rawValue)
+    static let fn  = Modifiers(rawValue: CGEventFlags.maskSecondaryFn.rawValue)
 
-    static var all: Flags = [.shift, .control, .alt, .command, .fn]
+    static var all: Modifiers = [.shift, .control, .alt, .command, .fn]
 
     func exclusivelySet(in eventFlags: CGEventFlags) -> Bool {
-        return self.intersection(.all) == Flags(rawValue: eventFlags.rawValue).intersection(.all)
+        return self.intersection(.all) == Modifiers(rawValue: eventFlags.rawValue).intersection(.all)
     }
 }
 

@@ -53,14 +53,14 @@ class HBSTracking {
         }
 
         // TODO: read from prefs
-        let moveFlags: Flags = [.fn, .control]
-        let resizeFlags: Flags = [.fn, .control, .alt]
+        let moveModifiers: Modifiers = [.fn, .control]
+        let resizeModifiers: Modifiers = [.fn, .control, .alt]
 
-        if moveFlags.isEmpty && resizeFlags.isEmpty { return false }
+        if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 
-        let eventFlags = event.flags
-        let move = moveFlags.exclusivelySet(in: eventFlags)
-        let resize = resizeFlags.exclusivelySet(in: eventFlags)
+        let eventModifiers = event.flags
+        let move = moveModifiers.exclusivelySet(in: eventModifiers)
+        let resize = resizeModifiers.exclusivelySet(in: eventModifiers)
 
         let nextState: State
         switch (move, resize) {
