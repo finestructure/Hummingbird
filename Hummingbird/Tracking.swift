@@ -194,16 +194,16 @@ enum State: Int {
 var currentState: State = .idle
 
 
-struct AppData {
-    let time: CFTimeInterval
-    let window: AXUIElement?
+class AppData {
+    var time: CFTimeInterval
+    var window: AXUIElement?
     let origin: CGPoint
     let size: CGSize
     let eventTap: CFMachPort
     let runLoopSource: CFRunLoopSource?
 
     init(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
-        self.time = CACurrentMediaTime()
+        self.time = 0
         self.window = nil
         self.origin = CGPoint.zero
         self.size = CGSize.zero

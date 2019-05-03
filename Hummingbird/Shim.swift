@@ -14,53 +14,77 @@ import Cocoa
     static var prefs: PreferencesController? = nil
 
     @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return
+        }
+
         if let tracking = _startTracking(event: event) {
-            moveResize.tracking = tracking.time
+            appData.time = tracking.time
             moveResize.wndPosition = tracking.position
-            moveResize.window = tracking.window
+            appData.window = tracking.window
         }
     }
 
     @objc class func stopTracking(moveResize: HBMoveResize) {
-        moveResize.tracking = 0
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return
+        }
+        appData.time = 0
     }
 
     @objc class func keepMoving(event: CGEvent, moveResize: HBMoveResize) {
-        guard moveResize.window != nil else {
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return
+        }
+        guard let window = appData.window else {
             print("No window!")
             return
         }
+
         moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
 
         let kMoveFilterInterval = 0.01
-        guard (CACurrentMediaTime() - moveResize.tracking) > kMoveFilterInterval else { return }
+        guard (CACurrentMediaTime() - appData.time) > kMoveFilterInterval else { return }
 
-        if setTopLeft(position: moveResize.wndPosition, window: moveResize.window) {
-            moveResize.tracking = CACurrentMediaTime()
+        if setTopLeft(position: moveResize.wndPosition, window: window) {
+            appData.time = CACurrentMediaTime()
         }
     }
 
     @discardableResult
     @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
-        guard let size = getSize(window: moveResize.window) else { return false }
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return false
+        }
+
+        guard let window = appData.window, let size = getSize(window: window) else { return false }
 
         moveResize.wndSize = size
         return true
     }
 
     @objc class func keepResizing(event: CGEvent, moveResize: HBMoveResize) {
-        guard moveResize.window != nil else {
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return
+        }
+        guard let window = appData.window else {
             print("No window!")
             return
         }
+
         moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
         moveResize.wndSize = newSize(event: event, from: moveResize.wndSize)
 
         let kMoveFilterInterval = 0.01
-        guard (CACurrentMediaTime() - moveResize.tracking) > kMoveFilterInterval else { return }
+        guard (CACurrentMediaTime() - appData.time) > kMoveFilterInterval else { return }
 
-        if setSize(moveResize.wndSize, window: moveResize.window) {
-            moveResize.tracking = CACurrentMediaTime()
+        if setSize(moveResize.wndSize, window: window) {
+            appData.time = CACurrentMediaTime()
         }
     }
 
