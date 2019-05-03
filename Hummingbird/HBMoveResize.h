@@ -29,8 +29,6 @@ struct ResizeSection {
 
 + (id) instance;
 
-@property CFMachPortRef eventTap;
-@property CFRunLoopSourceRef runLoopSource;
 @property struct ResizeSection resizeSection;
 @property AXUIElementRef window;
 @property CFTimeInterval tracking;

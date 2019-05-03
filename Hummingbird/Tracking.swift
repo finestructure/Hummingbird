@@ -192,7 +192,28 @@ enum State: Int {
 
 
 var currentState: State = .idle
-var tracking: Tracking? = nil
+
+
+struct AppData {
+    let time: CFTimeInterval
+    let window: AXUIElement?
+    let origin: CGPoint
+    let size: CGSize
+    let eventTap: CFMachPort
+    let runLoopSource: CFRunLoopSource?
+
+    init(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
+        self.time = CACurrentMediaTime()
+        self.window = nil
+        self.origin = CGPoint.zero
+        self.size = CGSize.zero
+        self.eventTap = eventTap
+        self.runLoopSource = runLoopSource
+    }
+}
+
+
+var appData: AppData? = nil
 
 
 func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
@@ -206,10 +227,14 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
     }
 
     let moveResize = HBMoveResize.instance() as! HBMoveResize
+    guard let appData = appData else {
+        print("🔴 appData must not be nil")
+        return Unmanaged.passRetained(event)
+    }
 
     if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
         // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
-        CGEvent.tapEnable(tap: moveResize.eventTap, enable: true)
+        CGEvent.tapEnable(tap: appData.eventTap, enable: true)
         print("Re-enabling")
         return Unmanaged.passRetained(event)
     }

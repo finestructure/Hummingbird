@@ -86,13 +86,17 @@ import Cocoa
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap, enable: true)
-        moveResize.eventTap = eventTap
-        moveResize.runLoopSource = runLoopSource
+
+        appData = AppData(eventTap: eventTap, runLoopSource: runLoopSource)
     }
 
     @objc class func disable(moveResize: HBMoveResize) {
-        CGEvent.tapEnable(tap: moveResize.eventTap, enable: false)
-        CFRunLoopRemoveSource(CFRunLoopGetCurrent(), moveResize.runLoopSource, .commonModes);
+        guard let appData = appData else {
+            print("🔴 appData must not be nil")
+            return
+        }
+        CGEvent.tapEnable(tap: appData.eventTap, enable: false)
+        CFRunLoopRemoveSource(CFRunLoopGetCurrent(), appData.runLoopSource, .commonModes);
     }
 
     @objc class func checkAXIsProcessTrusted() -> Bool {
