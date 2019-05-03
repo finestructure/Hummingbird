@@ -2,8 +2,6 @@
 
 @implementation HBMoveResize
 
-@synthesize wndPosition = _wndPosition;
-@synthesize wndSize = _wndSize;
 
 + (HBMoveResize*)instance {
     static HBMoveResize *instance = nil;

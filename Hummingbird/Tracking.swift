@@ -197,8 +197,8 @@ var currentState: State = .idle
 class AppData {
     var time: CFTimeInterval
     var window: AXUIElement?
-    let origin: CGPoint
-    let size: CGSize
+    var origin: CGPoint
+    var size: CGSize
     let eventTap: CFMachPort
     let runLoopSource: CFRunLoopSource?
 

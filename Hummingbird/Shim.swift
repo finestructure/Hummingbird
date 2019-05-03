@@ -21,7 +21,7 @@ import Cocoa
 
         if let tracking = _startTracking(event: event) {
             appData.time = tracking.time
-            moveResize.wndPosition = tracking.position
+            appData.origin = tracking.position
             appData.window = tracking.window
         }
     }
@@ -44,12 +44,12 @@ import Cocoa
             return
         }
 
-        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
+        appData.origin = newPosition(event: event, from: appData.origin)
 
         let kMoveFilterInterval = 0.01
         guard (CACurrentMediaTime() - appData.time) > kMoveFilterInterval else { return }
 
-        if setTopLeft(position: moveResize.wndPosition, window: window) {
+        if setTopLeft(position: appData.origin, window: window) {
             appData.time = CACurrentMediaTime()
         }
     }
@@ -63,7 +63,7 @@ import Cocoa
 
         guard let window = appData.window, let size = getSize(window: window) else { return false }
 
-        moveResize.wndSize = size
+        appData.size = size
         return true
     }
 
@@ -77,13 +77,13 @@ import Cocoa
             return
         }
 
-        moveResize.wndPosition = newPosition(event: event, from: moveResize.wndPosition)
-        moveResize.wndSize = newSize(event: event, from: moveResize.wndSize)
+        appData.origin = newPosition(event: event, from: appData.origin)
+        appData.size = newSize(event: event, from: appData.size)
 
         let kMoveFilterInterval = 0.01
         guard (CACurrentMediaTime() - appData.time) > kMoveFilterInterval else { return }
 
-        if setSize(moveResize.wndSize, window: window) {
+        if setSize(appData.size, window: window) {
             appData.time = CACurrentMediaTime()
         }
     }
