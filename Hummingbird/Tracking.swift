@@ -191,83 +191,15 @@ enum State: Int {
 }
 
 
-var currentState: State = .idle
-
 
 func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-
-    // TODO: read from prefs
-    let moveFlags: Flags = [.fn, .control]
-    let resizeFlags: Flags = [.fn, .control, .alt]
-
-    if moveFlags.isEmpty && resizeFlags.isEmpty {
-        return Unmanaged.passRetained(event)
-    }
 
     guard let tracker = HBSTracking.tracker else {
         print("🔴 tracker must not be nil")
         return Unmanaged.passRetained(event)
     }
 
-    if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
-        // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
-        CGEvent.tapEnable(tap: tracker.eventTap, enable: true)
-        print("Re-enabling")
-        return Unmanaged.passRetained(event)
-    }
-
-    let eventFlags = event.flags
-    let move = moveFlags.exclusivelySet(in: eventFlags)
-    let resize = resizeFlags.exclusivelySet(in: eventFlags)
-
-    let nextState: State
-    switch (move, resize) {
-    case (true, false):
-        nextState = .moving
-    case (false, true):
-        nextState = .resizing
-    case (true, true):
-        // unreachable unless both options are identical, in which case we default to .moving
-        nextState = .moving
-    case (false, false):
-        // event is not for us
-        nextState = .idle
-    }
-
-    var absortEvent = false
-
-    switch (currentState, nextState) {
-    // .idle -> X
-    case (.idle, .idle):
-        // event is not for us
-        break
-    case (.idle, .moving):
-        tracker.startTracking(event: event)
-        absortEvent = true
-    case (.idle, .resizing):
-        tracker.startTracking(event: event)
-        tracker.determineResizeParams(event: event)
-        absortEvent = true
-
-    // .moving -> X
-    case (.moving, .idle):
-        tracker.stopTracking()
-    case (.moving, .moving):
-        tracker.keepMoving(event: event)
-    case (.moving, .resizing):
-        absortEvent = tracker.determineResizeParams(event: event)
-
-    // .resizing -> X
-    case (.resizing, .idle):
-        tracker.stopTracking()
-    case (.resizing, .moving):
-        tracker.startTracking(event: event)
-        absortEvent = true
-    case (.resizing, .resizing):
-        tracker.keepResizing(event: event)
-    }
-
-    currentState = nextState
+    let absortEvent = tracker.handleEvent(event, type: type)
 
     return absortEvent ? nil : Unmanaged.passRetained(event)
 }
