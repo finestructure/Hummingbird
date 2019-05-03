@@ -1,5 +1,5 @@
 //
-//  TrackingTests.swift
+//  HummingbirdTests.swift
 //  HummingbirdTests
 //
 //  Created by Sven A. Schmidt on 02/05/2019.
@@ -9,7 +9,7 @@
 import XCTest
 
 
-class TrackingTests: XCTestCase {
+class HummingbirdTests: XCTestCase {
 
     func testModifiers() {
         XCTAssertEqual(Modifiers.shift.rawValue, CGEventFlags.maskShift.rawValue)
@@ -61,4 +61,18 @@ class TrackingTests: XCTestCase {
     func testModifierCustomStringConvertible() {
         XCTAssertEqual("\(Modifiers([.fn, .control]))", "fn control")
     }
+
+    func testAreaDelta() {
+        do {
+            let a = CGSize(width: 2, height: 2)
+            let delta = CGPoint(x: 2, y: 1)
+            XCTAssertEqual(areaDelta(a: a, d: delta), 8.0)
+        }
+        do {
+            let a = CGSize(width: 2, height: 2)
+            let delta = CGPoint(x: 2, y: -1)
+            XCTAssertEqual(areaDelta(a: a, d: delta), 4.0)
+        }
+    }
+
 }
