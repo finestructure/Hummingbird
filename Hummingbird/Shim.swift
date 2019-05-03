@@ -9,9 +9,9 @@
 import Cocoa
 
 
-@objc public class HBSTracking: NSObject {
+class HBSTracking {
 
-    @objc class func startTracking(event: CGEvent) {
+    class func startTracking(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -24,7 +24,7 @@ import Cocoa
         }
     }
 
-    @objc class func stopTracking() {
+    class func stopTracking() {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -32,7 +32,7 @@ import Cocoa
         appData.time = 0
     }
 
-    @objc class func keepMoving(event: CGEvent) {
+    class func keepMoving(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -53,7 +53,7 @@ import Cocoa
     }
 
     @discardableResult
-    @objc class func determineResizeParams(event: CGEvent) -> Bool {
+    class func determineResizeParams(event: CGEvent) -> Bool {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return false
@@ -65,7 +65,7 @@ import Cocoa
         return true
     }
 
-    @objc class func keepResizing(event: CGEvent) {
+    class func keepResizing(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -86,7 +86,7 @@ import Cocoa
         }
     }
 
-    @objc class func enable() {
+    class func enable() {
         // https://stackoverflow.com/a/31898592/1444152
 
         let eventMask = (1 << CGEventType.mouseMoved.rawValue)
@@ -109,7 +109,7 @@ import Cocoa
         appData = AppData(eventTap: eventTap, runLoopSource: runLoopSource)
     }
 
-    @objc class func disable() {
+    class func disable() {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
