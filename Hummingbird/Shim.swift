@@ -116,11 +116,10 @@ class HBSTracking {
 
 
     private func startTracking(event: CGEvent) {
-        if let tracking = _startTracking(event: event) {
-            trackingInfo.time = tracking.time
-            trackingInfo.origin = tracking.position
-            trackingInfo.window = tracking.window
-        }
+        guard let clickedWindow = getWindow(at: event.location) else { return }
+        trackingInfo.time = CACurrentMediaTime()
+        trackingInfo.origin = getTopLeft(window: clickedWindow)
+        trackingInfo.window = clickedWindow
     }
 
 

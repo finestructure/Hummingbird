@@ -91,23 +91,6 @@ func newSize(event: CGEvent, from size: CGSize) -> CGSize {
 }
 
 
-struct Tracking {
-    let time: CFTimeInterval
-    let window: AXUIElement
-    let position: CGPoint
-}
-
-
-func _startTracking(event: CGEvent) -> Tracking? {
-    let time = CACurrentMediaTime()
-
-    guard let clickedWindow = getWindow(at: event.location) else { return nil }
-    let topLeft = getTopLeft(window: clickedWindow)
-
-    return Tracking(time: time, window: clickedWindow, position: topLeft)
-}
-
-
 func setTopLeft(position: CGPoint, window: AXUIElement) -> Bool {
     var pos = position
     let res = withUnsafePointer(to: &pos) { posPtr -> Bool in
