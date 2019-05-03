@@ -52,9 +52,8 @@ class Tracker {
             return false
         }
 
-        // TODO: read from prefs
-        let moveModifiers: Modifiers = [.fn, .control]
-        let resizeModifiers: Modifiers = [.fn, .control, .alt]
+        let moveModifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+        let resizeModifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 

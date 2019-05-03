@@ -24,6 +24,7 @@ class PreferencesController: NSWindowController {
 
 
     // TODO: do this in the equivalent of viewWillAppear
+    // https://stackoverflow.com/a/25981832/1444152
     override func windowDidLoad() {
         let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
 
