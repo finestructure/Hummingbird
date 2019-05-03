@@ -7,21 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B5E8F51C513E3D0055C181 /* HBPreferences.m */; };
-		5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */; };
+		5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */; };
+		5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
+		5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
+		5A45FBAF227B1BB800DC184E /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Tracker.swift */; };
+		5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCC227B281E00DC184E /* AppDelegate.swift */; };
+		5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Tracker.swift */; };
+		5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCF227B3EF000DC184E /* PreferencesController.swift */; };
+		5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCF227B3EF000DC184E /* PreferencesController.swift */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
-		5ABC799320CD78C100B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
-		5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799020CD6D0E00B22173 /* HBHelperTest.m */; };
-		5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABC799220CD78C100B22173 /* HBHelper.m */; };
-		65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CF01641F229C34002259F2 /* HBPreferencesTest.m */; };
+		5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
+		5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
+		5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */; };
+		5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */; };
+		5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910F227C418200B78C47 /* Modifiers.swift */; };
+		5A8F9111227C418200B78C47 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910F227C418200B78C47 /* Modifiers.swift */; };
+		5A8F9113227C41C800B78C47 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9112227C41C800B78C47 /* State.swift */; };
+		5A8F9114227C41C800B78C47 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9112227C41C800B78C47 /* State.swift */; };
+		5A8F9116227C460100B78C47 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9115227C460100B78C47 /* Operators.swift */; };
+		5A8F9117227C460100B78C47 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9115227C460100B78C47 /* Operators.swift */; };
+		5A8F9119227C461D00B78C47 /* CGEvent+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */; };
+		5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */; };
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
-		6ED47B71183BF3E800859244 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B70183BF3E800859244 /* main.m */; };
-		6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED47B77183BF3E800859244 /* AppDelegate.m */; };
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
 		6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B7C183BF3E800859244 /* Images.xcassets */; };
 		B02F18934323BB42D8CCAB05 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02F125CE1BC18D269C53372 /* QuartzCore.framework */; };
-		F907A25928093AED2C89550E /* HBMoveResize.m in Sources */ = {isa = PBXBuildFile; fileRef = F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */; };
 		F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */ = {isa = PBXBuildFile; fileRef = F907A3568D9301F4E6A9736F /* contributing.md */; };
 		F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = F907A4D20267246716869421 /* readme.md */; };
 /* End PBXBuildFile section */
@@ -37,17 +48,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		52B5E8F51C513E3D0055C181 /* HBPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPreferences.m; sourceTree = "<group>"; };
-		52B5E8F81C513E7A0055C181 /* HBPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferences.h; sourceTree = "<group>"; };
+		5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTests.swift; sourceTree = "<group>"; };
+		5A1C2D93225B6E21002EC3AD /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hummingbird.entitlements; sourceTree = "<group>"; };
-		5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBPreferencesController.h; sourceTree = "<group>"; };
-		5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesController.m; sourceTree = "<group>"; };
+		5A45FBAE227B1BB800DC184E /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		5A45FBCC227B281E00DC184E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5A45FBCF227B3EF000DC184E /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
-		5ABC799020CD6D0E00B22173 /* HBHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelperTest.m; sourceTree = "<group>"; };
-		5ABC799220CD78C100B22173 /* HBHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBHelper.m; sourceTree = "<group>"; };
-		5ABC799720CD78F000B22173 /* HBHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBHelper.h; sourceTree = "<group>"; };
+		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
+		5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
+		5A8F910F227C418200B78C47 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		5A8F9112227C41C800B78C47 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		5A8F9115227C460100B78C47 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGEvent+ext.swift"; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CF01641F229C34002259F2 /* HBPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBPreferencesTest.m; sourceTree = "<group>"; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6ED47B61183BF3E800859244 /* Hummingbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hummingbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,10 +71,6 @@
 		6ED47B69183BF3E800859244 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Hummingbird-Info.plist"; sourceTree = "<group>"; };
 		6ED47B6E183BF3E800859244 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6ED47B70183BF3E800859244 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Prefix.pch"; sourceTree = "<group>"; };
-		6ED47B76183BF3E800859244 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6ED47B77183BF3E800859244 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6ED47B7C183BF3E800859244 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6ED47B83183BF3E800859244 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B02F125CE1BC18D269C53372 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -68,8 +78,6 @@
 		F907A3568D9301F4E6A9736F /* contributing.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = contributing.md; sourceTree = "<group>"; };
 		F907A4D20267246716869421 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = readme.md; sourceTree = "<group>"; };
 		F907AB0E17E61960C00A089F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
-		F907ACD4ED7B8961880D12BD /* HBMoveResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBMoveResize.h; sourceTree = "<group>"; };
-		F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBMoveResize.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,11 +100,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A1C2D96225B6E2F002EC3AD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
+				5A1C2D93225B6E21002EC3AD /* Defaults.swift */,
+				5A8F910F227C418200B78C47 /* Modifiers.swift */,
+				5A8F9115227C460100B78C47 /* Operators.swift */,
+				5A45FBCF227B3EF000DC184E /* PreferencesController.swift */,
+				5A8F9112227C41C800B78C47 /* State.swift */,
+				5A45FBAE227B1BB800DC184E /* Tracker.swift */,
+				5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */,
+				5A8F911B227C4CF600B78C47 /* Extensions */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		5A8F911B227C4CF600B78C47 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */,
+				5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
-				65CF01641F229C34002259F2 /* HBPreferencesTest.m */,
-				5ABC799020CD6D0E00B22173 /* HBHelperTest.m */,
+				5A0E2B8E227ACB55009CAA74 /* TrackingTests.swift */,
 				65CF01661F229C34002259F2 /* Info.plist */,
 			);
 			path = HummingbirdTests;
@@ -150,20 +182,11 @@
 			isa = PBXGroup;
 			children = (
 				5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */,
-				6ED47B76183BF3E800859244 /* AppDelegate.h */,
-				6ED47B77183BF3E800859244 /* AppDelegate.m */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
-				F907ACD4ED7B8961880D12BD /* HBMoveResize.h */,
-				F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */,
-				52B5E8F81C513E7A0055C181 /* HBPreferences.h */,
-				52B5E8F51C513E3D0055C181 /* HBPreferences.m */,
-				5ABC799720CD78F000B22173 /* HBHelper.h */,
-				5ABC799220CD78C100B22173 /* HBHelper.m */,
-				5A6B5BC920D1720000F7A36C /* HBPreferencesController.h */,
-				5A6B5BCA20D1720000F7A36C /* HBPreferencesController.m */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A1C2D96225B6E2F002EC3AD /* Sources */,
 			);
 			path = Hummingbird;
 			sourceTree = "<group>";
@@ -173,8 +196,6 @@
 			children = (
 				6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */,
 				6ED47B6D183BF3E800859244 /* InfoPlist.strings */,
-				6ED47B70183BF3E800859244 /* main.m */,
-				6ED47B72183BF3E800859244 /* Hummingbird-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -223,18 +244,19 @@
 		6ED47B59183BF3E800859244 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = EMR;
+				CLASSPREFIX = HB;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = "Daniel Marcotte";
+				ORGANIZATIONNAME = finestructure;
 				TargetAttributes = {
 					65CF01611F229C34002259F2 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = A42K5AU657;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 6ED47B60183BF3E800859244;
 					};
 					6ED47B60183BF3E800859244 = {
 						DevelopmentTeam = A42K5AU657;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -292,9 +314,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ABC799620CD78D900B22173 /* HBHelperTest.m in Sources */,
-				5ABC799820CD79BD00B22173 /* HBHelper.m in Sources */,
-				65CF01651F229C34002259F2 /* HBPreferencesTest.m in Sources */,
+				5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
+				5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */,
+				5A8F9111227C418200B78C47 /* Modifiers.swift in Sources */,
+				5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */,
+				5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */,
+				5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */,
+				5A0E2B8F227ACB55009CAA74 /* TrackingTests.swift in Sources */,
+				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
+				5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
+				5A8F9117227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,12 +331,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6ED47B71183BF3E800859244 /* main.m in Sources */,
-				5ABC799320CD78C100B22173 /* HBHelper.m in Sources */,
-				52B5E8F61C513E3D0055C181 /* HBPreferences.m in Sources */,
-				6ED47B78183BF3E800859244 /* AppDelegate.m in Sources */,
-				F907A25928093AED2C89550E /* HBMoveResize.m in Sources */,
-				5A6B5BCC20D1720000F7A36C /* HBPreferencesController.m in Sources */,
+				5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
+				5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */,
+				5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */,
+				5A45FBAF227B1BB800DC184E /* Tracker.swift in Sources */,
+				5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */,
+				5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */,
+				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
+				5A8F9113227C41C800B78C47 /* State.swift in Sources */,
+				5A8F9119227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
+				5A8F9116227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,19 +377,26 @@
 		65CF016A1F229C34002259F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Debug;
@@ -364,19 +404,25 @@
 		65CF016B1F229C34002259F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HummingbirdTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hummingbird.app/Contents/MacOS/Hummingbird";
 			};
 			name = Release;
@@ -429,7 +475,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -477,7 +523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -486,15 +532,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -503,15 +553,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Hummingbird/Hummingbird.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
