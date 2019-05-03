@@ -194,28 +194,6 @@ enum State: Int {
 var currentState: State = .idle
 
 
-class AppData {
-    var time: CFTimeInterval
-    var window: AXUIElement?
-    var origin: CGPoint
-    var size: CGSize
-    let eventTap: CFMachPort
-    let runLoopSource: CFRunLoopSource?
-
-    init(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
-        self.time = 0
-        self.window = nil
-        self.origin = CGPoint.zero
-        self.size = CGSize.zero
-        self.eventTap = eventTap
-        self.runLoopSource = runLoopSource
-    }
-}
-
-
-var appData: AppData? = nil
-
-
 func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
 
     // TODO: read from prefs
@@ -226,14 +204,14 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         return Unmanaged.passRetained(event)
     }
 
-    guard let appData = appData else {
-        print("🔴 appData must not be nil")
+    guard let tracker = HBSTracking.tracker else {
+        print("🔴 tracker must not be nil")
         return Unmanaged.passRetained(event)
     }
 
     if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
         // need to re-enable our eventTap (We got disabled.  Usually happens on a slow resizing app)
-        CGEvent.tapEnable(tap: appData.eventTap, enable: true)
+        CGEvent.tapEnable(tap: tracker.eventTap, enable: true)
         print("Re-enabling")
         return Unmanaged.passRetained(event)
     }
@@ -264,29 +242,29 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         // event is not for us
         break
     case (.idle, .moving):
-        HBSTracking.startTracking(event: event)
+        tracker.startTracking(event: event)
         absortEvent = true
     case (.idle, .resizing):
-        HBSTracking.startTracking(event: event)
-        HBSTracking.determineResizeParams(event: event)
+        tracker.startTracking(event: event)
+        tracker.determineResizeParams(event: event)
         absortEvent = true
 
     // .moving -> X
     case (.moving, .idle):
-        HBSTracking.stopTracking()
+        tracker.stopTracking()
     case (.moving, .moving):
-        HBSTracking.keepMoving(event: event)
+        tracker.keepMoving(event: event)
     case (.moving, .resizing):
-        absortEvent = HBSTracking.determineResizeParams(event: event)
+        absortEvent = tracker.determineResizeParams(event: event)
 
     // .resizing -> X
     case (.resizing, .idle):
-        HBSTracking.stopTracking()
+        tracker.stopTracking()
     case (.resizing, .moving):
-        HBSTracking.startTracking(event: event)
+        tracker.startTracking(event: event)
         absortEvent = true
     case (.resizing, .resizing):
-        HBSTracking.keepResizing(event: event)
+        tracker.keepResizing(event: event)
     }
 
     currentState = nextState
