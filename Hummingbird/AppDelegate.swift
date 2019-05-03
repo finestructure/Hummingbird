@@ -31,12 +31,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func enable() {
         disabledMenuItem.state = .off
-        HBSTracking.enable(moveResize: HBMoveResize.instance() as! HBMoveResize)
+        HBSTracking.enable()
     }
 
     func disable() {
         disabledMenuItem.state = .on
-        HBSTracking.disable(moveResize: HBMoveResize.instance() as! HBMoveResize)
+        HBSTracking.disable()
     }
 
     // IBActions

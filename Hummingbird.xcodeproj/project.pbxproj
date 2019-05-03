@@ -23,7 +23,6 @@
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
 		6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B7C183BF3E800859244 /* Images.xcassets */; };
 		B02F18934323BB42D8CCAB05 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02F125CE1BC18D269C53372 /* QuartzCore.framework */; };
-		F907A25928093AED2C89550E /* HBMoveResize.m in Sources */ = {isa = PBXBuildFile; fileRef = F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */; };
 		F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */ = {isa = PBXBuildFile; fileRef = F907A3568D9301F4E6A9736F /* contributing.md */; };
 		F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = F907A4D20267246716869421 /* readme.md */; };
 /* End PBXBuildFile section */
@@ -67,8 +66,6 @@
 		F907A3568D9301F4E6A9736F /* contributing.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = contributing.md; sourceTree = "<group>"; };
 		F907A4D20267246716869421 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = readme.md; sourceTree = "<group>"; };
 		F907AB0E17E61960C00A089F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
-		F907ACD4ED7B8961880D12BD /* HBMoveResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBMoveResize.h; sourceTree = "<group>"; };
-		F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBMoveResize.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,8 +162,6 @@
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
-				F907ACD4ED7B8961880D12BD /* HBMoveResize.h */,
-				F907AEB04B0AF90540F6EF00 /* HBMoveResize.m */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
 				5A1C2D96225B6E2F002EC3AD /* Swift */,
 			);
@@ -313,7 +308,6 @@
 				5A45FBAF227B1BB800DC184E /* Shim.swift in Sources */,
 				5A81BBC52276D8CC00881E2F /* Tracking.swift in Sources */,
 				5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */,
-				F907A25928093AED2C89550E /* HBMoveResize.m in Sources */,
 				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

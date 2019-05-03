@@ -226,7 +226,6 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         return Unmanaged.passRetained(event)
     }
 
-    let moveResize = HBMoveResize.instance() as! HBMoveResize
     guard let appData = appData else {
         print("🔴 appData must not be nil")
         return Unmanaged.passRetained(event)
@@ -265,29 +264,29 @@ func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent
         // event is not for us
         break
     case (.idle, .moving):
-        HBSTracking.startTracking(event: event, moveResize: moveResize)
+        HBSTracking.startTracking(event: event)
         absortEvent = true
     case (.idle, .resizing):
-        HBSTracking.startTracking(event: event, moveResize: moveResize)
-        HBSTracking.determineResizeParams(event: event, moveResize: moveResize)
+        HBSTracking.startTracking(event: event)
+        HBSTracking.determineResizeParams(event: event)
         absortEvent = true
 
     // .moving -> X
     case (.moving, .idle):
-        HBSTracking.stopTracking(moveResize: moveResize)
+        HBSTracking.stopTracking()
     case (.moving, .moving):
-        HBSTracking.keepMoving(event: event, moveResize: moveResize)
+        HBSTracking.keepMoving(event: event)
     case (.moving, .resizing):
-        absortEvent = HBSTracking.determineResizeParams(event: event, moveResize: moveResize)
+        absortEvent = HBSTracking.determineResizeParams(event: event)
 
     // .resizing -> X
     case (.resizing, .idle):
-        HBSTracking.stopTracking(moveResize: moveResize)
+        HBSTracking.stopTracking()
     case (.resizing, .moving):
-        HBSTracking.startTracking(event: event, moveResize: moveResize)
+        HBSTracking.startTracking(event: event)
         absortEvent = true
     case (.resizing, .resizing):
-        HBSTracking.keepResizing(event: event, moveResize: moveResize)
+        HBSTracking.keepResizing(event: event)
     }
 
     currentState = nextState

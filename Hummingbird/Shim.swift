@@ -13,7 +13,7 @@ import Cocoa
 
     static var prefs: PreferencesController? = nil
 
-    @objc class func startTracking(event: CGEvent, moveResize: HBMoveResize) {
+    @objc class func startTracking(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -26,7 +26,7 @@ import Cocoa
         }
     }
 
-    @objc class func stopTracking(moveResize: HBMoveResize) {
+    @objc class func stopTracking() {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -34,7 +34,7 @@ import Cocoa
         appData.time = 0
     }
 
-    @objc class func keepMoving(event: CGEvent, moveResize: HBMoveResize) {
+    @objc class func keepMoving(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -55,7 +55,7 @@ import Cocoa
     }
 
     @discardableResult
-    @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
+    @objc class func determineResizeParams(event: CGEvent) -> Bool {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return false
@@ -67,7 +67,7 @@ import Cocoa
         return true
     }
 
-    @objc class func keepResizing(event: CGEvent, moveResize: HBMoveResize) {
+    @objc class func keepResizing(event: CGEvent) {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
@@ -88,7 +88,7 @@ import Cocoa
         }
     }
 
-    @objc class func enable(moveResize: HBMoveResize) {
+    @objc class func enable() {
         // https://stackoverflow.com/a/31898592/1444152
 
         let eventMask = (1 << CGEventType.mouseMoved.rawValue)
@@ -111,7 +111,7 @@ import Cocoa
         appData = AppData(eventTap: eventTap, runLoopSource: runLoopSource)
     }
 
-    @objc class func disable(moveResize: HBMoveResize) {
+    @objc class func disable() {
         guard let appData = appData else {
             print("🔴 appData must not be nil")
             return
