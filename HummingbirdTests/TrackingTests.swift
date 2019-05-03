@@ -21,9 +21,14 @@ class TrackingTests: XCTestCase {
         let modifiers: Modifiers = [.fn, .control]
         XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl]))
         // ignore non-modifier raw values
-        XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl, CGEventFlags.init(rawValue: 0x1)]))
+        XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl, .init(rawValue: 0x1)]))
         XCTAssert(modifiers.exclusivelySet(in: [.maskSecondaryFn, .maskControl, .maskAlphaShift]))
         XCTAssert(!modifiers.exclusivelySet(in: [.maskSecondaryFn]))
+
+        do {
+            let mods: Modifiers = [.shift]
+            XCTAssert(mods.exclusivelySet(in: [.maskShift, .init(rawValue: 0x22)]))
+        }
     }
 
     func testPrefs() {
@@ -53,4 +58,7 @@ class TrackingTests: XCTestCase {
         XCTAssertEqual(modifiers.toggle(.command), [.fn, .control, .alt, .command])
     }
 
+    func testModifierCustomStringConvertible() {
+        XCTAssertEqual("\(Modifiers([.fn, .control]))", "fn control")
+    }
 }

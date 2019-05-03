@@ -181,12 +181,10 @@
 		6ED47B6A183BF3E800859244 /* Hummingbird */ = {
 			isa = PBXGroup;
 			children = (
-				5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */,
-				6ED47B79183BF3E800859244 /* MainMenu.xib */,
-				6ED47B7C183BF3E800859244 /* Images.xcassets */,
-				6ED47B6B183BF3E800859244 /* Supporting Files */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				5A1C2D96225B6E2F002EC3AD /* Sources */,
+				6ED47B6B183BF3E800859244 /* Supporting Files */,
 			);
 			path = Hummingbird;
 			sourceTree = "<group>";
@@ -194,7 +192,9 @@
 		6ED47B6B183BF3E800859244 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */,
 				6ED47B6C183BF3E800859244 /* Hummingbird-Info.plist */,
+				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6D183BF3E800859244 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";

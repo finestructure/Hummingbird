@@ -18,9 +18,36 @@ struct Modifiers: OptionSet, Hashable {
     static let command  = Modifiers(rawValue: CGEventFlags.maskCommand.rawValue)
     static let fn  = Modifiers(rawValue: CGEventFlags.maskSecondaryFn.rawValue)
 
-    static var all: Modifiers = [.shift, .control, .alt, .command, .fn]
+    private static var allArray: [Modifiers] = [.shift, .fn, .control, .alt, .command]
+    static var all: Modifiers = Modifiers(allArray)
 
     func exclusivelySet(in eventFlags: CGEventFlags) -> Bool {
         return self.intersection(.all) == Modifiers(rawValue: eventFlags.rawValue).intersection(.all)
+    }
+}
+
+
+extension Modifiers: CustomStringConvertible {
+    var description: String {
+        func str(_ modifier: Modifiers) -> String {
+            switch modifier {
+            case .shift:
+                return "shift"
+            case .control:
+                return "control"
+            case .alt:
+                return "alt"
+            case .command:
+                return "command"
+            case .fn:
+                return "fn"
+            default:
+                return "?"
+            }
+        }
+        let res = Modifiers.allArray.compactMap { m in
+            return self.contains(m) ? str(m) : nil
+        }
+        return res.joined(separator: " ")
     }
 }
