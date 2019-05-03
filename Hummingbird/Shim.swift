@@ -44,9 +44,6 @@ import Cocoa
     @objc class func determineResizeParams(event: CGEvent, moveResize: HBMoveResize) -> Bool {
         guard let size = getSize(window: moveResize.window) else { return false }
 
-        // TODO: remove hard-coded resize direction (right bottom)
-        let resizeSection = ResizeSection.init(xResizeDirection: ResizeDirectionX(rawValue: 0), yResizeDirection: ResizeSectionY(rawValue: 1))
-        moveResize.resizeSection = resizeSection
         moveResize.wndSize = size
         return true
     }

@@ -2,7 +2,6 @@
 
 @implementation HBMoveResize
 
-@synthesize resizeSection = _resizeSection;
 @synthesize tracking = _tracking;
 @synthesize wndPosition = _wndPosition;
 @synthesize wndSize = _wndSize;
