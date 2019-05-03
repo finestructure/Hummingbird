@@ -85,7 +85,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A1C2D96225B6E2F002EC3AD /* Swift */ = {
+		5A1C2D96225B6E2F002EC3AD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
@@ -94,7 +94,7 @@
 				5A45FBAE227B1BB800DC184E /* Shim.swift */,
 				5A81BBC42276D8CC00881E2F /* Tracking.swift */,
 			);
-			name = Swift;
+			name = Sources;
 			sourceTree = "<group>";
 		};
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
@@ -158,7 +158,7 @@
 				6ED47B7C183BF3E800859244 /* Images.xcassets */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
-				5A1C2D96225B6E2F002EC3AD /* Swift */,
+				5A1C2D96225B6E2F002EC3AD /* Sources */,
 			);
 			path = Hummingbird;
 			sourceTree = "<group>";
