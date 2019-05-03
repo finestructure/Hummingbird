@@ -15,14 +15,14 @@ class Tracker {
     static let moveFilterInterval = 0.01
     static let resizeFilterInterval = 0.02
 
-    static var tracker: Tracker? = nil
+    static var shared: Tracker? = nil
 
     static func enable() {
-        tracker = .init()
+        shared = .init()
     }
 
     static func disable() {
-        tracker = nil
+        shared = nil
     }
 
 
@@ -205,7 +205,7 @@ private func disableTap(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
 
 private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
 
-    guard let tracker = Tracker.tracker else {
+    guard let tracker = Tracker.shared else {
         print("🔴 tracker must not be nil")
         return Unmanaged.passRetained(event)
     }
