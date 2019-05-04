@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
-    @IBOutlet weak var disabledMenuItem: NSMenuItem!
+    @IBOutlet weak var enabledMenuItem: NSMenuItem!
 
     lazy var preferencesController: PreferencesController = {
         return PreferencesController(windowNibName: "HBPreferencesController")
@@ -33,7 +33,7 @@ extension AppDelegate {
         if AXIsProcessTrustedWithOptions(options) {
             enable()
         } else {
-            disabledMenuItem.state = .on
+            enabledMenuItem.state = .on
         }
     }
 
@@ -47,7 +47,6 @@ extension AppDelegate {
             return statusItem
         }()
         statusMenu.autoenablesItems = false
-        statusMenu.item(at: 0)?.isEnabled = false
     }
 
 }
@@ -57,12 +56,12 @@ extension AppDelegate {
 extension AppDelegate {
 
     func enable() {
-        disabledMenuItem.state = .off
+        enabledMenuItem.state = .on
         Tracker.enable()
     }
 
     func disable() {
-        disabledMenuItem.state = .on
+        enabledMenuItem.state = .off
         Tracker.disable()
     }
 
@@ -72,8 +71,8 @@ extension AppDelegate {
 // IBActions
 extension AppDelegate {
 
-    @IBAction func toggleDisabled(_ sender: Any) {
-        if disabledMenuItem.state == .off {
+    @IBAction func toggleEnabled(_ sender: Any) {
+        if enabledMenuItem.state == .on {
             disable()
         } else {
             enable()
