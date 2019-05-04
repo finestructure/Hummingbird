@@ -21,10 +21,10 @@ BOOL axiProcessTrusted() {
                                                  &kCFCopyStringDictionaryKeyCallBacks,
                                                  &kCFTypeDictionaryValueCallBacks);
 
-    if (!AXIsProcessTrustedWithOptions(options)) {
-        // don't have permission to do our thing right now... AXIsProcessTrustedWithOptions prompted the user to fix
+    if (AXIsProcessTrustedWithOptions(options)) {
         return YES;
     } else {
+        // don't have permission to do our thing right now... AXIsProcessTrustedWithOptions prompted the user to fix
         return NO;
     }
 }

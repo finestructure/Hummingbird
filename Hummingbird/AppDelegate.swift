@@ -31,7 +31,11 @@ extension AppDelegate {
 
         //        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         //        if AXIsProcessTrustedWithOptions(options) {
-        if axiProcessTrusted() {
+        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+        let options = [prompt: true] as CFDictionary
+        if AXIsProcessTrustedWithOptions(options) {
+
+//        if axiProcessTrusted() {
             print("trusted")
             enable()
         } else {
