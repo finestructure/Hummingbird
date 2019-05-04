@@ -32,6 +32,7 @@
 		5A8F911E227C7A2B00B78C47 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911C227C7A2B00B78C47 /* Metrics.swift */; };
 		5A8F9120227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
 		5A8F9121227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
+		5A8F9124227D94C300B78C47 /* AXIsProcessTrustedPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9123227D94C300B78C47 /* AXIsProcessTrustedPrompt.m */; };
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
@@ -67,6 +68,10 @@
 		5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGEvent+ext.swift"; sourceTree = "<group>"; };
 		5A8F911C227C7A2B00B78C47 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+ext.swift"; sourceTree = "<group>"; };
+		5A8F9122227D94C200B78C47 /* Hummingbird-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A8F9123227D94C300B78C47 /* AXIsProcessTrustedPrompt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AXIsProcessTrustedPrompt.m; sourceTree = "<group>"; };
+		5A8F9125227D958600B78C47 /* Hummingbird-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hummingbird-Prefix.pch"; sourceTree = "<group>"; };
+		5A8F9126227D95E500B78C47 /* AXIsProcessTrustedPrompt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AXIsProcessTrustedPrompt.h; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -109,6 +114,10 @@
 		5A1C2D96225B6E2F002EC3AD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5A8F9126227D95E500B78C47 /* AXIsProcessTrustedPrompt.h */,
+				5A8F9122227D94C200B78C47 /* Hummingbird-Bridging-Header.h */,
+				5A8F9123227D94C300B78C47 /* AXIsProcessTrustedPrompt.m */,
+				5A8F9125227D958600B78C47 /* Hummingbird-Prefix.pch */,
 				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
 				5A1C2D93225B6E21002EC3AD /* Defaults.swift */,
 				5A8F911C227C7A2B00B78C47 /* Metrics.swift */,
@@ -341,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8F9124227D94C300B78C47 /* AXIsProcessTrustedPrompt.m in Sources */,
 				5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
 				5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */,
 				5A8F911D227C7A2B00B78C47 /* Metrics.swift in Sources */,
@@ -555,6 +565,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/Hummingbird-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
@@ -576,6 +587,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "Hummingbird/Hummingbird-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
