@@ -649,13 +649,10 @@
         </menu>
         <menu id="obP-gH-pam">
             <items>
-                <menuItem title="Hummingbird" id="CjR-Hb-76H">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Disabled" id="Q0w-G0-Ppy">
+                <menuItem title="Enabled" id="Q0w-G0-Ppy">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="toggleDisabled:" target="494" id="t9F-ri-Nda"/>
+                        <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
@@ -666,7 +663,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="16Z-ZA-yWP"/>
-                <menuItem title="Exit" id="KM2-Wu-6qQ" userLabel="Exit">
+                <menuItem title="Quit" id="KM2-Wu-6qQ" userLabel="Exit">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="terminate:" target="-3" id="qoA-xp-PEb"/>
@@ -677,7 +674,7 @@
         </menu>
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
-                <outlet property="disabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
+                <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
             </connections>
         </customObject>
