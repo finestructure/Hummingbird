@@ -18,11 +18,15 @@ class Tracker {
     static var shared: Tracker? = nil
 
     static func enable() {
-        shared = .init()
+        shared = try? .init()
     }
 
     static func disable() {
         shared = nil
+    }
+
+    static var isActive: Bool {
+        return shared != nil
     }
 
 
@@ -32,8 +36,8 @@ class Tracker {
     private var currentState: State = .idle
     private var metrics = Metrics(defaults: defaults)
 
-    private init() {
-        let res = enableTap()
+    private init() throws {
+        let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
         trackingInfo = TrackingInfo()
@@ -175,7 +179,16 @@ class Tracker {
 }
 
 
-private func enableTap() -> (eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
+extension Tracker {
+
+    enum Error: Swift.Error {
+        case tapCreateFailed
+    }
+
+}
+
+
+private func enableTap() throws -> (eventTap: CFMachPort, runLoopSource: CFRunLoopSource?)  {
     print("Enabling event tap")
 
     // https://stackoverflow.com/a/31898592/1444152
@@ -190,7 +203,7 @@ private func enableTap() -> (eventTap: CFMachPort, runLoopSource: CFRunLoopSourc
         userInfo: nil
         ) else {
             print("failed to create event tap")
-            exit(1)
+            throw Tracker.Error.tapCreateFailed
     }
 
     let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)

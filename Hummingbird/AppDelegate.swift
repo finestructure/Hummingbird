@@ -59,13 +59,24 @@ extension AppDelegate {
 extension AppDelegate {
 
     func enable() {
-        enabledMenuItem.state = .on
         Tracker.enable()
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        if !Tracker.isActive {
+            let alert = NSAlert()
+            alert.messageText = "Failed to activate"
+            alert.informativeText = """
+            An error occurred while activating the mechanism to track mouse events.
+            
+            This can happen when the application has not been granted Accessibility access in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
+            """
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
     }
 
     func disable() {
-        enabledMenuItem.state = .off
         Tracker.disable()
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 
 }
