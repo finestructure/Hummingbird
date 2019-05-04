@@ -30,11 +30,11 @@ class PreferencesController: NSWindowController {
         let modifierForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allModifiers + allModifiers))
         if let modifier = modifierForButton[sender] {
             if moveButtons.contains(sender) {
-                let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
-                saveModifiers(modifiers.toggle(modifier), key: .moveModifiers)
+                let modifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+                modifiers.toggle(modifier).save(key: .moveModifiers)
             } else if resizeButtons.contains(sender) {
-                let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
-                saveModifiers(modifiers.toggle(modifier), key: .resizeModifiers)
+                let modifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+                modifiers.toggle(modifier).save(key: .resizeModifiers)
             }
         }
     }
@@ -47,7 +47,7 @@ extension PreferencesController: NSWindowDelegate {
         let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
 
         do {
-            let modifiers = readModifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+            let modifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
             let buttons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
             for (modifier, button) in buttonForModifier {
@@ -56,7 +56,7 @@ extension PreferencesController: NSWindowDelegate {
         }
 
         do {
-            let modifiers = readModifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+            let modifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
             let buttons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
             for (modifier, button) in buttonForModifier {

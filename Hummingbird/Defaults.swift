@@ -9,9 +9,14 @@
 import Foundation
 
 
+let defaults = UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? .standard
+
+
 enum DefaultsKeys: String {
-    case moveModifiers = "MoveModifiers"
-    case resizeModifiers = "ResizeModifiers"
+    case moveModifiers
+    case resizeModifiers
+    case distanceMoved
+    case areaResized
 }
 
 
@@ -22,28 +27,6 @@ let DefaultResizeModifiers: Modifiers = [.fn, .control, .alt]
 let DefaultPreferences = [
     DefaultsKeys.moveModifiers.rawValue: DefaultMoveModifiers.rawValue,
     DefaultsKeys.resizeModifiers.rawValue: DefaultResizeModifiers.rawValue,
+    DefaultsKeys.distanceMoved.rawValue: 0 as Any,
+    DefaultsKeys.areaResized.rawValue: 0 as Any
 ]
-
-
-func saveModifiers(_ value: Modifiers, key: DefaultsKeys, defaults: UserDefaults = .standard) {
-    defaults.set(value.rawValue, forKey: key.rawValue)
-}
-
-
-func readModifiers(key: DefaultsKeys, defaults: UserDefaults = .standard) -> Modifiers? {
-    guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
-    return Modifiers(rawValue: value)
-}
-
-
-extension Modifiers {
-
-    func toggle(_ modifier: Modifiers) -> Modifiers {
-        if self.contains(modifier) {
-            return self.subtracting(modifier)
-        } else {
-            return self.union(modifier)
-        }
-    }
-
-}

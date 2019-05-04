@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        UserDefaults.standard.register(defaults: DefaultPreferences)
+        defaults.register(defaults: DefaultPreferences)
 
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         if AXIsProcessTrustedWithOptions(options) {
