@@ -17,7 +17,8 @@ extension AXUIElement {
         let systemwideElement = AXUIElementCreateSystemWide()
 
         withUnsafeMutablePointer(to: &element) { elementPtr in
-            if .success == AXUIElementCopyElementAtPosition(systemwideElement, Float(position.x), Float(position.y), elementPtr) {
+            let res = AXUIElementCopyElementAtPosition(systemwideElement, Float(position.x), Float(position.y), elementPtr)
+            if .success == res {
                 guard let element = elementPtr.pointee else { return }
                 do {
                     var role: CFTypeRef?
@@ -40,6 +41,8 @@ extension AXUIElement {
                         }
                     }
                 }
+            } else {
+                print("AXUIElementCopyElementAtPosition failed")
             }
         }
 
@@ -57,7 +60,7 @@ extension AXUIElement {
                 case .success:
                     guard let ref = refPtr.pointee else { break }
                     let success = withUnsafeMutablePointer(to: &pos) { ptr in
-                        AXValueGetValue(ref as! AXValue, .cgPoint, ptr)
+                        AXValueGetValue(ref as! AXValue, AXValueType.cgPoint(), ptr)
                     }
                     if !success {
                         print("ERROR: Could not decode position")
@@ -74,7 +77,7 @@ extension AXUIElement {
         set {
             guard var newValue = newValue else { return }
             let success = withUnsafePointer(to: &newValue) { ptr -> Bool in
-                if let position = AXValueCreate(.cgPoint, ptr) {
+                if let position = AXValueCreate(AXValueType.cgPoint(), ptr) {
                     switch AXUIElementSetAttributeValue(self, NSAccessibility.Attribute.position as CFString, position) {
                     case .success:
                         return true
@@ -101,7 +104,7 @@ extension AXUIElement {
                 case .success:
                     guard let ref = refPtr.pointee else { break }
                     let success = withUnsafeMutablePointer(to: &size) { sizePtr in
-                        AXValueGetValue(ref as! AXValue, .cgSize, sizePtr)
+                        AXValueGetValue(ref as! AXValue, AXValueType.cgSize(), sizePtr)
                     }
                     if !success {
                         print("ERROR: Could not decode size")
@@ -118,7 +121,7 @@ extension AXUIElement {
         set {
             guard var newValue = newValue else { return }
             let success = withUnsafePointer(to: &newValue) { ptr -> Bool in
-                if let size = AXValueCreate(.cgSize, ptr) {
+                if let size = AXValueCreate(AXValueType.cgSize(), ptr) {
                     switch AXUIElementSetAttributeValue(self, NSAccessibility.Attribute.size as CFString, size) {
                     case .success:
                         return true
@@ -134,4 +137,11 @@ extension AXUIElement {
         }
     }
 
+}
+
+
+extension AXValueType {
+    // AXValueType.cgPoint, .cgSize are 10.11+ only, we want this to compile on 10.9 as well
+    static func cgPoint() -> AXValueType { return AXValueType(rawValue: kAXValueCGPointType)! }
+    static func cgSize() -> AXValueType { return AXValueType(rawValue: kAXValueCGSizeType)! }
 }

@@ -1,0 +1,13 @@
+//
+//  Hummingbird-Prefix.pch
+//  Hummingbird
+//
+//  Created by Sven A. Schmidt on 05/05/2019.
+//  Copyright © 2019 finestructure. All rights reserved.
+//
+
+#ifndef Hummingbird_Prefix_h
+#define Hummingbird_Prefix_h
+
+
+#endif /* Hummingbird_Prefix_h */
