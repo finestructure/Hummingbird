@@ -29,14 +29,15 @@ extension AppDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         defaults.register(defaults: DefaultPreferences)
 
-        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let options = [prompt: true] as CFDictionary
-        if AXIsProcessTrustedWithOptions(options) {
+        if isTrusted() {
             print("trusted")
             enable()
         } else {
             print("trust check FAILED")
             enabledMenuItem.state = .off
+            // we now try to enable, because the trust prompt only kicks in then
+            Tracker.enable()
+            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
         }
     }
 
@@ -57,6 +58,12 @@ extension AppDelegate {
 
 // Helpers
 extension AppDelegate {
+
+    func isTrusted() -> Bool {
+        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+        let options = [prompt: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
+    }
 
     func enable() {
         Tracker.enable()
