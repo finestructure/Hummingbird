@@ -17,37 +17,27 @@ extension AXUIElement {
         let systemwideElement = AXUIElementCreateSystemWide()
 
         withUnsafeMutablePointer(to: &element) { elementPtr in
-            switch AXUIElementCopyElementAtPosition(systemwideElement, Float(position.x), Float(position.y), elementPtr) {
-            case .success:
-                guard let element = elementPtr.pointee else { break }
+            if .success == AXUIElementCopyElementAtPosition(systemwideElement, Float(position.x), Float(position.y), elementPtr) {
+                guard let element = elementPtr.pointee else { return }
                 do {
                     var role: CFTypeRef?
                     withUnsafeMutablePointer(to: &role) { rolePtr in
-                        switch AXUIElementCopyAttributeValue(element, NSAccessibility.Attribute.role as CFString, rolePtr) {
-                        case .success:
-                            guard let role = rolePtr.pointee else { break }
-                            if (role as! NSAccessibility.Role) == NSAccessibility.Role.window {
-                                selected = element
-                            }
-                        default:
-                            break
+                        if
+                            .success == AXUIElementCopyAttributeValue(element, NSAccessibility.Attribute.role as CFString, rolePtr),
+                            let r = rolePtr.pointee as? NSAccessibility.Role,
+                            r == .window {
+                            selected = element
                         }
                     }
                 }
                 do {
                     var window: CFTypeRef?
                     withUnsafeMutablePointer(to: &window) { windowPtr in
-                        switch AXUIElementCopyAttributeValue(element, NSAccessibility.Attribute.window as CFString, windowPtr) {
-                        case .success:
-                            guard let window = windowPtr.pointee else { break }
-                            selected = (window as! AXUIElement)
-                        default:
-                            break
+                        if .success == AXUIElementCopyAttributeValue(element, NSAccessibility.Attribute.window as CFString, windowPtr) {
+                            selected = (windowPtr.pointee as! AXUIElement)
                         }
                     }
                 }
-            default:
-                break
             }
         }
 

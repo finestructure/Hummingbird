@@ -29,11 +29,15 @@ extension AppDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         defaults.register(defaults: DefaultPreferences)
 
-        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
-        if AXIsProcessTrustedWithOptions(options) {
+        if isTrusted() {
+            print("trusted")
             enable()
         } else {
-            enabledMenuItem.state = .on
+            print("trust check FAILED")
+            enabledMenuItem.state = .off
+            // we now try to enable, because the trust prompt only kicks in then
+            Tracker.enable()
+            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
         }
     }
 
@@ -55,14 +59,31 @@ extension AppDelegate {
 // Helpers
 extension AppDelegate {
 
+    func isTrusted() -> Bool {
+        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+        let options = [prompt: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
+    }
+
     func enable() {
-        enabledMenuItem.state = .on
         Tracker.enable()
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        if !Tracker.isActive {
+            let alert = NSAlert()
+            alert.messageText = "Failed to activate"
+            alert.informativeText = """
+            An error occurred while activating the mechanism to track mouse events.
+            
+            This can happen when the application has not been granted Accessibility access in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
+            """
+            alert.addButton(withTitle: "OK")
+            alert.runModal()
+        }
     }
 
     func disable() {
-        enabledMenuItem.state = .off
         Tracker.disable()
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 
 }
