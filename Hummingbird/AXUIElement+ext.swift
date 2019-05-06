@@ -27,7 +27,6 @@ extension AXUIElement {
                             let r = rolePtr.pointee as? NSAccessibility.Role,
                             r == .window {
                             selected = element
-                            print("role")
                         }
                     }
                 }
@@ -36,7 +35,6 @@ extension AXUIElement {
                     withUnsafeMutablePointer(to: &window) { windowPtr in
                         if .success == AXUIElementCopyAttributeValue(element, NSAccessibility.Attribute.window as CFString, windowPtr) {
                             selected = (windowPtr.pointee as! AXUIElement)
-                            print("window")
                         }
                     }
                 }
