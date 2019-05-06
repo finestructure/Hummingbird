@@ -134,19 +134,9 @@ class Tracker {
 
 
     private func keepMoving(event: CGEvent) {
-//        guard let window = trackingInfo.window else {
-//            print("No window!")
-//            return
-//        }
-        var window: AXUIElement
-        if let w = trackingInfo.window {
-            window = w
-        } else {
-            guard let w = getWindow(event)?.takeRetainedValue() else {
-                print("No window!")
-                return
-            }
-            window = w
+        guard let window = trackingInfo.window else {
+            print("No window!")
+            return
         }
 
         let delta = event.mouseDelta
