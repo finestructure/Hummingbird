@@ -655,6 +655,9 @@
                         <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Stats" id="rJK-PF-i25">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -678,6 +681,7 @@
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
                 <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
+                <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
                 <outlet property="versionMenuItem" destination="kcl-fA-tiB" id="VQB-ps-gX5"/>
             </connections>

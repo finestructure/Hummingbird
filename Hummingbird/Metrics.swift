@@ -29,6 +29,13 @@ extension Metrics {
 }
 
 
+extension DefaultStringInterpolation {
+    mutating func appendInterpolation(_ value: Metrics) {
+        appendInterpolation("Distance: \(Int(value.distanceMoved)), Area: \(Int(value.areaResized))")
+    }
+}
+
+
 func areaDelta(a: CGSize, d: CGPoint) -> CGFloat {
     return (d.magnitude >= 0 ? d.x * d.y : 0) + abs(d.x) * a.height + a.width * abs(d.y)
 }

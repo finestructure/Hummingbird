@@ -75,4 +75,11 @@ class HummingbirdTests: XCTestCase {
         }
     }
 
+    func testMetricsInterpolation() {
+        do {
+            let m = Metrics(distanceMoved: 42, areaResized: 99)
+            XCTAssertEqual("\(m)", "Distance: 42, Area: 99")
+        }
+    }
+
 }

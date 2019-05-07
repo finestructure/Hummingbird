@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
     @IBOutlet weak var enabledMenuItem: NSMenuItem!
+    @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
     lazy var preferencesController: PreferencesController = {
@@ -61,8 +62,13 @@ extension AppDelegate {
 
 extension AppDelegate: NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
-        let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
-        versionMenuItem.isHidden = !hidden
+        do {
+            let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
+            versionMenuItem.isHidden = !hidden
+        }
+        if let tracker = Tracker.shared {
+            statsMenuItem.title = "\(tracker.metrics)"
+        }
     }
 }
 
