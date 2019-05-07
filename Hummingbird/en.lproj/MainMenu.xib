@@ -663,6 +663,9 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="16Z-ZA-yWP"/>
+                <menuItem title="Version" enabled="NO" id="kcl-fA-tiB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
                 <menuItem title="Quit" id="KM2-Wu-6qQ" userLabel="Exit">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -670,12 +673,13 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-156" y="484.5"/>
+            <point key="canvasLocation" x="26" y="267"/>
         </menu>
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
                 <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
+                <outlet property="versionMenuItem" destination="kcl-fA-tiB" id="VQB-ps-gX5"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
