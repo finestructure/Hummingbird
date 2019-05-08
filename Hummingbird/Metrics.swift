@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Metrics {
+struct Metrics: Equatable {
     var distanceMoved: CGFloat = 0
     var areaResized: CGFloat = 0
 }
