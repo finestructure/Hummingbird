@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 
 @NSApplicationMain
@@ -109,6 +110,27 @@ extension AppDelegate {
         return "\(shortVersion) (\(bundleVersion))"
     }
 
+    func sendNotification() {
+        if #available(OSX 10.14, *) {
+            guard let tracker = Tracker.shared else {
+                print("Tracker.shared is nil")
+                return
+            }
+            let content = UNMutableNotificationContent()
+            content.title = "New window fiddling milestone"
+            content.body = "\(tracker.metrics)"
+            let uuidString = UUID().uuidString
+            let request = UNNotificationRequest(identifier: uuidString,
+                                                content: content, trigger: nil)
+            let notificationCenter = UNUserNotificationCenter.current()
+            notificationCenter.add(request) { (error) in
+                if error != nil {
+                    print("Error while sending notification: \(error)")
+                }
+            }
+        }
+    }
+
 }
 
 
@@ -123,9 +145,14 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func statsClicked(_ sender: Any) {
+        sendNotification()
+    }
+
     @IBAction func showPreferences(_ sender: Any) {
         preferencesController.window?.makeKeyAndOrderFront(sender)
     }
+
 
 }
 
