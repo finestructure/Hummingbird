@@ -131,7 +131,9 @@ extension AppDelegate {
 
     @IBAction func statsClicked(_ sender: Any) {
         if #available(OSX 10.14, *) {
-            Notifications.send()
+            if _isDebugAssertConfiguration() {
+                Notifications.send()
+            }
         }
     }
 
