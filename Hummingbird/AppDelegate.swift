@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 
 @NSApplicationMain
@@ -31,6 +32,11 @@ extension AppDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusMenu.delegate = self
         defaults.register(defaults: DefaultPreferences)
+
+        if #available(OSX 10.14, *) { // set up notification actions
+            Notifications.registerCategories()
+            UNUserNotificationCenter.current().delegate = self
+        }
 
         if isTrusted() {
             print("trusted")
@@ -123,9 +129,33 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func statsClicked(_ sender: Any) {
+        if #available(OSX 10.14, *) {
+            if _isDebugAssertConfiguration() {
+                Notifications.send()
+            }
+        }
+    }
+
     @IBAction func showPreferences(_ sender: Any) {
         preferencesController.window?.makeKeyAndOrderFront(sender)
     }
 
+
 }
 
+
+// UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    @available(OSX 10.14, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.action {
+        case .turnOff?:
+            print("turn off")
+        case .show?:
+            print("show")
+        case .none:
+            print("no action")
+        }
+    }
+}
