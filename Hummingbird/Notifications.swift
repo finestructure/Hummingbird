@@ -12,7 +12,7 @@ import UserNotifications
 @available(OSX 10.14, *)
 struct Notifications {
 
-    enum MetricsMilestoneActions: String, CaseIterable {
+    enum Actions: String, CaseIterable {
         case turnOff = "TURN_OFF"
         case show = "SHOW"
 
@@ -29,6 +29,8 @@ struct Notifications {
             let options = UNNotificationActionOptions(rawValue: 0)
             return UNNotificationAction(identifier: self.rawValue, title: title, options: options)
         }
+
+        static var metricsMilestone: [Actions] { return [.turnOff, .show] }
     }
 
     enum Categories: String, CaseIterable {
@@ -38,7 +40,7 @@ struct Notifications {
             switch self {
             case .metricsMilestone:
                 return UNNotificationCategory(identifier: self.rawValue,
-                                              actions: MetricsMilestoneActions.allCases.map { $0.action },
+                                              actions: Actions.metricsMilestone.map { $0.action },
                                               intentIdentifiers: [],
                                               hiddenPreviewsBodyPlaceholder: "",
                                               options: .customDismissAction)
@@ -83,6 +85,16 @@ extension UNMutableNotificationContent {
         }
         get {
             return Notifications.Categories(rawValue: categoryIdentifier)
+        }
+    }
+}
+
+
+@available(OSX 10.14, *)
+extension UNNotificationResponse {
+    var action: Notifications.Actions? {
+        get {
+            return Notifications.Actions(rawValue: actionIdentifier)
         }
     }
 }

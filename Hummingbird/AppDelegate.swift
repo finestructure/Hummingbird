@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 
 @NSApplicationMain
@@ -32,6 +33,11 @@ extension AppDelegate {
         statusMenu.delegate = self
         defaults.register(defaults: DefaultPreferences)
 
+        if #available(OSX 10.14, *) { // set up notification actions
+            Notifications.registerCategories()
+            UNUserNotificationCenter.current().delegate = self
+        }
+
         if isTrusted() {
             print("trusted")
             enable()
@@ -55,9 +61,6 @@ extension AppDelegate {
         }()
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(version)"
-        if #available(OSX 10.14, *) { // set up notification actions
-            Notifications.registerCategories()
-        }
     }
 
 }
@@ -139,3 +142,18 @@ extension AppDelegate {
 
 }
 
+
+// UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    @available(OSX 10.14, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.action {
+        case .turnOff?:
+            print("turn off")
+        case .show?:
+            print("show")
+        case .none:
+            print("no action")
+        }
+    }
+}
