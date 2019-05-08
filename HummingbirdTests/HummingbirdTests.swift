@@ -75,10 +75,24 @@ class HummingbirdTests: XCTestCase {
         }
     }
 
+    func testFloatInterpolation() {
+        XCTAssertEqual("\(scaled: 0)", "0.0")
+        XCTAssertEqual("\(scaled: 1.2345)", "1.2")
+        XCTAssertEqual("\(scaled: 1.25)", "1.3")
+        XCTAssertEqual("\(scaled: 1234.5)", "1.2k")
+        XCTAssertEqual("\(scaled: 1254.5)", "1.3k")
+        XCTAssertEqual("\(scaled: 1234567.8)", "1.2M")
+        XCTAssertEqual("\(scaled: 1954567.8)", "2.0M")
+    }
+
     func testMetricsInterpolation() {
         do {
             let m = Metrics(distanceMoved: 42, areaResized: 99)
             XCTAssertEqual("\(m)", "Distance: 42, Area: 99")
+        }
+        do {
+            let m = Metrics(distanceMoved: 35307.18776075068, areaResized: 14870743)
+            XCTAssertEqual("\(m)", "Distance: 35.3k, Area: 14.9M")
         }
     }
 
