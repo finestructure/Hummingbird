@@ -34,7 +34,7 @@ class Tracker {
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     private var currentState: State = .idle
-    private var metrics = Metrics(defaults: defaults)
+    var metrics = Metrics(defaults: defaults)
 
     private init() throws {
         let res = try enableTap()
