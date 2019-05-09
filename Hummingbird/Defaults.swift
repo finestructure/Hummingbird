@@ -17,6 +17,7 @@ enum DefaultsKeys: String {
     case resizeModifiers
     case distanceMoved
     case areaResized
+    case history
 }
 
 

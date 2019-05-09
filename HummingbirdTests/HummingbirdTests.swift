@@ -32,11 +32,7 @@ class HummingbirdTests: XCTestCase {
     }
 
     func testPrefs() {
-        let bundleId = Bundle.main.bundleIdentifier!
-        let suiteName = "\(bundleId).tests"
-        let prefs = UserDefaults(suiteName: suiteName)!
-        prefs.removePersistentDomain(forName: suiteName)
-
+        let prefs = testUserDefaults()
         let orig: Modifiers = [.fn, .control]
 
         // test read

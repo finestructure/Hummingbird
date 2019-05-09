@@ -62,3 +62,43 @@ extension History {
     var count: Int { return history.count }
 
 }
+
+
+extension History: Sequence {
+    public struct Iterator: IteratorProtocol {
+        public typealias Element = (key: DateComponents, value: T)
+        var iterator: Dictionary<DateComponents, T>.Iterator
+
+        init(_ iterator: Dictionary<DateComponents, T>.Iterator) {
+            self.iterator = iterator
+        }
+
+        mutating public func next() -> Element? { return iterator.next() }
+    }
+
+    public func makeIterator() -> History.Iterator {
+        return Iterator(history.makeIterator())
+    }
+}
+
+
+extension History: Equatable where T: Equatable {}
+
+
+extension History: Codable where T: Codable {}
+
+
+extension History where T: Codable {
+
+    init?(defaults: UserDefaults) {
+        guard let data = defaults.data(forKey: DefaultsKeys.history.rawValue) else { return nil }
+        guard let decoded = try? PropertyListDecoder().decode(History<T>.self, from: data) else { return nil }
+        self = decoded
+    }
+
+    func save(defaults: UserDefaults = defaults) throws {
+        let data = try PropertyListEncoder().encode(self)
+        defaults.set(data, forKey: DefaultsKeys.history.rawValue)
+    }
+
+}

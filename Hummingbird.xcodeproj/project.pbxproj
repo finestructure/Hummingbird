@@ -19,6 +19,7 @@
 		5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461910228333ED0078E1B2 /* HistoryTests.swift */; };
 		5A461913228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
 		5A461914228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
+		5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191522847CF40078E1B2 /* TestUtils.swift */; };
 		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
 		5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
 		5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
@@ -65,6 +66,7 @@
 		5A46190E2282B0EA0078E1B2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A461910228333ED0078E1B2 /* HistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTests.swift; sourceTree = "<group>"; };
 		5A461912228334260078E1B2 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		5A46191522847CF40078E1B2 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
 		5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */,
 				65CF01661F229C34002259F2 /* Info.plist */,
 				5A461910228333ED0078E1B2 /* HistoryTests.swift */,
+				5A46191522847CF40078E1B2 /* TestUtils.swift */,
 			);
 			path = HummingbirdTests;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */,
 				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
 				5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
+				5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */,
 				5A8F9117227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

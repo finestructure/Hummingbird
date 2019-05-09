@@ -32,4 +32,30 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(h[today], m1)
     }
 
+    func testHistoryIterator() {
+        var h = History<Metrics>(depth: DateComponents(day: -7))
+        for i in 0..<10 {
+            h[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        }
+        XCTAssertEqual(h.count, 8)
+        let avgDist = h.reduce(0) { $0 + $1.value.distanceMoved } / CGFloat(h.count)
+        XCTAssertEqual(avgDist, 3.5)
+    }
+
+    func testHistoryPrefs() throws {
+        let prefs = testUserDefaults()
+        var orig = History<Metrics>(depth: DateComponents(day: -7))
+        for i in 0..<10 {
+            orig[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        }
+
+        // TODO: test read registered defaults
+
+        // test save
+        try orig.save(defaults: prefs)
+
+        // test read
+        XCTAssertEqual(History<Metrics>(defaults: prefs), orig)
+    }
+    
 }
