@@ -44,18 +44,20 @@ class HistoryTests: XCTestCase {
 
     func testHistoryPrefs() throws {
         let prefs = testUserDefaults()
+        prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
         var orig = History<Metrics>(depth: DateComponents(day: -7))
         for i in 0..<10 {
             orig[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
         }
 
-        // TODO: test read registered defaults
+        // test reading registered defaults
+        XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), DefaultHistory)
 
         // test save
-        try orig.save(defaults: prefs)
+        try orig.save(forKey: .history, defaults: prefs)
 
         // test read
-        XCTAssertEqual(History<Metrics>(defaults: prefs), orig)
+        XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), orig)
     }
     
 }

@@ -88,17 +88,22 @@ extension History: Equatable where T: Equatable {}
 extension History: Codable where T: Codable {}
 
 
-extension History where T: Codable {
+extension History: Defaultable where T: Codable {
 
-    init?(defaults: UserDefaults) {
-        guard let data = defaults.data(forKey: DefaultsKeys.history.rawValue) else { return nil }
+    static var defaultValue: Any {
+        let def = History<Metrics>(depth: DateComponents(day: -30))
+        return try! PropertyListEncoder().encode(def)
+    }
+
+    init?(forKey key: DefaultsKeys, defaults: UserDefaults) {
+        guard let data = defaults.data(forKey: key.rawValue) else { return nil }
         guard let decoded = try? PropertyListDecoder().decode(History<T>.self, from: data) else { return nil }
         self = decoded
     }
 
-    func save(defaults: UserDefaults = defaults) throws {
+    func save(forKey key: DefaultsKeys, defaults: UserDefaults) throws {
         let data = try PropertyListEncoder().encode(self)
-        defaults.set(data, forKey: DefaultsKeys.history.rawValue)
+        defaults.set(data, forKey: key.rawValue)
     }
 
 }
