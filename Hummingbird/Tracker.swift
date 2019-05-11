@@ -140,7 +140,7 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metricsHistory[.now]?.distanceMoved += delta.magnitude
+        metricsHistory.currentValue.distanceMoved += delta.magnitude
         trackingInfo.origin += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
@@ -165,8 +165,8 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metricsHistory[.now]?.distanceMoved += delta.magnitude
-        metricsHistory[.now]?.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+        metricsHistory.currentValue.distanceMoved += delta.magnitude
+        metricsHistory.currentValue.areaResized += areaDelta(a: trackingInfo.size, d: delta)
         trackingInfo.origin += delta
         trackingInfo.size += delta
 

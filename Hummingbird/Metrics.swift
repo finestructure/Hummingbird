@@ -46,6 +46,9 @@ extension DefaultStringInterpolation {
 }
 
 
+extension Metrics: Initializable { }
+
+
 func areaDelta(a: CGSize, d: CGPoint) -> CGFloat {
     return (d.magnitude >= 0 ? d.x * d.y : 0) + abs(d.x) * a.height + a.width * abs(d.y)
 }

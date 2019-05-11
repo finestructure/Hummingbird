@@ -9,7 +9,12 @@
 import Foundation
 
 
-struct History<T> {
+protocol Initializable {
+    init()
+}
+
+
+struct History<T: Initializable> {
     public let depth: DateComponents
     private var history: [DateComponents: T] = [:]
     init(depth: DateComponents) {
@@ -32,19 +37,19 @@ extension History {
         return truncate(date: date)
     }
 
-    var currentValue: T? {
+    var currentValue: T {
         get {
-            return history[now]
+            return history[now] ?? T()
         }
         set {
             history[now] = newValue
         }
     }
 
-    subscript(date: Date) -> T? {
+    subscript(date: Date) -> T {
         get {
             let truncated = truncate(date: date)
-            return history[truncated]
+            return history[truncated] ?? T()
         }
         set {
             let truncated = truncate(date: date)
