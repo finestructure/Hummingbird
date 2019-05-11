@@ -73,7 +73,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         if let tracker = Tracker.shared {
-            statsMenuItem.title = "\(tracker.metrics)"
+            statsMenuItem.title = "\(tracker.metricsHistory.currentValue)"
         }
     }
 }

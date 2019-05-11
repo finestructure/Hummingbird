@@ -34,7 +34,7 @@ class Tracker {
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     private var currentState: State = .idle
-    var metrics = Metrics(defaults: defaults)
+    var metricsHistory = History<Metrics>(forKey: .history, defaults: defaults)
 
     private init() throws {
         let res = try enableTap()
@@ -57,8 +57,8 @@ class Tracker {
             return false
         }
 
-        let moveModifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
-        let resizeModifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+        let moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+        let resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 
@@ -129,7 +129,7 @@ class Tracker {
 
     private func stopTracking() {
         trackingInfo.time = 0
-        metrics.save()
+        try? metricsHistory.save(forKey: .history, defaults: defaults)
     }
 
 
@@ -140,7 +140,7 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metrics.distanceMoved += delta.magnitude
+        metricsHistory.currentValue.distanceMoved += delta.magnitude
         trackingInfo.origin += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
@@ -165,8 +165,8 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metrics.distanceMoved += delta.magnitude
-        metrics.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+        metricsHistory.currentValue.distanceMoved += delta.magnitude
+        metricsHistory.currentValue.areaResized += areaDelta(a: trackingInfo.size, d: delta)
         trackingInfo.origin += delta
         trackingInfo.size += delta
 

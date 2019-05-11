@@ -9,23 +9,9 @@
 import Foundation
 
 
-struct Metrics {
+struct Metrics: Equatable, Codable {
     var distanceMoved: CGFloat = 0
     var areaResized: CGFloat = 0
-}
-
-
-extension Metrics {
-    init(defaults: UserDefaults) {
-        let distance = CGFloat(defaults.double(forKey: DefaultsKeys.distanceMoved.rawValue))
-        let area = CGFloat(defaults.double(forKey: DefaultsKeys.areaResized.rawValue))
-        self = Metrics(distanceMoved: distance, areaResized: area)
-    }
-
-    func save(defaults: UserDefaults = defaults) {
-        defaults.set(distanceMoved, forKey: DefaultsKeys.distanceMoved.rawValue)
-        defaults.set(areaResized, forKey: DefaultsKeys.areaResized.rawValue)
-    }
 }
 
 
@@ -58,6 +44,9 @@ extension DefaultStringInterpolation {
         appendInterpolation("Distance: \(scaled: Decimal(Double(value.distanceMoved))), Area: \(scaled: Decimal(Double(value.areaResized)))")
     }
 }
+
+
+extension Metrics: Initializable { }
 
 
 func areaDelta(a: CGSize, d: CGPoint) -> CGFloat {
