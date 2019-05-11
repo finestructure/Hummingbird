@@ -22,5 +22,17 @@ class MetricsTests: XCTestCase {
         }
     }
 
+    func test_areaDelta() {
+        do {
+            let a = CGSize(width: 2, height: 2)
+            let delta = CGPoint(x: 2, y: 1)
+            XCTAssertEqual(areaDelta(a: a, d: delta), 8.0)
+        }
+        do {
+            let a = CGSize(width: 2, height: 2)
+            let delta = CGPoint(x: 2, y: -1)
+            XCTAssertEqual(areaDelta(a: a, d: delta), 4.0)
+        }
+    }
 
 }
