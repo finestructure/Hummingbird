@@ -9,17 +9,36 @@
 import Foundation
 
 
-struct Modifiers: OptionSet, Hashable {
+protocol Kind {
+    static var defaultRawValue: UInt64 { get }
+}
+
+
+enum Move: Kind {
+    static var defaultRawValue: UInt64 {
+        return CGEventFlags([.maskSecondaryFn, .maskControl]).rawValue
+    }
+}
+
+
+enum Resize: Kind {
+    static var defaultRawValue: UInt64 {
+        return CGEventFlags([.maskSecondaryFn, .maskControl, .maskAlternate]).rawValue
+    }
+}
+
+
+struct Modifiers<K: Kind>: OptionSet, Hashable {
     let rawValue: UInt64
 
-    static let shift  = Modifiers(rawValue: CGEventFlags.maskShift.rawValue)
-    static let control  = Modifiers(rawValue: CGEventFlags.maskControl.rawValue)
-    static let alt  = Modifiers(rawValue: CGEventFlags.maskAlternate.rawValue)
-    static let command  = Modifiers(rawValue: CGEventFlags.maskCommand.rawValue)
-    static let fn  = Modifiers(rawValue: CGEventFlags.maskSecondaryFn.rawValue)
+    static var shift: Modifiers { return Modifiers(rawValue: CGEventFlags.maskShift.rawValue) }
+    static var control: Modifiers { return Modifiers(rawValue: CGEventFlags.maskControl.rawValue) }
+    static var alt: Modifiers { return Modifiers(rawValue: CGEventFlags.maskAlternate.rawValue) }
+    static var command: Modifiers { return Modifiers(rawValue: CGEventFlags.maskCommand.rawValue) }
+    static var fn: Modifiers { return Modifiers(rawValue: CGEventFlags.maskSecondaryFn.rawValue) }
 
-    private static var allArray: [Modifiers] = [.shift, .fn, .control, .alt, .command]
-    static var all: Modifiers = Modifiers(allArray)
+    private static var allArray: [Modifiers] { return [.shift, .fn, .control, .alt, .command] }
+    private static var all: Modifiers { return Modifiers(allArray) }
 
     func exclusivelySet(in eventFlags: CGEventFlags) -> Bool {
         return self.intersection(.all) == Modifiers(rawValue: eventFlags.rawValue).intersection(.all)
@@ -34,18 +53,6 @@ extension Modifiers {
         } else {
             return self.union(modifier)
         }
-    }
-}
-
-
-extension Modifiers {
-    init?(key: DefaultsKeys, defaults: UserDefaults = defaults) {
-        guard let value = defaults.object(forKey: key.rawValue) as? UInt64 else { return nil }
-        self = Modifiers(rawValue: value)
-    }
-
-    func save(key: DefaultsKeys, defaults: UserDefaults = defaults) {
-        defaults.set(self.rawValue, forKey: key.rawValue)
     }
 }
 
@@ -72,5 +79,17 @@ extension Modifiers: CustomStringConvertible {
             return self.contains(m) ? str(m) : nil
         }
         return res.joined(separator: " ")
+    }
+}
+
+
+extension Modifiers: Defaultable {
+    static var defaultValue: Any { return K.defaultRawValue }
+    init(forKey key: DefaultsKeys, defaults: UserDefaults) {
+        let value = defaults.object(forKey: key.rawValue) as? UInt64 ?? K.defaultRawValue
+        self = Modifiers(rawValue: value)
+    }
+    func save(forKey key: DefaultsKeys, defaults: UserDefaults) throws {
+        defaults.set(rawValue, forKey: key.rawValue)
     }
 }

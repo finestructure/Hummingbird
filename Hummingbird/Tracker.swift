@@ -57,8 +57,8 @@ class Tracker {
             return false
         }
 
-        let moveModifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
-        let resizeModifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+        let moveModifiers = Modifiers<Move>(forKey: .moveModifiers)
+        let resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers)
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 

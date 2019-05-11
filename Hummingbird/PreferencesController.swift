@@ -24,17 +24,23 @@ class PreferencesController: NSWindowController {
 
 
     @IBAction func modifierClicked(_ sender: NSButton) {
-        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
         let moveButtons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
+        let moveModifiers: [Modifiers<Move>] = [.alt, .command, .control, .fn, .shift]
         let resizeButtons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
-        let modifierForButton = Dictionary(uniqueKeysWithValues: zip(moveButtons + resizeButtons, allModifiers + allModifiers))
+        let resizeModifiers: [Modifiers<Resize>] = [.alt, .command, .control, .fn, .shift]
+        let modifierForButton = Dictionary(
+            uniqueKeysWithValues: zip(moveButtons + resizeButtons,
+                                      moveModifiers.map { $0.rawValue } + resizeModifiers.map { $0.rawValue } )
+        )
         if let modifier = modifierForButton[sender] {
             if moveButtons.contains(sender) {
-                let modifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
-                modifiers.toggle(modifier).save(key: .moveModifiers)
+                let modifiers = Modifiers<Move>(forKey: .moveModifiers)
+                let m = Modifiers<Move>(rawValue: modifier)
+                try? modifiers.toggle(m).save(forKey: .moveModifiers)
             } else if resizeButtons.contains(sender) {
-                let modifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
-                modifiers.toggle(modifier).save(key: .resizeModifiers)
+                let modifiers = Modifiers<Resize>(forKey: .resizeModifiers)
+                let m = Modifiers<Resize>(rawValue: modifier)
+                try? modifiers.toggle(m).save(forKey: .resizeModifiers)
             }
         }
     }
@@ -44,23 +50,23 @@ class PreferencesController: NSWindowController {
 extension PreferencesController: NSWindowDelegate {
 
     func windowDidChangeOcclusionState(_ notification: Notification) {
-        let allModifiers: [Modifiers] = [.alt, .command, .control, .fn, .shift]
-
         do {
-            let modifiers = Modifiers(key: .moveModifiers) ?? DefaultMoveModifiers
+            let prefs = Modifiers<Move>(forKey: .moveModifiers)
             let buttons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
+            let allModifiers: [Modifiers<Move>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
             for (modifier, button) in buttonForModifier {
-                button?.state = modifiers.contains(modifier) ? .on : .off
+                button?.state = prefs.contains(modifier) ? .on : .off
             }
         }
 
         do {
-            let modifiers = Modifiers(key: .resizeModifiers) ?? DefaultResizeModifiers
+            let prefs = Modifiers<Resize>(forKey: .resizeModifiers)
             let buttons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
+            let allModifiers: [Modifiers<Resize>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
             for (modifier, button) in buttonForModifier {
-                button?.state = modifiers.contains(modifier) ? .on : .off
+                button?.state = prefs.contains(modifier) ? .on : .off
             }
         }
     }
