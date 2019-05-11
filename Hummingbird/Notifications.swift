@@ -55,13 +55,15 @@ struct Notifications {
     }
 
     static func send() {
-        guard let tracker = Tracker.shared else {
-            print("Tracker.shared is nil")
+        guard
+            let tracker = Tracker.shared,
+            let metrics = tracker.metricsHistory[.now] else {
+            print("no metrics")
             return
         }
         let content = UNMutableNotificationContent()
         content.title = "New window fiddling milestone"
-        content.body = "\(tracker.metrics)"
+        content.body = "\(metrics)"
         content.category = Categories.metricsMilestone
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)

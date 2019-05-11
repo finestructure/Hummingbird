@@ -13,26 +13,34 @@ func day(offset: Int) -> Date {
     return Calendar.current.date(byAdding: .day, value: offset, to: Date())!
 }
 
-let today = day(offset: 0)
 let yesterday = day(offset: -1)
 
 
 class HistoryTests: XCTestCase {
 
-    func testHistory() {
+    func test_basics() {
         let m0 = Metrics(distanceMoved: 1, areaResized: 2)
         let m1 = Metrics(distanceMoved: 3, areaResized: 4)
         var h = History<Metrics>(depth: DateComponents(day: -7))
-        h[today] = m0
+        h[.now] = m0
         XCTAssertEqual(h.count, 1)
-        XCTAssertEqual(h[today], m0)
+        XCTAssertEqual(h[.now], m0)
         XCTAssertEqual(h[yesterday], nil)
-        h[today] = m1
+        h[.now] = m1
         XCTAssertEqual(h.count, 1)
-        XCTAssertEqual(h[today], m1)
+        XCTAssertEqual(h[.now], m1)
     }
 
-    func testHistoryIterator() {
+    func test_modifyNested() {
+        let m0 = Metrics(distanceMoved: 1, areaResized: 2)
+        var h = History<Metrics>(depth: DateComponents(day: -7))
+        h[.now] = m0
+        XCTAssertEqual(h[.now]?.distanceMoved, 1)
+        h[.now]?.distanceMoved += 1
+        XCTAssertEqual(h[.now]?.distanceMoved, 2)
+    }
+
+    func test_iterator() {
         var h = History<Metrics>(depth: DateComponents(day: -7))
         for i in 0..<10 {
             h[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
@@ -42,7 +50,7 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(avgDist, 3.5)
     }
 
-    func testHistoryPrefs() throws {
+    func test_Defaultable() throws {
         let prefs = testUserDefaults()
         prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
         var orig = History<Metrics>(depth: DateComponents(day: -7))
