@@ -34,13 +34,13 @@ class PreferencesController: NSWindowController {
         )
         if let modifier = modifierForButton[sender] {
             if moveButtons.contains(sender) {
-                let modifiers = Modifiers<Move>(forKey: .moveModifiers)
+                let modifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
                 let m = Modifiers<Move>(rawValue: modifier)
-                try? modifiers.toggle(m).save(forKey: .moveModifiers)
+                try? modifiers.toggle(m).save(forKey: .moveModifiers, defaults: defaults)
             } else if resizeButtons.contains(sender) {
-                let modifiers = Modifiers<Resize>(forKey: .resizeModifiers)
+                let modifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
                 let m = Modifiers<Resize>(rawValue: modifier)
-                try? modifiers.toggle(m).save(forKey: .resizeModifiers)
+                try? modifiers.toggle(m).save(forKey: .resizeModifiers, defaults: defaults)
             }
         }
     }
@@ -51,7 +51,7 @@ extension PreferencesController: NSWindowDelegate {
 
     func windowDidChangeOcclusionState(_ notification: Notification) {
         do {
-            let prefs = Modifiers<Move>(forKey: .moveModifiers)
+            let prefs = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
             let buttons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
             let allModifiers: [Modifiers<Move>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
@@ -61,7 +61,7 @@ extension PreferencesController: NSWindowDelegate {
         }
 
         do {
-            let prefs = Modifiers<Resize>(forKey: .resizeModifiers)
+            let prefs = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
             let buttons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
             let allModifiers: [Modifiers<Resize>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))

@@ -37,12 +37,3 @@ protocol Defaultable {
     init(forKey: DefaultsKeys, defaults: UserDefaults)
     func save(forKey: DefaultsKeys, defaults: UserDefaults) throws
 }
-
-
-extension Defaultable {
-    init(forKey key: DefaultsKeys) { self.init(forKey: key, defaults: defaults) }
-
-    func save(forKey key: DefaultsKeys) throws {
-        try save(forKey: key, defaults: defaults)
-    }
-}
