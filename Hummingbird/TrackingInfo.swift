@@ -10,15 +10,10 @@ import Foundation
 
 
 class TrackingInfo {
-    var time: CFTimeInterval
-    var window: AXUIElement?
-    var origin: CGPoint
-    var size: CGSize
-
-    init() {
-        self.time = 0
-        self.window = nil
-        self.origin = CGPoint.zero
-        self.size = CGSize.zero
-    }
+    var time: CFTimeInterval = 0
+    var window: AXUIElement? = nil
+    var origin: CGPoint = .zero
+    var size: CGSize = .zero
+    var distanceMoved: CGFloat = 0
+    var areaResized: CGFloat = 0
 }
