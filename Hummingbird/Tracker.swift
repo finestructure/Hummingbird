@@ -34,8 +34,8 @@ class Tracker {
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     private var currentState: State = .idle
-    private let moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-    private let resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
+    private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+    private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
     var metricsHistory = History<Metrics>(forKey: .history, defaults: defaults)
 
     private init() throws {
@@ -43,11 +43,13 @@ class Tracker {
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
         trackingInfo = TrackingInfo()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: defaults)
     }
 
 
     deinit {
         disableTap(eventTap: eventTap, runLoopSource: runLoopSource)
+        NotificationCenter.default.removeObserver(self)
     }
 
 
@@ -177,6 +179,11 @@ class Tracker {
 
         window.size = trackingInfo.size
         trackingInfo.time = CACurrentMediaTime()
+    }
+
+    @objc private func updateModifiers() {
+        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
     }
 
 }
