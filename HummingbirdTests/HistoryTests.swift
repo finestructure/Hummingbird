@@ -76,5 +76,18 @@ class HistoryTests: XCTestCase {
         // test read
         XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), orig)
     }
-    
+
+    func test_aggregates() {
+        var h = History<Metrics>(depth: DateComponents(day: -7))
+        for i in 0..<10 {
+            h[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        }
+
+        XCTAssertEqual(h.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved, 7)
+        XCTAssertEqual(h.maxDistanceMoved, 7)
+        XCTAssertEqual(h.maxAreaResized, 14)
+
+        XCTAssertEqual(h.average, Metrics(distanceMoved: 3.5, areaResized: 7.0))
+    }
+
 }

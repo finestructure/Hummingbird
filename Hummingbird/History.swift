@@ -118,3 +118,29 @@ extension History: Defaultable where T == Metrics {
     }
 
 }
+
+
+// Stats methods
+extension History {
+    func max(by areInIncreasingOrder: ((DateComponents, T), (DateComponents, T)) throws -> Bool) rethrows -> (DateComponents, T)? {
+        return try history.max(by: areInIncreasingOrder)
+    }
+}
+
+
+extension History where T == Metrics {
+    var maxDistanceMoved: CGFloat? {
+       return history.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved
+    }
+
+    var maxAreaResized: CGFloat? {
+        return history.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized
+    }
+
+    var average: T? {
+        guard !history.isEmpty else { return nil }
+        let sum = history.values.reduce(T(), +)
+        let N = CGFloat(history.count)
+        return Metrics(distanceMoved: sum.distanceMoved/N, areaResized: sum.areaResized/N)
+    }
+}
