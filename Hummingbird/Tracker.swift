@@ -34,6 +34,8 @@ class Tracker {
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     private var currentState: State = .idle
+    private let moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+    private let resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
     var metricsHistory = History<Metrics>(forKey: .history, defaults: defaults)
 
     private init() throws {
@@ -56,9 +58,6 @@ class Tracker {
             CGEvent.tapEnable(tap: eventTap, enable: true)
             return false
         }
-
-        let moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-        let resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 
@@ -124,11 +123,15 @@ class Tracker {
         trackingInfo.time = CACurrentMediaTime()
         trackingInfo.origin = clickedWindow.origin ?? CGPoint.zero
         trackingInfo.window = clickedWindow
+        trackingInfo.distanceMoved = 0
+        trackingInfo.areaResized = 0
     }
 
 
     private func stopTracking() {
         trackingInfo.time = 0
+        metricsHistory.currentValue.distanceMoved += trackingInfo.distanceMoved
+        metricsHistory.currentValue.areaResized += trackingInfo.areaResized
         try? metricsHistory.save(forKey: .history, defaults: defaults)
     }
 
@@ -140,7 +143,7 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metricsHistory.currentValue.distanceMoved += delta.magnitude
+        trackingInfo.distanceMoved += delta.magnitude
         trackingInfo.origin += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
@@ -165,8 +168,8 @@ class Tracker {
         }
 
         let delta = event.mouseDelta
-        metricsHistory.currentValue.distanceMoved += delta.magnitude
-        metricsHistory.currentValue.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+        trackingInfo.distanceMoved += delta.magnitude
+        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
         trackingInfo.origin += delta
         trackingInfo.size += delta
 
