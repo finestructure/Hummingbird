@@ -32,12 +32,21 @@ class HistoryTests: XCTestCase {
     }
 
     func test_modifyNested() {
-        let m0 = Metrics(distanceMoved: 1, areaResized: 2)
-        var h = History<Metrics>(depth: DateComponents(day: -7))
-        h[.now] = m0
-        XCTAssertEqual(h[.now]?.distanceMoved, 1)
-        h[.now]?.distanceMoved += 1
-        XCTAssertEqual(h[.now]?.distanceMoved, 2)
+        do {  // currentValue
+            var h = History<Metrics>(depth: DateComponents(day: -7))
+            h.currentValue.distanceMoved += 1
+            XCTAssertEqual(h.currentValue.distanceMoved, 1)
+            h.currentValue.distanceMoved += 1
+            XCTAssertEqual(h.currentValue.distanceMoved, 2)
+        }
+        do {  // subscript
+            let m0 = Metrics(distanceMoved: 1, areaResized: 2)
+            var h = History<Metrics>(depth: DateComponents(day: -7))
+            h[.now] = m0
+            XCTAssertEqual(h[.now]?.distanceMoved, 1)
+            h[.now]?.distanceMoved += 1
+            XCTAssertEqual(h[.now]?.distanceMoved, 2)
+        }
     }
 
     func test_iterator() {

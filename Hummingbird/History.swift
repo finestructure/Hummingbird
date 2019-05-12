@@ -46,10 +46,10 @@ extension History {
         }
     }
 
-    subscript(date: Date) -> T {
+    subscript(date: Date) -> T? {
         get {
             let truncated = truncate(date: date)
-            return history[truncated] ?? T()
+            return history[truncated]
         }
         set {
             let truncated = truncate(date: date)
