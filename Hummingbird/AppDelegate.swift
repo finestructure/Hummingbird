@@ -77,9 +77,6 @@ extension AppDelegate: NSMenuDelegate {
             let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
             versionMenuItem.isHidden = !hidden
         }
-        if let tracker = Tracker.shared {
-            statsMenuItem.title = "\(tracker.metricsHistory.currentValue)"
-        }
     }
 }
 
