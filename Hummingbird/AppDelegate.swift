@@ -23,6 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return PreferencesController(windowNibName: "HBPreferencesController")
     }()
 
+    lazy var statsController: StatsController = {
+        return StatsController(nibName: "StatsController", bundle: nil)
+    }()
+
 }
 
 
@@ -61,6 +65,7 @@ extension AppDelegate {
         }()
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(version)"
+        statsMenuItem.view = statsController.view
     }
 
 }

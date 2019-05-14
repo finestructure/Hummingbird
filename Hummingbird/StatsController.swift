@@ -8,12 +8,11 @@
 
 import Cocoa
 
-class StatsController: NSWindowController {
+class StatsController: NSViewController {
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
-
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
     }
     
 }
