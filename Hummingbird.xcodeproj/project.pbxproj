@@ -10,6 +10,7 @@
 		5A0E2B8F227ACB55009CAA74 /* HummingbirdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */; };
 		5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
 		5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
+		5A222998228A8C3000E4B95B /* StatsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A222997228A8C3000E4B95B /* StatsWindow.xib */; };
 		5A45FBAF227B1BB800DC184E /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Tracker.swift */; };
 		5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCC227B281E00DC184E /* AppDelegate.swift */; };
 		5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBAE227B1BB800DC184E /* Tracker.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingbirdTests.swift; sourceTree = "<group>"; };
 		5A1C2D93225B6E21002EC3AD /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		5A222997228A8C3000E4B95B /* StatsWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsWindow.xib; sourceTree = "<group>"; };
 		5A333F1A223C123A00BA9D8F /* Hummingbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hummingbird.entitlements; sourceTree = "<group>"; };
 		5A45FBAE227B1BB800DC184E /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		5A45FBCC227B281E00DC184E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A222997228A8C3000E4B95B /* StatsWindow.xib */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				5A1C2D96225B6E2F002EC3AD /* Sources */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
@@ -332,6 +335,7 @@
 			files = (
 				6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */,
 				6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */,
+				5A222998228A8C3000E4B95B /* StatsWindow.xib in Resources */,
 				6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */,
 				F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */,
 				F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */,
