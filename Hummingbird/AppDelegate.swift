@@ -23,6 +23,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return PreferencesController(windowNibName: "HBPreferencesController")
     }()
 
+    lazy var statsController: StatsController = {
+        return StatsController(nibName: "StatsController", bundle: nil)
+    }()
+
 }
 
 
@@ -61,6 +65,7 @@ extension AppDelegate {
         }()
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(version)"
+        statsMenuItem.view = statsController.view
     }
 
 }
@@ -72,9 +77,7 @@ extension AppDelegate: NSMenuDelegate {
             let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
             versionMenuItem.isHidden = !hidden
         }
-        if let tracker = Tracker.shared {
-            statsMenuItem.title = "\(tracker.metricsHistory.currentValue)"
-        }
+        statsController.updateView()
     }
 }
 

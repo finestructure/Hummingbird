@@ -655,6 +655,7 @@
                         <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
                     </connections>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="mK5-2I-rRV"/>
                 <menuItem title="Stats" id="rJK-PF-i25">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

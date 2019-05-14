@@ -87,6 +87,8 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(h.maxDistanceMoved, 7)
         XCTAssertEqual(h.maxAreaResized, 14)
 
+        XCTAssertEqual(h.total, Metrics(distanceMoved: 28, areaResized: 56))
+
         XCTAssertEqual(h.average, Metrics(distanceMoved: 3.5, areaResized: 7.0))
     }
 
