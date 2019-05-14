@@ -77,6 +77,7 @@ extension AppDelegate: NSMenuDelegate {
             let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
             versionMenuItem.isHidden = !hidden
         }
+        statsController.updateView()
     }
 }
 

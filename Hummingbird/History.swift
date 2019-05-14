@@ -137,10 +137,13 @@ extension History where T == Metrics {
         return history.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized
     }
 
+    var total: T {
+        guard !history.isEmpty else { return Metrics() }
+        return history.values.reduce(T(), +)
+    }
+
     var average: T? {
         guard !history.isEmpty else { return nil }
-        let sum = history.values.reduce(T(), +)
-        let N = CGFloat(history.count)
-        return Metrics(distanceMoved: sum.distanceMoved/N, areaResized: sum.areaResized/N)
+        return total / CGFloat(history.count)
     }
 }

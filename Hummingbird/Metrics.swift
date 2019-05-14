@@ -57,3 +57,8 @@ func areaDelta(a: CGSize, d: CGPoint) -> CGFloat {
 func +(a: Metrics, b: Metrics) -> Metrics {
     return Metrics(distanceMoved: a.distanceMoved + b.distanceMoved, areaResized: a.areaResized + b.areaResized)
 }
+
+
+func /(a: Metrics, b: CGFloat) -> Metrics {
+    return Metrics(distanceMoved: a.distanceMoved / b, areaResized: a.areaResized / b)
+}
