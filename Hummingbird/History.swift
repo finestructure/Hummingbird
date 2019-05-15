@@ -16,50 +16,56 @@ protocol Initializable {
 
 struct History<T: Initializable> {
     public let depth: DateComponents
-    private var history: [DateComponents: T] = [:]
+    var history: [DateComponents: T] = [:]
+    var total: T
+
     init(depth: DateComponents) {
         self.depth = depth
+        self.total = T()
     }
 }
 
 extension History {
 
-    static var dateComponents: Set<Calendar.Component> { return [.year, .month, .day]}
+    static var mask: DateMask { return .day }
 
-    func truncate(date: Date) -> DateComponents {
-        return Calendar.current.dateComponents(History.dateComponents, from: date)
-    }
+    static var nowTruncated: DateComponents { return Date.now.truncated(to: History.mask) }
 
-    var now: DateComponents { return truncate(date: Date()) }
-
-    var cutoff: DateComponents? {
-        guard let date = Calendar.current.date(byAdding: depth, to: Date()) else { return nil }
-        return truncate(date: date)
+    var cutoff: Date? {
+        guard
+            let date = Calendar.current.date(byAdding: depth, to: Current.date()),
+            let cutoffDate = Calendar.current.date(from: date.truncated(to: History.mask))
+            else { return nil }
+        return cutoffDate
     }
 
     var currentValue: T {
         get {
-            return history[now] ?? T()
+            return history[History.nowTruncated] ?? T()
         }
         set {
-            history[now] = newValue
+            history[History.nowTruncated] = newValue
         }
     }
 
     subscript(date: Date) -> T? {
         get {
-            let truncated = truncate(date: date)
+            let truncated = date.truncated(to: History.mask)
             return history[truncated]
         }
         set {
-            let truncated = truncate(date: date)
+            let truncated = date.truncated(to: History.mask)
             guard
-                let c = cutoff,
-                let cutoff = Calendar.current.date(from: c),
+                let cutoff = cutoff,
                 let truncDate = Calendar.current.date(from: truncated)
                 else { return }
             if truncDate >= cutoff {
                 history[truncated] = newValue
+            }
+            // prune any outdated keys
+            history = history.filter {
+                guard let d = Calendar.current.date(from: $0.key) else { return false }
+                return d >= cutoff
             }
         }
     }

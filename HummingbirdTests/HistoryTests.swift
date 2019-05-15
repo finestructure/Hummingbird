@@ -49,6 +49,60 @@ class HistoryTests: XCTestCase {
         }
     }
 
+    func test_depth() {
+        defer { Current.date = { Date() } }
+
+        let days = [ReferenceDate] + (1...3).map { day(offset: $0, from: ReferenceDate) }
+
+        var h = History<Metrics>(depth: DateComponents(day: -1))
+
+        do {
+            Current.date = { days[0] }
+            XCTAssertEqual(Date.now, days[0])
+            h[.now] = Metrics(distanceMoved: 1, areaResized: 0)
+            XCTAssertEqual(h.history, [days[0].truncated(): Metrics(distanceMoved: 1, areaResized: 0)])
+        }
+
+        do {
+            Current.date = { days[1] }
+            XCTAssertEqual(Date.now, days[1])
+            h[.now] = Metrics(distanceMoved: 2, areaResized: 0)
+            XCTAssertEqual(
+                h.history,
+                [
+                    days[0].truncated(): Metrics(distanceMoved: 1, areaResized: 0),
+                    days[1].truncated(): Metrics(distanceMoved: 2, areaResized: 0)
+                ]
+            )
+        }
+
+        do {
+            Current.date = { days[2] }
+            XCTAssertEqual(Date.now, days[2])
+            h[.now] = Metrics(distanceMoved: 3, areaResized: 0)
+            XCTAssertEqual(
+                h.history,
+                [
+                    days[1].truncated(): Metrics(distanceMoved: 2, areaResized: 0),
+                    days[2].truncated(): Metrics(distanceMoved: 3, areaResized: 0)
+                ]
+            )
+        }
+
+        do {
+            Current.date = { days[3] }
+            XCTAssertEqual(Date.now, days[3])
+            h[.now] = Metrics(distanceMoved: 4, areaResized: 0)
+            XCTAssertEqual(
+                h.history,
+                [
+                    days[2].truncated(): Metrics(distanceMoved: 3, areaResized: 0),
+                    days[3].truncated(): Metrics(distanceMoved: 4, areaResized: 0)
+                ]
+            )
+        }
+    }
+
     func test_iterator() {
         var h = History<Metrics>(depth: DateComponents(day: -7))
         for i in 0..<10 {
