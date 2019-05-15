@@ -9,8 +9,10 @@
 import XCTest
 
 
-func day(offset: Int) -> Date {
-    return Calendar.current.date(byAdding: .day, value: offset, to: Date())!
+let ReferenceDate = Date(timeIntervalSince1970: 1234567890)  // 2009-02-13 23:31:30 +0000
+
+func day(offset: Int, from date: Date = Current.date()) -> Date {
+    return Calendar.current.date(byAdding: .day, value: offset, to: date)!
 }
 
 let yesterday = day(offset: -1)
@@ -114,11 +116,15 @@ class HistoryTests: XCTestCase {
     }
 
     func test_Defaultable() throws {
+        defer { Current.date = { Date() } }
+
         let prefs = testUserDefaults()
         prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
         var orig = History<Metrics>(depth: DateComponents(day: -7))
-        for i in 0..<10 {
-            orig[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        for i in 0...10 {
+            let date = day(offset: i, from: ReferenceDate)
+            Current.date = { date }
+            orig.currentValue = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
         }
 
         // test reading registered defaults
@@ -128,12 +134,15 @@ class HistoryTests: XCTestCase {
         try orig.save(forKey: .history, defaults: prefs)
 
         // test read
-        XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), orig)
+        let loaded = History<Metrics>(forKey: .history, defaults: prefs)
+        XCTAssertEqual(loaded, orig)
+        XCTAssertEqual(loaded.total, orig.total)
+        XCTAssertEqual(loaded.average, orig.average)
     }
 
     func test_aggregates() {
         var h = History<Metrics>(depth: DateComponents(day: -7))
-        for i in 0..<10 {
+        for i in 0...7 {
             h[day(offset: -i)] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
         }
 
@@ -144,6 +153,30 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(h.total, Metrics(distanceMoved: 28, areaResized: 56))
 
         XCTAssertEqual(h.average, Metrics(distanceMoved: 3.5, areaResized: 7.0))
+    }
+
+    func test_keepAggregates() {
+        defer { Current.date = { Date() } }
+
+        // ensure aggregates are kept around even if values are pushed off the history
+        var h = History<Metrics>(depth: DateComponents(day: -3))
+        for i in 0...10 {
+            let date = day(offset: i, from: ReferenceDate)
+            Current.date = { date }
+            h.currentValue = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        }
+        XCTAssertEqual(
+            h.history,
+            [
+                day(offset: 10, from: ReferenceDate).truncated(): Metrics(distanceMoved: 10, areaResized: 20),
+                day(offset: 9, from: ReferenceDate).truncated(): Metrics(distanceMoved: 9, areaResized: 18),
+                day(offset: 8, from: ReferenceDate).truncated(): Metrics(distanceMoved: 8, areaResized: 16),
+                day(offset: 7, from: ReferenceDate).truncated(): Metrics(distanceMoved: 7, areaResized: 14),
+            ]
+        )
+
+        XCTAssertEqual(h.total, Metrics(distanceMoved: 55, areaResized: 110))
+        XCTAssertEqual(h.average, Metrics(distanceMoved: 5, areaResized: 10))
     }
 
 }

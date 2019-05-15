@@ -14,22 +14,27 @@ protocol Initializable {
 }
 
 
+protocol Summable {
+    static func +(a: Self, b: Self) -> Self
+}
+
+
 struct History<T: Initializable> {
     public let depth: DateComponents
     var history: [DateComponents: T] = [:]
-    var total: T
+    var outDatedTotal: T
+    var outdatedCount: Int = 0
 
     init(depth: DateComponents) {
         self.depth = depth
-        self.total = T()
+        self.outDatedTotal = T()
     }
 }
+
 
 extension History {
 
     static var mask: DateMask { return .day }
-
-    static var nowTruncated: DateComponents { return Date.now.truncated(to: History.mask) }
 
     var cutoff: Date? {
         guard
@@ -39,12 +44,19 @@ extension History {
         return cutoffDate
     }
 
+    var count: Int { return history.count }
+
+}
+
+
+extension History where T: Summable {
+
     var currentValue: T {
         get {
-            return history[History.nowTruncated] ?? T()
+            return self[.now] ?? T()
         }
         set {
-            history[History.nowTruncated] = newValue
+            self[.now] = newValue
         }
     }
 
@@ -63,14 +75,18 @@ extension History {
                 history[truncated] = newValue
             }
             // prune any outdated keys
-            history = history.filter {
+            let outdated = history.filter {
                 guard let d = Calendar.current.date(from: $0.key) else { return false }
-                return d >= cutoff
+                return d < cutoff
             }
+            outdated.forEach {
+                outDatedTotal = outDatedTotal + $0.value
+                outdatedCount += 1
+                history.removeValue(forKey: $0.key)
+            }
+
         }
     }
-
-    var count: Int { return history.count }
 
 }
 
@@ -144,12 +160,13 @@ extension History where T == Metrics {
     }
 
     var total: T {
-        guard !history.isEmpty else { return Metrics() }
-        return history.values.reduce(T(), +)
+        guard !history.isEmpty else { return outDatedTotal }
+        return history.values.reduce(T(), +) + outDatedTotal
     }
 
     var average: T? {
-        guard !history.isEmpty else { return nil }
-        return total / CGFloat(history.count)
+        let n = history.count + outdatedCount
+        guard n > 0 else { return nil }
+        return total / CGFloat(n)
     }
 }
