@@ -21,7 +21,7 @@ protocol Summable {
 
 struct History<T: Initializable> {
     public let depth: DateComponents
-    var history: [DateComponents: T] = [:]
+    var history = OrderedDictionary<DateComponents, T>()
     var outDatedTotal: T
     var outdatedCount: Int = 0
 
@@ -74,17 +74,15 @@ extension History where T: Summable {
             if truncDate >= cutoff {
                 history[truncated] = newValue
             }
-            // prune any outdated keys
-            let outdated = history.filter {
-                guard let d = Calendar.current.date(from: $0.key) else { return false }
-                return d < cutoff
+            while
+                let h = history.first,
+                let d = Calendar.current.date(from: h.key),
+                d < cutoff {
+                    if let outdated = history.removeValue(forKey: h.key) {
+                        outDatedTotal = outDatedTotal + outdated
+                        outdatedCount += 1
+                    }
             }
-            outdated.forEach {
-                outDatedTotal = outDatedTotal + $0.value
-                outdatedCount += 1
-                history.removeValue(forKey: $0.key)
-            }
-
         }
     }
 
@@ -145,23 +143,27 @@ extension History: Defaultable where T == Metrics {
 // Stats methods
 extension History {
     func max(by areInIncreasingOrder: ((DateComponents, T), (DateComponents, T)) throws -> Bool) rethrows -> (DateComponents, T)? {
-        return try history.max(by: areInIncreasingOrder)
+        // FIXME: don't reach through
+        return try history.dict.max(by: areInIncreasingOrder)
     }
 }
 
 
 extension History where T == Metrics {
     var maxDistanceMoved: CGFloat? {
-       return history.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved
+        // FIXME: don't reach through
+       return history.dict.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved
     }
 
     var maxAreaResized: CGFloat? {
-        return history.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized
+        // FIXME: don't reach through
+        return history.dict.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized
     }
 
     var total: T {
-        guard !history.isEmpty else { return outDatedTotal }
-        return history.values.reduce(T(), +) + outDatedTotal
+        // FIXME: don't reach through
+        guard !history.dict.isEmpty else { return outDatedTotal }
+        return history.dict.values.reduce(T(), +) + outDatedTotal
     }
 
     var average: T? {
