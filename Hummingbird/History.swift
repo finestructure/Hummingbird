@@ -115,7 +115,7 @@ extension History: Codable where T: Codable {}
 
 extension History: Defaultable where T == Metrics {
 
-    private static var _defaultValue: History<Metrics> { return History<Metrics>(depth: DateComponents(day: -30)) }
+    private static var _defaultValue: History<Metrics> { return History<Metrics>(depth: DateComponents(day: -1000)) }
 
     static var defaultValue: Any {
         return try! PropertyListEncoder().encode(History._defaultValue)
