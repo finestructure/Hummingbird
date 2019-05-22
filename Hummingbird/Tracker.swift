@@ -134,7 +134,11 @@ class Tracker {
         trackingInfo.time = 0
         metricsHistory.currentValue.distanceMoved += trackingInfo.distanceMoved
         metricsHistory.currentValue.areaResized += trackingInfo.areaResized
-        try? metricsHistory.save(forKey: .history, defaults: defaults)
+        do {
+            try metricsHistory.save(forKey: .history, defaults: defaults)
+        } catch {
+            print("Error while saving preferences: \(error)")
+        }
     }
 
 

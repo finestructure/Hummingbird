@@ -21,9 +21,6 @@ enum DefaultsKeys: String {
 }
 
 
-let DefaultHistory = History<Metrics>(depth: DateComponents(day: -30))
-
-
 let DefaultPreferences = [
     DefaultsKeys.moveModifiers.rawValue: Modifiers<Move>.defaultValue,
     DefaultsKeys.resizeModifiers.rawValue: Modifiers<Resize>.defaultValue,
