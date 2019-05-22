@@ -179,10 +179,21 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(h.average, Metrics(distanceMoved: 5, areaResized: 10))
     }
 
+    func test_performance_insert() {
+        let prefs = testUserDefaults()
+        prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
+        let depth = 4000
+        var orig = History<Metrics>(depth: DateComponents(day: -depth))
+        self.measure {
+            for i in 0...depth {
+                let date = day(offset: -i)
+                orig[date] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+            }
+        }
+        XCTAssertEqual(orig.count, depth+1)
+    }
 
-    func test_saveHistoryPerformance() {
-        let start = Date()
-
+    func test_performance_save() {
         let prefs = testUserDefaults()
         prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
         let depth = 4000
@@ -194,16 +205,31 @@ class HistoryTests: XCTestCase {
 
         XCTAssertEqual(orig.count, depth+1)
 
-        let elapsed = Date().timeIntervalSince(start)
-        print("setup: \(elapsed)")
-
-        let start2 = Date()
-        // measure save
         self.measure {
             XCTAssertNotNil(try? orig.save(forKey: .history, defaults: prefs))
         }
+    }
 
-        print("save: \(Date().timeIntervalSince(start2))")
+    func test_performance_load() {
+        let prefs = testUserDefaults()
+        prefs.register(defaults: [DefaultsKeys.history.rawValue: History<Metrics>.defaultValue])
+        let depth = 4000
+        var orig = History<Metrics>(depth: DateComponents(day: -depth))
+        for i in 0...depth {
+            let date = day(offset: -i)
+            orig[date] = Metrics(distanceMoved: CGFloat(i), areaResized: CGFloat(2*i))
+        }
+
+        XCTAssertEqual(orig.count, depth+1)
+
+        XCTAssertNotNil(try? orig.save(forKey: .history, defaults: prefs))
+
+        self.measure {
+            let _ = History<Metrics>(forKey: .history, defaults: prefs)
+        }
+
+        let loaded = History<Metrics>(forKey: .history, defaults: prefs)
+        XCTAssertEqual(loaded, orig)
     }
 
 }
