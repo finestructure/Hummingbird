@@ -128,7 +128,7 @@ class HistoryTests: XCTestCase {
         }
 
         // test reading registered defaults
-        XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), DefaultHistory)
+        XCTAssertEqual(History<Metrics>(forKey: .history, defaults: prefs), History<Metrics>(depth: DateComponents(day: -1000)))
 
         // test save
         try orig.save(forKey: .history, defaults: prefs)
@@ -147,8 +147,7 @@ class HistoryTests: XCTestCase {
         }
 
         XCTAssertEqual(h.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved, 7)
-        XCTAssertEqual(h.maxDistanceMoved, 7)
-        XCTAssertEqual(h.maxAreaResized, 14)
+        XCTAssertEqual(h.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized, 14)
 
         XCTAssertEqual(h.total, Metrics(distanceMoved: 28, areaResized: 56))
 

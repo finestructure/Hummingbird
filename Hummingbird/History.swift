@@ -150,16 +150,6 @@ extension History {
 
 
 extension History where T == Metrics {
-    var maxDistanceMoved: CGFloat? {
-        // FIXME: don't reach through
-       return history.dict.max { $0.1.distanceMoved < $1.1.distanceMoved }?.1.distanceMoved
-    }
-
-    var maxAreaResized: CGFloat? {
-        // FIXME: don't reach through
-        return history.dict.max { $0.1.areaResized < $1.1.areaResized }?.1.areaResized
-    }
-
     var total: T {
         // FIXME: don't reach through
         guard !history.dict.isEmpty else { return outDatedTotal }

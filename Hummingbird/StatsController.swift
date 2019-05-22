@@ -16,7 +16,9 @@ class StatsController: NSViewController {
     @IBOutlet weak var areaTotal: NSTextField!
     @IBOutlet weak var distanceMax: NSTextField!
     @IBOutlet weak var areaMax: NSTextField!
-
+    @IBOutlet weak var distanceMaxDate: NSTextField!
+    @IBOutlet weak var areaMaxDate: NSTextField!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,19 +33,24 @@ class StatsController: NSViewController {
         areaToday.stringValue = "\(area: tracker.metricsHistory.currentValue.areaResized)"
         distanceTotal.stringValue = "\(distance: tracker.metricsHistory.total.distanceMoved)"
         areaTotal.stringValue = "\(area: tracker.metricsHistory.total.areaResized)"
-        distanceMax.stringValue = "\(distance: tracker.metricsHistory.maxDistanceMoved ?? 0)"
-        areaMax.stringValue = "\(area: tracker.metricsHistory.maxAreaResized ?? 0)"
+        do { // max distance
+            if let (date, metrics) = tracker.metricsHistory.max(by: { $0.1.distanceMoved < $1.1.distanceMoved }) {
+                distanceMaxDate.stringValue = "\(date)"
+                distanceMax.stringValue = "\(distance: metrics.distanceMoved)"
+            } else {
+                distanceMaxDate.stringValue = ""
+                distanceMax.stringValue = "-"
+            }
+        }
+        do { // max area
+            if let (date, metrics) = tracker.metricsHistory.max(by: { $0.1.areaResized < $1.1.areaResized }) {
+                areaMaxDate.stringValue = "\(date)"
+                areaMax.stringValue = "\(area: metrics.areaResized)"
+            } else {
+                areaMaxDate.stringValue = ""
+                areaMax.stringValue = "-"
+            }
+        }
     }
 
-}
-
-
-extension DefaultStringInterpolation {
-    mutating func appendInterpolation(distance: CGFloat) {
-        appendInterpolation("\(scaled: Decimal(Double(distance))) pixels")
-    }
-
-    mutating func appendInterpolation(area: CGFloat) {
-        appendInterpolation("\(scaled: Decimal(Double(area))) pixels²")
-    }
 }
