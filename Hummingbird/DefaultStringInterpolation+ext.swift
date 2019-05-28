@@ -47,10 +47,10 @@ extension DefaultStringInterpolation {
     }
 
     mutating func appendInterpolation(distance: CGFloat) {
-        appendInterpolation("\(scaled: Decimal(Double(distance))) pixels")
+        appendInterpolation("\(scaled: Decimal(Double(distance))) pixels ➝")
     }
 
     mutating func appendInterpolation(area: CGFloat) {
-        appendInterpolation("\(scaled: Decimal(Double(area))) pixels²")
+        appendInterpolation("\(scaled: Decimal(Double(area))) pixels² ⤢")
     }
 }
