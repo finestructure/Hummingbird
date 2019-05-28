@@ -66,6 +66,7 @@ extension AppDelegate {
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(version)"
         statsMenuItem.view = statsController.view
+        statsMenuItem.toolTip = "➝ distance moved\n⤢ aread resized"
     }
 
 }

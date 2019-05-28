@@ -12,6 +12,8 @@ class StatsController: NSViewController {
 
     @IBOutlet weak var distanceToday: NSTextField!
     @IBOutlet weak var areaToday: NSTextField!
+    @IBOutlet weak var distanceAverage: NSTextField!
+    @IBOutlet weak var areaAverage: NSTextField!
     @IBOutlet weak var distanceTotal: NSTextField!
     @IBOutlet weak var areaTotal: NSTextField!
     @IBOutlet weak var distanceMax: NSTextField!
@@ -31,8 +33,12 @@ class StatsController: NSViewController {
         }
         distanceToday.stringValue = "\(distance: tracker.metricsHistory.currentValue.distanceMoved)"
         areaToday.stringValue = "\(area: tracker.metricsHistory.currentValue.areaResized)"
-        distanceTotal.stringValue = "\(distance: tracker.metricsHistory.total.distanceMoved)"
-        areaTotal.stringValue = "\(area: tracker.metricsHistory.total.areaResized)"
+        do { // average
+            if let average = tracker.metricsHistory.average {
+                distanceAverage.stringValue = "\(distance: average.distanceMoved)"
+                areaAverage.stringValue = "\(area: average.areaResized)"
+            }
+        }
         do { // max distance
             if let (date, metrics) = tracker.metricsHistory.max(by: { $0.1.distanceMoved < $1.1.distanceMoved }) {
                 distanceMaxDate.stringValue = "\(date)"
@@ -51,6 +57,8 @@ class StatsController: NSViewController {
                 areaMax.stringValue = "-"
             }
         }
+        distanceTotal.stringValue = "\(distance: tracker.metricsHistory.total.distanceMoved)"
+        areaTotal.stringValue = "\(area: tracker.metricsHistory.total.areaResized)"
     }
 
 }
