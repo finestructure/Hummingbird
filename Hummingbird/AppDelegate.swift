@@ -67,6 +67,10 @@ extension AppDelegate {
         versionMenuItem.title = "Version: \(version)"
         statsMenuItem.view = statsController.view
         statsMenuItem.toolTip = "➝ distance moved\n⤢ aread resized"
+        if _isDebugAssertConfiguration() {
+            // enable in debug mode to enable notification triggering
+            versionMenuItem.isEnabled = true
+        }
     }
 
 }
@@ -137,6 +141,13 @@ extension AppDelegate {
         preferencesController.window?.makeKeyAndOrderFront(sender)
     }
 
+    @IBAction func versionClicked(_ sender: Any) {
+        if #available(OSX 10.14, *) {
+            if _isDebugAssertConfiguration() {
+                Notifications.send()
+            }
+        }
+    }
 
 }
 

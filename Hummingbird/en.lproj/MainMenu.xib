@@ -669,6 +669,9 @@
                 <menuItem isSeparatorItem="YES" id="16Z-ZA-yWP"/>
                 <menuItem title="Version" enabled="NO" id="kcl-fA-tiB">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="versionClicked:" target="494" id="iXJ-Ri-JXM"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Quit" id="KM2-Wu-6qQ" userLabel="Exit">
                     <modifierMask key="keyEquivalentModifierMask"/>
