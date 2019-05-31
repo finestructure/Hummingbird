@@ -231,23 +231,23 @@ class HistoryTests: XCTestCase {
         XCTAssertEqual(loaded, orig)
     }
 
-    func test_milestone_reached_average() {
+    func test_milestones() {
         defer { Current.date = { Date() } }
 
         var hist = History<Metrics>(depth: DateComponents(day: -10))
-        XCTAssert(hist.isAverageMilestone(Metrics(distanceMoved: 1, areaResized: 0)))
+        XCTAssertEqual(hist.checkMilestone(Metrics(distanceMoved: 1, areaResized: 0)), .exceededAverage)
 
         hist.currentValue = Metrics(distanceMoved: 1, areaResized: 0)
         XCTAssertEqual(hist.average, Metrics(distanceMoved: 1, areaResized: 0))
 
-        XCTAssertFalse(hist.isAverageMilestone(Metrics(distanceMoved: 0.5, areaResized: 0)))
-        XCTAssert(hist.isAverageMilestone(Metrics(distanceMoved: 1.5, areaResized: 0)))
+        XCTAssertEqual(hist.checkMilestone(Metrics(distanceMoved: 0.5, areaResized: 0)), .none)
+        XCTAssertEqual(hist.checkMilestone(Metrics(distanceMoved: 1.5, areaResized: 0)), .exceededAverage)
 
         Current.date = { day(offset: 1, from: ReferenceDate) }
         hist.currentValue = Metrics(distanceMoved: 2, areaResized: 1)
         XCTAssertEqual(hist.average, Metrics(distanceMoved: 1.5, areaResized: 0.5))
 
-        XCTAssertFalse(hist.isAverageMilestone(Metrics(distanceMoved: 1.5, areaResized: 0)))
-        XCTAssert(hist.isAverageMilestone(Metrics(distanceMoved: 1.5, areaResized: 1)))
+        XCTAssertEqual(hist.checkMilestone(Metrics(distanceMoved: 1.5, areaResized: 0)), .none)
+        XCTAssertEqual(hist.checkMilestone(Metrics(distanceMoved: 1.5, areaResized: 1)), .exceededAverage)
     }
 }
