@@ -144,7 +144,7 @@ extension AppDelegate {
     @IBAction func versionClicked(_ sender: Any) {
         if #available(OSX 10.14, *) {
             if _isDebugAssertConfiguration() {
-                Notifications.send()
+                Notifications.send(milestone: .exceededAverage)
             }
         }
     }

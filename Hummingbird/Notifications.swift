@@ -54,14 +54,21 @@ struct Notifications {
 
     }
 
-    static func send() {
+    static func send(milestone: Milestone) {
         guard let tracker = Tracker.shared else {
             print("no tracker")
             return
         }
+        if let lastNotified = defaults.object(forKey: DefaultsKeys.lastNotified.rawValue) as? Date {
+            // send only one notification per day
+            guard lastNotified.truncated() != Current.date().truncated() else { return }
+        }
         let content = UNMutableNotificationContent()
         content.title = "New window fiddling milestone"
-        content.body = "\(tracker.metricsHistory.currentValue)"
+        switch milestone {
+        case .exceededAverage:
+            content.body = "Above average mousing today: \(tracker.metricsHistory.currentValue)"
+        }
         content.category = Categories.metricsMilestone
         let uuidString = UUID().uuidString
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: nil)
@@ -69,6 +76,8 @@ struct Notifications {
         notificationCenter.add(request) { (error) in
             if let error = error {
                 print("Error while sending notification: \(error)")
+            } else {
+                defaults.set(Current.date(), forKey: DefaultsKeys.lastNotified.rawValue)
             }
         }
     }
