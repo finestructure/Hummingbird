@@ -15,17 +15,14 @@ let defaults = UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? 
 enum DefaultsKeys: String {
     case moveModifiers
     case resizeModifiers
-    case distanceMoved
-    case areaResized
     case history
+    case lastNotified
 }
 
 
 let DefaultPreferences = [
     DefaultsKeys.moveModifiers.rawValue: Modifiers<Move>.defaultValue,
     DefaultsKeys.resizeModifiers.rawValue: Modifiers<Resize>.defaultValue,
-    DefaultsKeys.distanceMoved.rawValue: 0 as Any,
-    DefaultsKeys.areaResized.rawValue: 0 as Any
 ]
 
 

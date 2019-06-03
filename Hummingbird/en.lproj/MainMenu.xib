@@ -658,9 +658,6 @@
                 <menuItem isSeparatorItem="YES" id="mK5-2I-rRV"/>
                 <menuItem title="Stats" id="rJK-PF-i25">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="statsClicked:" target="494" id="EX5-1l-Mwy"/>
-                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
@@ -672,6 +669,9 @@
                 <menuItem isSeparatorItem="YES" id="16Z-ZA-yWP"/>
                 <menuItem title="Version" enabled="NO" id="kcl-fA-tiB">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="versionClicked:" target="494" id="iXJ-Ri-JXM"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Quit" id="KM2-Wu-6qQ" userLabel="Exit">
                     <modifierMask key="keyEquivalentModifierMask"/>

@@ -134,6 +134,9 @@ class Tracker {
         trackingInfo.time = 0
         metricsHistory.currentValue.distanceMoved += trackingInfo.distanceMoved
         metricsHistory.currentValue.areaResized += trackingInfo.areaResized
+        if #available(OSX 10.14, *) {
+            metricsHistory.checkMilestone(metricsHistory.currentValue).map(Notifications.send(milestone:))
+        }
         do {
             try metricsHistory.save(forKey: .history, defaults: defaults)
         } catch {

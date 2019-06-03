@@ -162,3 +162,19 @@ extension History where T == Metrics {
         return total / CGFloat(n)
     }
 }
+
+
+enum Milestone {
+    case exceededAverage
+}
+
+
+extension History where T == Metrics {
+    func checkMilestone(_ value: Metrics) -> Milestone? {
+        guard let average = average else { return .exceededAverage }
+        if value.distanceMoved > average.distanceMoved || value.areaResized > average.areaResized {
+            return .exceededAverage
+        }
+        return nil
+    }
+}
