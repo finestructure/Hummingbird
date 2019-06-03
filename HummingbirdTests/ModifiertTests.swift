@@ -9,7 +9,7 @@
 import XCTest
 
 
-class ModifiertTests: XCTestCase {
+class ModifierTests: XCTestCase {
 
     func test_staticVars() {
         XCTAssertEqual(Modifiers<Move>.shift.rawValue, CGEventFlags.maskShift.rawValue)
