@@ -1,0 +1,8 @@
+requests:
+  downloads:
+    url: https://api.github.com/repos/finestructure/Hummingbird/releases/15605314
+    validation:
+      status: 200
+    log:
+      # log the id to the console
+      - json.assets[0].download_count

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -649,36 +649,45 @@
         </menu>
         <menu id="obP-gH-pam">
             <items>
-                <menuItem title="Hummingbird" id="CjR-Hb-76H">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Disabled" id="Q0w-G0-Ppy">
+                <menuItem title="Enabled" id="Q0w-G0-Ppy">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="toggleDisabled:" target="494" id="agH-Tw-ei0"/>
+                        <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
                     </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="mK5-2I-rRV"/>
+                <menuItem title="Stats" id="rJK-PF-i25">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showPreferences:" target="494" id="mfm-f2-Mgw"/>
+                        <action selector="showPreferences:" target="494" id="Bo4-DD-V7d"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="16Z-ZA-yWP"/>
-                <menuItem title="Exit" id="KM2-Wu-6qQ" userLabel="Exit">
+                <menuItem title="Version" enabled="NO" id="kcl-fA-tiB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="versionClicked:" target="494" id="iXJ-Ri-JXM"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Quit" id="KM2-Wu-6qQ" userLabel="Exit">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="terminate:" target="-3" id="qoA-xp-PEb"/>
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-156" y="484.5"/>
+            <point key="canvasLocation" x="26" y="267"/>
         </menu>
-        <customObject id="494" customClass="AppDelegate">
+        <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
-                <outlet property="disabledMenu" destination="Q0w-G0-Ppy" id="D3v-HP-HjG"/>
-                <outlet property="statusMenu" destination="obP-gH-pam" id="YfI-Jt-Lpf"/>
+                <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
+                <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>
+                <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
+                <outlet property="versionMenuItem" destination="kcl-fA-tiB" id="VQB-ps-gX5"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
