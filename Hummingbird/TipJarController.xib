@@ -18,18 +18,18 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="440" height="270"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
-            <value key="minSize" type="size" width="480" height="270"/>
-            <value key="maxSize" type="size" width="480" height="270"/>
+            <value key="minSize" type="size" width="440" height="270"/>
+            <value key="maxSize" type="size" width="440" height="270"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="440" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-pY-1y7">
-                        <rect key="frame" x="18" y="139" width="404" height="111"/>
+                        <rect key="frame" x="18" y="114" width="398" height="136"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" id="uEY-gH-4jU">
                             <font key="font" metaFont="system"/>
-                            <mutableString key="title">Hummingbird is free to download and use and has no nag screens, license keys, or time restrictions. Just use it and if you feel like you've had a particularly amazing day pushing around windows without hunting for the edges send me a coffee!
+                            <mutableString key="title">Hummingbird is 🆓 to use and has no nag screens, license keys, or time restrictions.  Just use it and if you feel like you've had a particularly 🎉 amazing day pushing around windows without hunting for the edges please send me a coffee! ☕️
 
 I drink a lot of it 😅</mutableString>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -37,7 +37,7 @@ I drink a lot of it 😅</mutableString>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0Q-Jd-Whi">
-                        <rect key="frame" x="80" y="49" width="80" height="60"/>
+                        <rect key="frame" x="80" y="30" width="80" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="$4" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ybu-le-7oS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -48,7 +48,7 @@ I drink a lot of it 😅</mutableString>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z3b-Zk-M5h">
-                        <rect key="frame" x="180" y="49" width="80" height="60"/>
+                        <rect key="frame" x="180" y="30" width="80" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="$6" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c28-pQ-Tmg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -59,7 +59,7 @@ I drink a lot of it 😅</mutableString>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iy3-AS-W7Q">
-                        <rect key="frame" x="280" y="49" width="80" height="60"/>
+                        <rect key="frame" x="280" y="30" width="80" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" title="$8" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jsg-Vc-OrS">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
