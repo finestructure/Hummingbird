@@ -103,7 +103,6 @@ extension AppDelegate {
     func _activate(allowAlert: Bool) -> Bool {
         Tracker.enable()
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-        Tracker.isActive ? print("activated") : print("Activation failed")
         if !Tracker.isActive && allowAlert {
             let alert = NSAlert()
             alert.messageText = "Accessibility permissions required"

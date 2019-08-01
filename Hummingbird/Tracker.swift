@@ -206,8 +206,6 @@ extension Tracker {
 
 
 private func enableTap() throws -> (eventTap: CFMachPort, runLoopSource: CFRunLoopSource?)  {
-    print("Enabling event tap")
-
     // https://stackoverflow.com/a/31898592/1444152
 
     let eventMask = (1 << CGEventType.mouseMoved.rawValue)
@@ -219,7 +217,6 @@ private func enableTap() throws -> (eventTap: CFMachPort, runLoopSource: CFRunLo
         callback: myCGEventCallback,
         userInfo: nil
         ) else {
-            print("failed to create event tap")
             throw Tracker.Error.tapCreateFailed
     }
 
