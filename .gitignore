@@ -28,3 +28,4 @@ DerivedData
 # mardown previews
 *.md.html
 Releases/
+ignored/
