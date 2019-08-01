@@ -148,7 +148,8 @@ extension AppDelegate {
     }
 
     @IBAction func showPreferences(_ sender: Any) {
-        preferencesController.window?.makeKeyAndOrderFront(sender)
+        NSApp.activate(ignoringOtherApps: true)
+        preferencesController.showWindow(sender)
     }
 
     @IBAction func versionClicked(_ sender: Any) {
