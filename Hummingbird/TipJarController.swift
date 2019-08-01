@@ -8,12 +8,37 @@
 
 import Cocoa
 
+
+enum Tip: String {
+    case small
+    case medium
+    case large
+
+    var url: URL {
+        return URL(string: "https://gum.co/hb-tip-\(rawValue)?wanted=true")!
+    }
+}
+
+
 class TipJarController: NSWindowController {
 
     override func windowDidLoad() {
         super.windowDidLoad()
-
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
     
+    @IBAction func smallCoffeeButtonClicked(_ sender: Any) {
+        purchase(tip: .small)
+    }
+
+    @IBAction func mediumCoffeeButtonClicked(_ sender: Any) {
+        purchase(tip: .medium)
+    }
+
+    @IBAction func largeCoffeeButtonClicked(_ sender: Any) {
+        purchase(tip: .large)
+    }
+
+    func purchase(tip: Tip) {
+        NSWorkspace.shared.open(tip.url)
+    }
 }
