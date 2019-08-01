@@ -163,6 +163,17 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
+		5A78DD1422F3177C00D0F23D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A22299E228A8F1400E4B95B /* StatsController.xib */,
+				5A78DD1122F2FBF600D0F23D /* TipJarController.xib */,
+				6ED47B79183BF3E800859244 /* MainMenu.xib */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		5A8F911B227C4CF600B78C47 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,10 +246,7 @@
 		6ED47B6A183BF3E800859244 /* Hummingbird */ = {
 			isa = PBXGroup;
 			children = (
-				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
-				5A22299E228A8F1400E4B95B /* StatsController.xib */,
-				5A78DD1122F2FBF600D0F23D /* TipJarController.xib */,
-				6ED47B79183BF3E800859244 /* MainMenu.xib */,
+				5A78DD1422F3177C00D0F23D /* UI */,
 				5A1C2D96225B6E2F002EC3AD /* Sources */,
 				6ED47B6B183BF3E800859244 /* Supporting Files */,
 			);
