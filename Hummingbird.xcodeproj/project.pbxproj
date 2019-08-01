@@ -377,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "git status\n#version=$(git describe --always --tags --dirty)\nversion=$(git rev-parse --short @)\necho version: $version\ninfo_plist=$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info.plist\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $version\" $info_plist\n#/usr/libexec/PlistBuddy -c \"Add :GitVersion string $version\" $info_plist\n";
+			shellScript = "git status\n#version=$(git describe --always --tags --dirty)\nversion=$(git rev-parse --short @)\necho version: $version\ninfo_plist=$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info.plist\nif [ $CONFIGURATION == \"Debug\" ]; then\n  /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $version\" $info_plist\nfi\n#/usr/libexec/PlistBuddy -c \"Add :GitVersion string $version\" $info_plist\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
