@@ -19,6 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
+    lazy var tipJarController: TipJarController = {
+        return TipJarController(windowNibName: "TipJarController")
+    }()
+
     lazy var preferencesController: PreferencesController = {
         return PreferencesController(windowNibName: "HBPreferencesController")
     }()
@@ -99,7 +103,6 @@ extension AppDelegate {
     func _activate(allowAlert: Bool) -> Bool {
         Tracker.enable()
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-        Tracker.isActive ? print("activated") : print("Activation failed")
         if !Tracker.isActive && allowAlert {
             let alert = NSAlert()
             alert.messageText = "Accessibility permissions required"
@@ -145,6 +148,11 @@ extension AppDelegate {
         } else {
             _activate(allowAlert: true)
         }
+    }
+
+    @IBAction func showTipJar(_ sender: Any) {
+        NSApp.activate(ignoringOtherApps: true)
+        tipJarController.showWindow(sender)
     }
 
     @IBAction func showPreferences(_ sender: Any) {
