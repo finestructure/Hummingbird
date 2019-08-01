@@ -42,15 +42,14 @@ extension AppDelegate {
             UNUserNotificationCenter.current().delegate = self
         }
 
-        if isTrusted() {
-            print("trusted")
-            enable()
-        } else {
-            print("trust check FAILED")
-            enabledMenuItem.state = .off
-            // we now try to enable, because the trust prompt only kicks in then
-            Tracker.enable()
-            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        activate(allowAlert: true)
+    }
+
+    func activate(allowAlert: Bool) {
+        if !_activate(allowAlert: allowAlert) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.activate(allowAlert: false)
+            }
         }
     }
 
@@ -96,20 +95,31 @@ extension AppDelegate {
         return AXIsProcessTrustedWithOptions(options)
     }
 
-    func enable() {
+    @discardableResult
+    func _activate(allowAlert: Bool) -> Bool {
         Tracker.enable()
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-        if !Tracker.isActive {
+        Tracker.isActive ? print("activated") : print("Activation failed")
+        if !Tracker.isActive && allowAlert {
             let alert = NSAlert()
-            alert.messageText = "Failed to activate"
+            alert.messageText = "Accessibility permissions required"
             alert.informativeText = """
-            An error occurred while activating the mechanism to track mouse events.
+            Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
+
+            You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
+
+            Click "Help" for more information.
             
-            This can happen when the application has not been granted Accessibility access in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
             """
             alert.addButton(withTitle: "OK")
-            alert.runModal()
+            alert.addButton(withTitle: "Help")
+            let response = alert.runModal()
+            if response == .alertSecondButtonReturn {
+                let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
+                NSWorkspace.shared.open(url)
+            }
         }
+        return Tracker.isActive
     }
 
     func disable() {
@@ -133,7 +143,7 @@ extension AppDelegate {
         if enabledMenuItem.state == .on {
             disable()
         } else {
-            enable()
+            _activate(allowAlert: true)
         }
     }
 
