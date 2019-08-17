@@ -23,7 +23,7 @@ extension Status: Equatable {
 }
 
 
-func response(statusCode: Int) -> (URLRequest, (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+func response(statusCode: Int) -> DataTaskHandler {
     return { request, completion in
         let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         completion(nil, response, nil)
