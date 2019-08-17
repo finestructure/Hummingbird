@@ -35,7 +35,11 @@ func response(statusCode: Int) -> DataTaskHandler {
 class TrialTests: XCTestCase {
 
     override func setUp() {
-        Current.gumroad.dataTask = response(statusCode: 200)
+        // ensure we don't leak requests
+        Current.gumroad.dataTask = { request, completion in
+            XCTFail("unexpected invocation of dataTask")
+            return URLSessionDataTask()
+        }
     }
 
     func test_noKey_inTrial() throws {
@@ -69,11 +73,7 @@ class TrialTests: XCTestCase {
     func test_licenseKey_valid() throws {
         let now = Date()
         Current.date = { now }
-        Current.gumroad.dataTask = { request, completion in
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
-            completion(nil, response, nil)
-            return URLSessionDataTask()
-        }
+        Current.gumroad.dataTask = response(statusCode: 200)
         let td = TrialData(firstLaunched: now, licenseKey: "ignored")
 
         let expectation = self.expectation(description: #function)
