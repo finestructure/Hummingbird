@@ -14,6 +14,7 @@ import Foundation
 public struct Environment {
     public var environment = ProcessInfo.processInfo.environment
     public var date: () -> Date = { Date() }
+    public var gumroad = Gumroad()
 }
 
 

@@ -23,13 +23,26 @@ extension Status: Equatable {
 }
 
 
+func response(statusCode: Int) -> (URLRequest, (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    return { request, completion in
+        let response = HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
+        completion(nil, response, nil)
+        return URLSessionDataTask()
+    }
+}
+
+
 class TrialTests: XCTestCase {
 
+    override func setUp() {
+        Current.gumroad.dataTask = response(statusCode: 200)
+    }
+
     func test_noKey_inTrial() throws {
-        let firstLaunched = Date()
+        let now = Date()
         for d in 0..<7 {
-            let currentDate = day(offset: d)
-            let td = TrialData(firstLaunched: firstLaunched, currentDate: currentDate, licenseKey: nil)
+            Current.date = { day(offset: d, from: now) }
+            let td = TrialData(firstLaunched: now, licenseKey: nil)
 
             let expectation = self.expectation(description: #function)
             validate(td) { status in
@@ -41,8 +54,9 @@ class TrialTests: XCTestCase {
     }
 
     func test_noKey_expired() throws {
-        let firstLaunched = Date()
-        let td = TrialData(firstLaunched: firstLaunched, currentDate: day(offset: 8), licenseKey: nil)
+        let now = Date()
+        Current.date = { day(offset: 8, from: now) }
+        let td = TrialData(firstLaunched: now, licenseKey: nil)
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in
@@ -54,7 +68,13 @@ class TrialTests: XCTestCase {
 
     func test_licenseKey_valid() throws {
         let now = Date()
-        let td = TrialData(firstLaunched: now, currentDate: now, licenseKey: "302C73F3-DB2C43BC-B2EA4E25-4C9158B4")
+        Current.date = { now }
+        Current.gumroad.dataTask = { request, completion in
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
+            completion(nil, response, nil)
+            return URLSessionDataTask()
+        }
+        let td = TrialData(firstLaunched: now, licenseKey: "ignored")
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in
@@ -66,7 +86,8 @@ class TrialTests: XCTestCase {
 
     func test_licenseKey_valid_invalid() throws {
         let now = Date()
-        let td = TrialData(firstLaunched: now, currentDate: now, licenseKey: "foo")
+        Current.gumroad.dataTask = response(statusCode: 404)
+        let td = TrialData(firstLaunched: now, licenseKey: "ignored")
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in

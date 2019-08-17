@@ -27,57 +27,54 @@ struct TrialData {
     static let length = DateComponents(day: 7)
 
     let firstLaunched: Date
-    let currentDate: Date
     let licenseKey: String?
 
     var trialEnd: Date { return Calendar.current.date(byAdding: TrialData.length, to: firstLaunched)! }
-    var inTrialPeriod: Bool { return currentDate <= trialEnd }
+    var inTrialPeriod: Bool { return Current.date() <= trialEnd }
 }
 
 
-struct Gumroad {
-    func validate(licenseKey: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        dataTask(licenseKey: licenseKey, completion: completion)
+public struct Gumroad {
+    var validate = validate(licenseKey: completion:)
+    var dataTask: (URLRequest, @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask = URLSession.shared.dataTask
+}
+
+
+private func validate(licenseKey: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    var request = URLRequest(url: URL(string: "https://api.gumroad.com/v2/licenses/verify")!)
+    request.httpMethod = "POST"
+    let body = [
+        "product_permalink": "hummingbirdapp",
+        "license_key": licenseKey,
+    ]
+
+    guard let postData = try? JSONEncoder().encode(body) else {
+        completion(.failure(ValidationError.postDataEncodingError))
+        return
     }
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = postData
 
-    private func dataTask(licenseKey: String, completion: (@escaping (Result<Bool, Error>) -> Void)) {
-        var request = URLRequest(url: URL(string: "https://api.gumroad.com/v2/licenses/verify")!)
-        request.httpMethod = "POST"
-        let body = [
-            "product_permalink": "hummingbirdapp",
-            "license_key": licenseKey,
-        ]
-
-        guard let postData = try? JSONEncoder().encode(body) else {
-            completion(.failure(ValidationError.postDataEncodingError))
-            return
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = postData
-
-        URLSession.shared.dataTask(with: request) { data, urlResponse, error in
-            if let error = error {
-                completion(.failure(error))
+    Current.gumroad.dataTask(request) { data, urlResponse, error in
+        if let error = error {
+            completion(.failure(error))
+        } else {
+            if
+                let urlResponse = urlResponse,
+                let httpResponse = urlResponse as? HTTPURLResponse,
+                httpResponse.statusCode == 200 {
+                completion(.success(true))
             } else {
-                if
-                    let urlResponse = urlResponse,
-                    let httpResponse = urlResponse as? HTTPURLResponse,
-                    httpResponse.statusCode == 200 {
-                    completion(.success(true))
-                } else {
-                    completion(.success(false))
-                }
+                completion(.success(false))
             }
+        }
         }.resume()
-    }
-
 }
 
 
 func validate(_ trialData: TrialData, completion: @escaping (Status) -> ()) {
     if let licenseKey = trialData.licenseKey {
-        let api = Gumroad()
-        api.validate(licenseKey: licenseKey) { result in
+        Current.gumroad.validate(licenseKey) { result in
             switch result {
             case .success(let valid):
                 completion(valid ? .validLicenseKey: .invalidLicenseKey)
