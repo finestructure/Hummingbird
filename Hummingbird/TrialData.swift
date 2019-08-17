@@ -17,6 +17,11 @@ enum Status {
 }
 
 
+enum ValidationError: Error {
+    case postDataEncodingError
+}
+
+
 struct TrialData {
     static let length = DateComponents(day: 7)
 
@@ -29,19 +34,39 @@ struct TrialData {
 }
 
 
-// FIXME: run against Gumroad API
-func validate(licenseKey: String, completion: (Bool) -> ()) {
-    if licenseKey == "good" {
-        completion(true)
+func validate(licenseKey: String, session: URLSession = URLSession.shared, completion: @escaping (Bool) -> ()) throws {
+    let url = URL(string: "https://api.gumroad.com/v2/licenses/verify")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    let body = [
+        "product_permalink": "hummingbirdapp",
+        "license_key": licenseKey,
+    ]
+
+    if let postData = try? JSONEncoder().encode(body) {
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = postData
     } else {
-        completion(false)
+        throw ValidationError.postDataEncodingError
     }
+
+    let task = session.dataTask(with: request) { data, res, err in
+        if
+            let res = res,
+            let httpRes = res as? HTTPURLResponse,
+            httpRes.statusCode == 200 {
+            completion(true)
+        } else {
+            completion(false)
+        }
+    }
+    task.resume()
 }
 
 
-func validate(_ trialData: TrialData, completion: (Status) -> ()) {
+func validate(_ trialData: TrialData, completion: @escaping (Status) -> ()) throws {
     if let licenseKey = trialData.licenseKey {
-        validate(licenseKey: licenseKey) { valid in
+        try validate(licenseKey: licenseKey) { valid in
             completion(valid ? .validLicenseKey : .invalidLicenseKey)
         }
     } else {
