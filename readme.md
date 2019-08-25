@@ -22,17 +22,15 @@ Hummingbird has been tested on macOS 10.14 Mojave but it should run on earlier m
 
 - After launching, Hummingbird is accessible via a menu bar item:
 
-    <img src="assets/docs/menu-preferences.png" width="320">
+    <img src="assets/docs/menu-expanded.png" width="320">
 
 - However, on first use you will need to grant permissions for Accessibility Access. This is required so Hummingbird can move and resize windows. You will see an alert directing you to System Preferences:
 
-    <img src="assets/docs/accessibility-access.png" width="573">
-
-    Please click on "Open System Preferences" here.
+    <img src="assets/docs/accessibility-alert.png" width="573">
 
 - In System Preferences / Security & Privacy / Privacy, please authenticate and make sure the entry for "Hummingbird" under "Accessibility" is checked as indicated below.
 
-    <img src="assets/docs/privacy-accessibility.png" width="780">
+    <img src="assets/docs/sytem-preferences-accessibility.png" width="780">
 
 - You can configure the move and resize keyboard shortcuts in Hummingbird's preferences:
 
