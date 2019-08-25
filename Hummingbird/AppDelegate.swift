@@ -114,12 +114,17 @@ extension AppDelegate {
             Click "Help" for more information.
             
             """
-            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Open System Preferences")
             alert.addButton(withTitle: "Help")
-            let response = alert.runModal()
-            if response == .alertSecondButtonReturn {
+            switch alert.runModal() {
+            case .alertFirstButtonReturn:
+                let url = URL.init(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane/")
+                NSWorkspace.shared.open(url)
+            case .alertSecondButtonReturn:
                 let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
                 NSWorkspace.shared.open(url)
+            default:
+                break
             }
         }
         return Tracker.isActive
