@@ -11,10 +11,10 @@
 import Foundation
 
 
-public struct World {
+public struct Environment {
     public var environment = ProcessInfo.processInfo.environment
     public var date: () -> Date = { Date() }
 }
 
 
-var Current = World()
+var Current = Environment()
