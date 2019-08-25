@@ -12,11 +12,11 @@ In the video above, holding `fn` and `ctrl` while moving the mouse moves the win
 
 ## Installation
 
-* Get the latest version from the [Releases page](https://github.com/finestructure/Hummingbird/releases)
+* Download the latest release from the [Hummingbird home page](http://hummingbirdapp.site)
 * Unzip and run!
 
 
-Hummingbird has been tested on macOS 10.14 Mojave but it should run on earlier macOS versions as well.
+Hummingbird has been tested on macOS 10.14 Mojave and 10.15 Catalina but it should run on earlier macOS versions as well (macOS 10.11 or higher).
 
 ## Usage
 
