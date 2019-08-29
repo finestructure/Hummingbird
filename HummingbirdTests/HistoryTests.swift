@@ -9,15 +9,6 @@
 import XCTest
 
 
-let ReferenceDate = Date(timeIntervalSince1970: 1234567890)  // 2009-02-13 23:31:30 +0000
-
-func day(offset: Int, from date: Date = Current.date()) -> Date {
-    return Calendar.current.date(byAdding: .day, value: offset, to: date)!
-}
-
-let yesterday = day(offset: -1)
-
-
 class HistoryTests: XCTestCase {
 
     func test_basics() {

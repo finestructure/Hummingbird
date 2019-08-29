@@ -23,7 +23,7 @@
 		5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461910228333ED0078E1B2 /* HistoryTests.swift */; };
 		5A461913228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
 		5A461914228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
-		5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191522847CF40078E1B2 /* TestUtils.swift */; };
+		5A46191622847CF40078E1B2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191522847CF40078E1B2 /* Common.swift */; };
 		5A4619182286C4DA0078E1B2 /* ModifiertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */; };
 		5A46191A2286C63A0078E1B2 /* MetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4619192286C63A0078E1B2 /* MetricsTests.swift */; };
 		5A46191C2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
@@ -87,7 +87,7 @@
 		5A46190E2282B0EA0078E1B2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A461910228333ED0078E1B2 /* HistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTests.swift; sourceTree = "<group>"; };
 		5A461912228334260078E1B2 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		5A46191522847CF40078E1B2 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5A46191522847CF40078E1B2 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiertTests.swift; sourceTree = "<group>"; };
 		5A4619192286C63A0078E1B2 /* MetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTests.swift; sourceTree = "<group>"; };
 		5A46191B2286C90B0078E1B2 /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
@@ -196,12 +196,12 @@
 			isa = PBXGroup;
 			children = (
 				65CF01661F229C34002259F2 /* Info.plist */,
+				5A46191522847CF40078E1B2 /* Common.swift */,
 				5A461910228333ED0078E1B2 /* HistoryTests.swift */,
 				5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */,
 				5AE57A4722F72C090015B090 /* LicensingTests.swift */,
 				5A4619192286C63A0078E1B2 /* MetricsTests.swift */,
 				5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */,
-				5A46191522847CF40078E1B2 /* TestUtils.swift */,
 			);
 			path = HummingbirdTests;
 			sourceTree = "<group>";
@@ -430,7 +430,7 @@
 				5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */,
 				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
 				5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
-				5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */,
+				5A46191622847CF40078E1B2 /* Common.swift in Sources */,
 				5A8F9117227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
