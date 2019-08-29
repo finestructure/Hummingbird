@@ -23,8 +23,24 @@ enum ValidationError: Error {
 }
 
 
-struct License {
+struct License: Equatable {
     let key: String
+}
+
+
+extension License: Defaultable {
+    static var defaultValue: Any {
+        return ""
+    }
+
+    init(forKey defaultsKey: DefaultsKeys, defaults: UserDefaults) {
+        let value = defaults.string(forKey: defaultsKey.rawValue) ?? (License.defaultValue as! String)
+        self = License(key: value)
+    }
+
+    func save(forKey defaultsKey: DefaultsKeys, defaults: UserDefaults) throws {
+        defaults.set(key, forKey: defaultsKey.rawValue)
+    }
 }
 
 

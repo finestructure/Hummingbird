@@ -17,6 +17,8 @@ enum DefaultsKeys: String {
     case resizeModifiers
     case history
     case lastNotified
+    case license
+    case firstLaunched
 }
 
 

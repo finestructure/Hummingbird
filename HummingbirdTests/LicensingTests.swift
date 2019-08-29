@@ -40,6 +40,7 @@ class LicensingTests: XCTestCase {
             XCTFail("unexpected invocation of dataTask")
             return URLSessionDataTask()
         }
+        Current.date = { ReferenceDate }
     }
 
     func test_noKey_inTrial() throws {
@@ -97,4 +98,17 @@ class LicensingTests: XCTestCase {
         waitForExpectations(timeout: 60)
     }
 
+    func test_Defaultable_license() throws {
+        let prefs = testUserDefaults()
+        let license = License(key: "key")
+        try license.save(forKey: .license, defaults: prefs)
+        XCTAssertEqual(License(forKey: .license, defaults: prefs), license)
+    }
+
+    func test_Defaultable_firstLaunched() throws {
+        let prefs = testUserDefaults()
+        let date = Current.date()
+        try date.save(forKey: .firstLaunched, defaults: prefs)
+        XCTAssertEqual(Date(forKey: .firstLaunched, defaults: prefs), date)
+    }
 }
