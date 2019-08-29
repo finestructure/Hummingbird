@@ -23,13 +23,13 @@ enum ValidationError: Error {
 }
 
 
-struct TrialData {
+struct LicenseInfo {
     static let length = DateComponents(day: 7)
 
     let firstLaunched: Date
     let licenseKey: String?
 
-    var trialEnd: Date { return Calendar.current.date(byAdding: TrialData.length, to: firstLaunched)! }
+    var trialEnd: Date { return Calendar.current.date(byAdding: LicenseInfo.length, to: firstLaunched)! }
     var inTrialPeriod: Bool { return Current.date() <= trialEnd }
 }
 
@@ -74,7 +74,7 @@ public struct Gumroad {
 }
 
 
-func validate(_ trialData: TrialData, completion: @escaping (Status) -> ()) {
+func validate(_ trialData: LicenseInfo, completion: @escaping (Status) -> ()) {
     if let licenseKey = trialData.licenseKey {
         Current.gumroad.validate(licenseKey: licenseKey) { result in
             switch result {

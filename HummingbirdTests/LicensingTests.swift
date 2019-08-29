@@ -32,7 +32,7 @@ func response(statusCode: Int) -> DataTaskHandler {
 }
 
 
-class TrialTests: XCTestCase {
+class LicensingTests: XCTestCase {
 
     override func setUp() {
         // ensure we don't leak requests
@@ -46,7 +46,7 @@ class TrialTests: XCTestCase {
         let now = Date()
         for d in 0..<7 {
             Current.date = { day(offset: d, from: now) }
-            let td = TrialData(firstLaunched: now, licenseKey: nil)
+            let td = LicenseInfo(firstLaunched: now, licenseKey: nil)
 
             let expectation = self.expectation(description: #function)
             validate(td) { status in
@@ -60,7 +60,7 @@ class TrialTests: XCTestCase {
     func test_noKey_expired() throws {
         let now = Date()
         Current.date = { day(offset: 8, from: now) }
-        let td = TrialData(firstLaunched: now, licenseKey: nil)
+        let td = LicenseInfo(firstLaunched: now, licenseKey: nil)
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in
@@ -74,7 +74,7 @@ class TrialTests: XCTestCase {
         let now = Date()
         Current.date = { now }
         Current.gumroad.dataTask = response(statusCode: 200)
-        let td = TrialData(firstLaunched: now, licenseKey: "ignored")
+        let td = LicenseInfo(firstLaunched: now, licenseKey: "ignored")
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in
@@ -87,7 +87,7 @@ class TrialTests: XCTestCase {
     func test_licenseKey_valid_invalid() throws {
         let now = Date()
         Current.gumroad.dataTask = response(statusCode: 404)
-        let td = TrialData(firstLaunched: now, licenseKey: "ignored")
+        let td = LicenseInfo(firstLaunched: now, licenseKey: "ignored")
 
         let expectation = self.expectation(description: #function)
         validate(td) { status in
