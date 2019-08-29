@@ -33,8 +33,10 @@ extension License: Defaultable {
         return ""
     }
 
-    init(forKey defaultsKey: DefaultsKeys, defaults: UserDefaults) {
-        let value = defaults.string(forKey: defaultsKey.rawValue) ?? (License.defaultValue as! String)
+    init?(forKey defaultsKey: DefaultsKeys, defaults: UserDefaults) {
+        guard
+            let value = defaults.string(forKey: defaultsKey.rawValue) ?? License.defaultValue as? String
+            else { return nil }
         self = License(key: value)
     }
 

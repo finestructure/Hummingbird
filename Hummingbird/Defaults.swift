@@ -30,6 +30,6 @@ let DefaultPreferences = [
 
 protocol Defaultable {
     static var defaultValue: Any { get }
-    init(forKey: DefaultsKeys, defaults: UserDefaults)
+    init?(forKey: DefaultsKeys, defaults: UserDefaults)
     func save(forKey: DefaultsKeys, defaults: UserDefaults) throws
 }

@@ -39,13 +39,10 @@ extension Date: Defaultable {
         return Current.date()
     }
 
-    init(forKey key: DefaultsKeys, defaults: UserDefaults) {
+    init?(forKey key: DefaultsKeys, defaults: UserDefaults) {
         guard
-            let value = defaults.object(forKey: key.rawValue) as? Date
-            else {
-                self = Date.defaultValue as! Date
-                return
-        }
+            let value = defaults.object(forKey: key.rawValue) as? Date ?? Date.defaultValue as? Date
+            else { return nil }
         self = value
     }
 
