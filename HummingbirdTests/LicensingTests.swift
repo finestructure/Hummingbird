@@ -111,4 +111,5 @@ class LicensingTests: XCTestCase {
         try date.save(forKey: .firstLaunched, defaults: prefs)
         XCTAssertEqual(Date(forKey: .firstLaunched, defaults: prefs), date)
     }
+    
 }

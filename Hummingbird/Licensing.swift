@@ -34,9 +34,7 @@ extension License: Defaultable {
     }
 
     init?(forKey defaultsKey: DefaultsKeys, defaults: UserDefaults) {
-        guard
-            let value = defaults.string(forKey: defaultsKey.rawValue) ?? License.defaultValue as? String
-            else { return nil }
+        guard let value = defaults.string(forKey: defaultsKey.rawValue) else { return nil }
         self = License(key: value)
     }
 
@@ -97,8 +95,8 @@ public struct Gumroad {
 }
 
 
-func validate(_ trialData: LicenseInfo, completion: @escaping (Status) -> ()) {
-    if let licenseKey = trialData.license {
+func validate(_ licenseInfo: LicenseInfo, completion: @escaping (Status) -> ()) {
+    if let licenseKey = licenseInfo.license {
         Current.gumroad.validate(license: licenseKey) { result in
             switch result {
             case .success(let valid):
@@ -108,7 +106,7 @@ func validate(_ trialData: LicenseInfo, completion: @escaping (Status) -> ()) {
             }
         }
     } else {
-        if trialData.inTrialPeriod {
+        if licenseInfo.inTrialPeriod {
             completion(.inTrial)
         } else {
             completion(.noLicenseKey)

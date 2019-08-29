@@ -38,6 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if Date(forKey: .firstLaunched, defaults: defaults) == nil {
+            try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
+        }
+
         statusMenu.delegate = self
         defaults.register(defaults: DefaultPreferences)
 
@@ -47,12 +51,43 @@ extension AppDelegate {
         }
 
         activate(allowAlert: true)
+        checkLicense()
     }
 
     func activate(allowAlert: Bool) {
         if !_activate(allowAlert: allowAlert) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.activate(allowAlert: false)
+            }
+        }
+    }
+
+    func checkLicense() {
+        let delay = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+            let license = License(forKey: .license, defaults: defaults)
+            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+            validate(licenseInfo) { status in
+                switch status {
+                case .validLicenseKey:
+                    print("OK: valid license")
+                    break
+                case .inTrial:
+                    print("OK: in trial")
+                    break
+                case .noLicenseKey:
+                    // TODO: show purchase dialog
+                    print("⚠️ no license")
+                    self.lock()
+                case .invalidLicenseKey:
+                    // TODO: show alert
+                    print("⚠️ invalid license")
+                    self.lock()
+                case .error(let error):
+                    // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+                    print("⚠️ \(error)")
+                }
             }
         }
     }
@@ -133,6 +168,14 @@ extension AppDelegate {
     func disable() {
         Tracker.disable()
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+    }
+
+
+    /// Lock application functionality (lack of license)
+    func lock() {
+        print("locked")
+        self.disable()
+        self.enabledMenuItem.isEnabled = false
     }
 
     var version: String {
