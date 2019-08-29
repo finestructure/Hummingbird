@@ -23,11 +23,16 @@ enum ValidationError: Error {
 }
 
 
+struct License {
+    let key: String
+}
+
+
 struct LicenseInfo {
     static let length = DateComponents(day: 7)
 
     let firstLaunched: Date
-    let licenseKey: String?
+    let license: License?
 
     var trialEnd: Date { return Calendar.current.date(byAdding: LicenseInfo.length, to: firstLaunched)! }
     var inTrialPeriod: Bool { return Current.date() <= trialEnd }
@@ -41,12 +46,12 @@ typealias DataTaskHandler = (URLRequest, @escaping ResponseHandler) -> URLSessio
 public struct Gumroad {
     var dataTask: DataTaskHandler = URLSession.shared.dataTask
 
-    func validate(licenseKey: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func validate(license: License, completion: @escaping (Result<Bool, Error>) -> Void) {
         var request = URLRequest(url: URL(string: "https://api.gumroad.com/v2/licenses/verify")!)
         request.httpMethod = "POST"
         let body = [
             "product_permalink": "hummingbirdapp",
-            "license_key": licenseKey,
+            "license_key": license.key,
         ]
 
         guard let postData = try? JSONEncoder().encode(body) else {
@@ -75,8 +80,8 @@ public struct Gumroad {
 
 
 func validate(_ trialData: LicenseInfo, completion: @escaping (Status) -> ()) {
-    if let licenseKey = trialData.licenseKey {
-        Current.gumroad.validate(licenseKey: licenseKey) { result in
+    if let licenseKey = trialData.license {
+        Current.gumroad.validate(license: licenseKey) { result in
             switch result {
             case .success(let valid):
                 completion(valid ? .validLicenseKey: .invalidLicenseKey)
