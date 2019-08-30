@@ -28,6 +28,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return PreferencesController(windowNibName: "HBPreferencesController")
     }()
 
+    lazy var registrationController: RegistrationController = {
+        return RegistrationController(windowNibName: "RegistrationController")
+    }()
+
     lazy var statsController: StatsController = {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
@@ -236,7 +240,8 @@ extension AppDelegate {
     }
 
     @IBAction func registerLicense(_ sender: Any) {
-        
+        NSApp.activate(ignoringOtherApps: true)
+        registrationController.showWindow(sender)
     }
 
     @IBAction func showTipJar(_ sender: Any) {
