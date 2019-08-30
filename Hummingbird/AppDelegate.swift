@@ -20,10 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
-    lazy var tipJarController: TipJarController = {
-        return TipJarController(windowNibName: "TipJarController")
-    }()
-
     lazy var preferencesController: PreferencesController = {
         return PreferencesController(windowNibName: "HBPreferencesController")
     }()
@@ -242,11 +238,6 @@ extension AppDelegate {
     @IBAction func registerLicense(_ sender: Any) {
         NSApp.activate(ignoringOtherApps: true)
         registrationController.showWindow(sender)
-    }
-
-    @IBAction func showTipJar(_ sender: Any) {
-        NSApp.activate(ignoringOtherApps: true)
-        tipJarController.showWindow(sender)
     }
 
     @IBAction func showPreferences(_ sender: Any) {
