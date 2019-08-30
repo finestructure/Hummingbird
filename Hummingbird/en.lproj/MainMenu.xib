@@ -655,6 +655,12 @@
                         <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Register license..." id="Bjm-xz-6Bf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="registerLicense:" target="494" id="eSr-0K-RIt"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="mK5-2I-rRV"/>
                 <menuItem title="Stats" id="rJK-PF-i25">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -691,6 +697,7 @@
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
                 <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
+                <outlet property="registerMenuItem" destination="Bjm-xz-6Bf" id="l3l-LH-hyr"/>
                 <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
                 <outlet property="versionMenuItem" destination="kcl-fA-tiB" id="VQB-ps-gX5"/>

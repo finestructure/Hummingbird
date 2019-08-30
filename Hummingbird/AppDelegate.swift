@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
     @IBOutlet weak var enabledMenuItem: NSMenuItem!
+    @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
@@ -51,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case (.validatingLicense, .activating):
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unlicensed):
-                lock()
+                Tracker.disable()
             case (.activating, .activated), (.deactivated, .activated):
                 break
             case (.activating, .deactivated), (.activated, .deactivated):
@@ -113,12 +114,16 @@ extension AppDelegate: NSMenuDelegate {
             let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
             versionMenuItem.isHidden = !hidden
         }
+        do {
+            enabledMenuItem.isHidden = (currentState == .unlicensed)
+            registerMenuItem.isHidden = !enabledMenuItem.isHidden
+        }
         statsController.updateView()
     }
 }
 
 
-// MARK: State transitions
+// MARK:- State transitions
 extension AppDelegate {
 
     func checkLicense() {
@@ -195,18 +200,10 @@ extension AppDelegate {
         currentState = .deactivated
     }
 
-
-    /// Lock application functionality (lack of license)
-    func lock() {
-        print("locked")
-        Tracker.disable()
-        enabledMenuItem.isEnabled = false
-    }
-
 }
 
 
-// MARK: Helpers
+// MARK:- Helpers
 extension AppDelegate {
 
     func isTrusted() -> Bool {
@@ -224,7 +221,7 @@ extension AppDelegate {
 }
 
 
-// MARK: IBActions
+// MARK:- IBActions
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
@@ -236,6 +233,10 @@ extension AppDelegate {
         default:
             break
         }
+    }
+
+    @IBAction func registerLicense(_ sender: Any) {
+        
     }
 
     @IBAction func showTipJar(_ sender: Any) {
