@@ -31,6 +31,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
+    enum State {
+        case launching
+        case validatingLicense
+        case unlicensed
+        case activating
+        case activated
+        case deactivated
+    }
+
+    var currentState: State = .launching {
+        didSet(oldValue) {
+            print("Transition: \(oldValue) -> \(currentState)")
+            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+
+            switch (oldValue, currentState) {
+            case (.launching, .validatingLicense):
+                checkLicense()
+            case (.validatingLicense, .activating):
+                activate(showAlert: true, keepTrying: true)
+            case (.validatingLicense, .unlicensed):
+                lock()
+            case (.activating, .activated), (.deactivated, .activated):
+                break
+            case (.activating, .deactivated), (.activated, .deactivated):
+                break
+            default:
+                fatalError("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
+            }
+        }
+    }
 }
 
 
@@ -38,6 +68,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        precondition(currentState == .launching)
+
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
         }
@@ -50,46 +82,7 @@ extension AppDelegate {
             UNUserNotificationCenter.current().delegate = self
         }
 
-        activate(allowAlert: true)
-        checkLicense()
-    }
-
-    func activate(allowAlert: Bool) {
-        if !_activate(allowAlert: allowAlert) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.activate(allowAlert: false)
-            }
-        }
-    }
-
-    func checkLicense() {
-        let delay = 1.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
-            let license = License(forKey: .license, defaults: defaults)
-            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
-            validate(licenseInfo) { status in
-                switch status {
-                case .validLicenseKey:
-                    print("OK: valid license")
-                    break
-                case .inTrial:
-                    print("OK: in trial")
-                    break
-                case .noLicenseKey:
-                    // TODO: show purchase dialog
-                    print("⚠️ no license")
-                    self.lock()
-                case .invalidLicenseKey:
-                    // TODO: show alert
-                    print("⚠️ invalid license")
-                    self.lock()
-                case .error(let error):
-                    // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-                    print("⚠️ \(error)")
-                }
-            }
-        }
+        currentState = .validatingLicense
     }
 
     override func awakeFromNib() {
@@ -125,57 +118,101 @@ extension AppDelegate: NSMenuDelegate {
 }
 
 
-// Helpers
+// MARK: State transitions
 extension AppDelegate {
 
-    func isTrusted() -> Bool {
-        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let options = [prompt: true] as CFDictionary
-        return AXIsProcessTrustedWithOptions(options)
-    }
-
-    @discardableResult
-    func _activate(allowAlert: Bool) -> Bool {
-        Tracker.enable()
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-        if !Tracker.isActive && allowAlert {
-            let alert = NSAlert()
-            alert.messageText = "Accessibility permissions required"
-            alert.informativeText = """
-            Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
-
-            You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
-
-            Click "Help" for more information.
-            
-            """
-            alert.addButton(withTitle: "Open System Preferences")
-            alert.addButton(withTitle: "Help")
-            switch alert.runModal() {
-            case .alertFirstButtonReturn:
-                let url = URL.init(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane/")
-                NSWorkspace.shared.open(url)
-            case .alertSecondButtonReturn:
-                let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
-                NSWorkspace.shared.open(url)
-            default:
-                break
+    func checkLicense() {
+        let delay = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+            let license = License(forKey: .license, defaults: defaults)
+            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+            validate(licenseInfo) { status in
+                switch status {
+                case .validLicenseKey:
+                    print("OK: valid license")
+                    self.currentState = .activating
+                case .inTrial:
+                    print("OK: in trial")
+                    self.currentState = .activating
+                case .noLicenseKey:
+                    // TODO: show purchase dialog
+                    print("⚠️ no license")
+                    self.currentState = .unlicensed
+                case .invalidLicenseKey:
+                    // TODO: show alert
+                    print("⚠️ invalid license")
+                    self.currentState = .unlicensed
+                case .error(let error):
+                    // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+                    print("⚠️ \(error)")
+                }
             }
         }
-        return Tracker.isActive
     }
 
-    func disable() {
+    func activate(showAlert: Bool, keepTrying: Bool) {
+        Tracker.enable()
+        if Tracker.isActive {
+            currentState = .activated
+        } else {
+            if showAlert {
+                let alert = NSAlert()
+                alert.messageText = "Accessibility permissions required"
+                alert.informativeText = """
+                Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
+
+                You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
+
+                Click "Help" for more information.
+
+                """
+                alert.addButton(withTitle: "Open System Preferences")
+                alert.addButton(withTitle: "Help")
+                switch alert.runModal() {
+                case .alertFirstButtonReturn:
+                    let url = URL.init(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane/")
+                    NSWorkspace.shared.open(url)
+                case .alertSecondButtonReturn:
+                    let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
+                    NSWorkspace.shared.open(url)
+                default:
+                    break
+                }
+            }
+            if keepTrying {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.activate(showAlert: false, keepTrying: true)
+                }
+            } else {
+                currentState = .deactivated
+            }
+        }
+    }
+
+    func deactivate() {
         Tracker.disable()
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        currentState = .deactivated
     }
 
 
     /// Lock application functionality (lack of license)
     func lock() {
         print("locked")
-        self.disable()
-        self.enabledMenuItem.isEnabled = false
+        Tracker.disable()
+        enabledMenuItem.isEnabled = false
+    }
+
+}
+
+
+// MARK: Helpers
+extension AppDelegate {
+
+    func isTrusted() -> Bool {
+        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+        let options = [prompt: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
     }
 
     var version: String {
@@ -187,14 +224,17 @@ extension AppDelegate {
 }
 
 
-// IBActions
+// MARK: IBActions
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        if enabledMenuItem.state == .on {
-            disable()
-        } else {
-            _activate(allowAlert: true)
+        switch currentState {
+        case .activated:
+            deactivate()
+        case .deactivated:
+            activate(showAlert: true, keepTrying: false)
+        default:
+            break
         }
     }
 
