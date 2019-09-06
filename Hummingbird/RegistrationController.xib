@@ -9,6 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RegistrationController" customModule="Hummingbird" customModuleProvider="target">
             <connections>
+                <outlet property="errorLabel" destination="lx8-ub-Ep9" id="Xwo-Dn-xYk"/>
                 <outlet property="licenseKeyField" destination="fEj-jf-r4V" id="Jr8-R5-9GN"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -94,6 +95,15 @@ DQ
                             <action selector="submit:" target="-2" id="Dvh-zT-jXT"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lx8-ub-Ep9">
+                        <rect key="frame" x="20" y="71" width="317" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="An error occurred, please try again." id="PMj-oc-dtq">
+                            <font key="font" metaFont="system" size="12"/>
+                            <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
