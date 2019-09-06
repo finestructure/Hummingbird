@@ -63,20 +63,20 @@ class RegistrationController: NSWindowController {
             switch status {
             case .validLicenseKey:
                 self.window?.close()
-                self.delegate?.didSubmit(license: .valid)
                 DispatchQueue.main.async {
                     self.successAlert.runModal()
+                    self.delegate?.didSubmit(license: .valid)
                 }
             case .inTrial, .invalidLicenseKey, .noLicenseKey:
-                self.delegate?.didSubmit(license: .invalid)
                 DispatchQueue.main.async {
+                    self.delegate?.didSubmit(license: .invalid)
                     self.errorLabel.stringValue = "License key invalid."
                     self.errorLabel.isHidden = false
                 }
             case .error(let error):
                 print("⚠️ \(error)")
-                self.delegate?.didSubmit(license: .error(error))
                 DispatchQueue.main.async {
+                    self.delegate?.didSubmit(license: .error(error))
                     self.errorLabel.stringValue = "An error occurred, please try again."
                     self.errorLabel.isHidden = false
                 }

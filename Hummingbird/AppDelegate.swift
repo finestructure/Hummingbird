@@ -25,7 +25,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     lazy var registrationController: RegistrationController = {
-        return RegistrationController(windowNibName: "RegistrationController")
+        let c = RegistrationController(windowNibName: "RegistrationController")
+        c.delegate = self
+        return c
     }()
 
     lazy var statsController: StatsController = {
@@ -49,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch (oldValue, currentState) {
             case (.launching, .validatingLicense):
                 checkLicense()
-            case (.validatingLicense, .activating):
+            case (.validatingLicense, .activating),  (.unlicensed, .activating):
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unlicensed):
                 Tracker.disable()
@@ -58,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case (.activating, .deactivated), (.activated, .deactivated):
                 break
             default:
-                fatalError("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
+                assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
             }
         }
     }
@@ -264,6 +266,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("show")
         case .none:
             print("no action")
+        }
+    }
+}
+
+
+// MARK:- RegistrationControllerDelegate
+
+extension AppDelegate: RegistrationControllerDelegate {
+    func didSubmit(license: LicenseCheck) {
+        switch license {
+        case .valid:
+            // TODO: save license
+            self.currentState = .activating
+        case .invalid:
+            self.currentState = .unlicensed
+        case .error(let error):
+            // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+            print("⚠️ \(error)")
         }
     }
 }
