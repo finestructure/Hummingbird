@@ -10,7 +10,7 @@ import Cocoa
 
 
 enum LicenseCheck {
-    case valid
+    case valid(License)
     case invalid
     case error(Error)
 }
@@ -65,7 +65,7 @@ class RegistrationController: NSWindowController {
                 self.window?.close()
                 DispatchQueue.main.async {
                     self.successAlert.runModal()
-                    self.delegate?.didSubmit(license: .valid)
+                    self.delegate?.didSubmit(license: .valid(license))
                 }
             case .inTrial, .invalidLicenseKey, .noLicenseKey:
                 DispatchQueue.main.async {

@@ -276,8 +276,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: RegistrationControllerDelegate {
     func didSubmit(license: LicenseCheck) {
         switch license {
-        case .valid:
-            // TODO: save license
+        case .valid(let license):
+            do {
+                try license.save(forKey: .license, defaults: defaults)
+            } catch {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Error saving license key"
+                alert.informativeText = error.localizedDescription
+                alert.runModal()
+            }
             self.currentState = .activating
         case .invalid:
             self.currentState = .unlicensed
