@@ -127,31 +127,28 @@ extension AppDelegate: NSMenuDelegate {
 extension AppDelegate {
 
     func checkLicense() {
-        let delay = 1.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
-            let license = License(forKey: .license, defaults: defaults)
-            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
-            validate(licenseInfo) { status in
-                switch status {
-                case .validLicenseKey:
-                    print("OK: valid license")
-                    self.currentState = .activating
-                case .inTrial:
-                    print("OK: in trial")
-                    self.currentState = .activating
-                case .noLicenseKey:
-                    // TODO: show purchase dialog
-                    print("⚠️ no license")
-                    self.currentState = .unlicensed
-                case .invalidLicenseKey:
-                    // TODO: show alert
-                    print("⚠️ invalid license")
-                    self.currentState = .unlicensed
-                case .error(let error):
-                    // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-                    print("⚠️ \(error)")
-                }
+        let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+        let license = License(forKey: .license, defaults: defaults)
+        let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+        validate(licenseInfo) { status in
+            switch status {
+            case .validLicenseKey:
+                print("OK: valid license")
+                self.currentState = .activating
+            case .inTrial:
+                print("OK: in trial")
+                self.currentState = .activating
+            case .noLicenseKey:
+                // TODO: show purchase dialog
+                print("⚠️ no license")
+                self.currentState = .unlicensed
+            case .invalidLicenseKey:
+                // TODO: show alert
+                print("⚠️ invalid license")
+                self.currentState = .unlicensed
+            case .error(let error):
+                // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+                print("⚠️ \(error)")
             }
         }
     }
