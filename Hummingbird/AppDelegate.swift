@@ -55,6 +55,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unlicensed):
                 Tracker.disable()
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Trial expired"
+                alert.informativeText = """
+                Your trial period has expired 😞.
+
+                Please support the development of Hummingbird by purchasing a license!
+                """
+                alert.addButton(withTitle: "Purchase License")
+                alert.addButton(withTitle: "Quit")
+                switch alert.runModal() {
+                case .alertFirstButtonReturn:
+                    let url = URL(string: "https://gum.co/hummingbirdapp")!
+                    NSWorkspace.shared.open(url)
+                default:
+                    NSApp.terminate(self)
+                }
             case (.activating, .activated), (.deactivated, .activated):
                 break
             case (.activating, .deactivated), (.activated, .deactivated):
