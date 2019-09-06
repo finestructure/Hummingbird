@@ -27,6 +27,18 @@ class RegistrationController: NSWindowController {
 
     weak var delegate: RegistrationControllerDelegate?
 
+    lazy var successAlert: NSAlert = {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = "Registration successful"
+        alert.informativeText = """
+        Your copy of Hummingbird has been registered.
+
+        Thank you for your support!
+        """
+        return alert
+    }()
+
     // TODO: enabled Submit button only if string is valid
     @IBAction func submit(_ sender: Any) {
         let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
@@ -36,7 +48,11 @@ class RegistrationController: NSWindowController {
             switch status {
             case .validLicenseKey:
                 print("OK: valid license")
+                self.window?.close()
                 self.delegate?.didSubmit(license: .valid)
+                DispatchQueue.main.async {
+                    self.successAlert.runModal()
+                }
             case .inTrial:
                 print("In trial")
                 self.delegate?.didSubmit(license: .invalid)
