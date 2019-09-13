@@ -78,6 +78,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 break
             case (.activating, .deactivated), (.activated, .deactivated):
                 break
+            case (.unlicensed, .unlicensed):
+                break
             default:
                 assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
             }
