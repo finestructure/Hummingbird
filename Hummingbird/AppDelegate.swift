@@ -21,7 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
     lazy var preferencesController: PreferencesController = {
-        return PreferencesController(windowNibName: "PreferencesController")
+        let c = PreferencesController(windowNibName: "PreferencesController")
+        c.delegate = self
+        return c
     }()
 
     lazy var registrationController: RegistrationController = {
@@ -51,6 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch (oldValue, currentState) {
             case (.launching, .validatingLicense):
                 checkLicense()
+            case (.activated, .activating):
+                // license check succeeded while already active (i.e. when in trial)
+                break
             case (.validatingLicense, .activating),  (.unregistered, .activating):
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unregistered):
@@ -79,6 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case (.activating, .deactivated), (.activated, .deactivated):
                 break
             case (.unregistered, .unregistered):
+                // license check failed while already unregistered
                 break
             default:
                 assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
@@ -313,5 +319,14 @@ extension AppDelegate: RegistrationControllerDelegate {
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
             print("⚠️ \(error)")
         }
+    }
+}
+
+
+// MARK:- PreferencesControllerDelegate
+
+extension AppDelegate: PreferencesControllerDelegate {
+    func didRequestRegistrationController() {
+        registrationController.showWindow(self)
     }
 }

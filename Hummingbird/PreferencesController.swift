@@ -8,6 +8,12 @@
 
 import Cocoa
 
+
+protocol PreferencesControllerDelegate: class {
+    func didRequestRegistrationController()
+}
+
+
 class PreferencesController: NSWindowController {
 
     @IBOutlet weak var moveAlt: NSButton!
@@ -21,6 +27,22 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeControl: NSButton!
     @IBOutlet weak var resizeFn: NSButton!
     @IBOutlet weak var resizeShift: NSButton!
+
+    @IBOutlet weak var registrationStatusLabel: NSTextField!
+
+    weak var delegate: PreferencesControllerDelegate?
+
+    var isRegistered: Bool {
+        return License(forKey: .license, defaults: defaults) != nil
+    }
+
+
+    override func showWindow(_ sender: Any?) {
+        super.showWindow(sender)
+        registrationStatusLabel.stringValue = isRegistered
+            ? "🎫 Registered copy"
+            : "⚠️ Unregistered – click to register"
+    }
 
 
     @IBAction func modifierClicked(_ sender: NSButton) {
@@ -44,7 +66,15 @@ class PreferencesController: NSWindowController {
             }
         }
     }
-    
+
+
+    @IBAction func registrationLabelClicked(_ sender: Any) {
+        if !isRegistered {
+            close()
+            delegate?.didRequestRegistrationController()
+        }
+    }
+
 }
 
 extension PreferencesController: NSWindowDelegate {
