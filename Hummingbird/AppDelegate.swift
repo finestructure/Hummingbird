@@ -63,12 +63,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 Please support the development of Hummingbird by purchasing a license!
                 """
-                alert.addButton(withTitle: "Purchase License")
+                alert.addButton(withTitle: "Purchase")
+                alert.addButton(withTitle: "Register")
                 alert.addButton(withTitle: "Quit")
                 switch alert.runModal() {
                 case .alertFirstButtonReturn:
                     let url = URL(string: "https://gum.co/hummingbirdapp")!
                     NSWorkspace.shared.open(url)
+                case .alertSecondButtonReturn:
+                    registrationController.showWindow(self)
                 default:
                     NSApp.terminate(self)
                 }
