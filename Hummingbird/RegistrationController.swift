@@ -68,12 +68,12 @@ class RegistrationController: NSWindowController {
                     self.delegate?.didSubmit(license: .valid(license))
                 case .inTrial, .invalidLicenseKey, .noLicenseKey:
                     self.delegate?.didSubmit(license: .invalid)
-                    self.errorLabel.stringValue = "License key invalid."
+                    self.errorLabel.stringValue = "⚠️ License key invalid."
                     self.errorLabel.isHidden = false
                 case .error(let error):
                     print("⚠️ \(error)")
                     self.delegate?.didSubmit(license: .error(error))
-                    self.errorLabel.stringValue = "An error occurred, please try again."
+                    self.errorLabel.stringValue = "⚠️ \(error.localizedDescription)"
                     self.errorLabel.isHidden = false
                 }
             }
