@@ -98,11 +98,13 @@ public struct Gumroad {
 func validate(_ licenseInfo: LicenseInfo, completion: @escaping (Status) -> ()) {
     if let licenseKey = licenseInfo.license {
         Current.gumroad.validate(license: licenseKey) { result in
-            switch result {
-            case .success(let valid):
-                completion(valid ? .validLicenseKey: .invalidLicenseKey)
-            case .failure(let error):
-                completion(.error(error))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let valid):
+                    completion(valid ? .validLicenseKey: .invalidLicenseKey)
+                case .failure(let error):
+                    completion(.error(error))
+                }
             }
         }
     } else {
