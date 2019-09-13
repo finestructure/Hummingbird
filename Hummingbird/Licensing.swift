@@ -63,7 +63,7 @@ public struct Gumroad {
     var dataTask: DataTaskHandler = URLSession.shared.dataTask
 
     func validate(license: License, completion: @escaping (Result<Bool, Error>) -> Void) {
-        var request = URLRequest(url: URL(string: "https://api.gumroad.com/v2/licenses/verify")!)
+        var request = URLRequest(url: Links.gumroadLicenseVerification.url)
         request.httpMethod = "POST"
         let body = [
             "product_permalink": "hummingbirdapp",

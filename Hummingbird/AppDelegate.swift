@@ -68,8 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 alert.addButton(withTitle: "Quit")
                 switch alert.runModal() {
                 case .alertFirstButtonReturn:
-                    let url = URL(string: "https://gum.co/hummingbirdapp")!
-                    NSWorkspace.shared.open(url)
+                    presentPurchaseView()
                 case .alertSecondButtonReturn:
                     registrationController.showWindow(self)
                 default:
@@ -195,11 +194,9 @@ extension AppDelegate {
                 alert.addButton(withTitle: "Help")
                 switch alert.runModal() {
                 case .alertFirstButtonReturn:
-                    let url = URL.init(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane/")
-                    NSWorkspace.shared.open(url)
+                    NSWorkspace.shared.open(Links.securitySystemPreferences.url)
                 case .alertSecondButtonReturn:
-                    let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
-                    NSWorkspace.shared.open(url)
+                    NSWorkspace.shared.open(Links.accessibilityHelp.url)
                 default:
                     break
                 }
