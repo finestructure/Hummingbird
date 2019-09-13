@@ -80,4 +80,14 @@ class RegistrationController: NSWindowController {
         }
     }
 
+
+    @IBAction func purchaseLinkClicked(_ sender: Any) {
+        presentPurchaseView()
+    }
+
+
+    @IBAction func retrieveLicenseKeyClicked(_ sender: Any) {
+        NSWorkspace.shared.open(Links.retrieveLicenseKey.url)
+    }
+
 }
