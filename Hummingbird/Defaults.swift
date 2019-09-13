@@ -19,6 +19,7 @@ enum DefaultsKeys: String {
     case lastNotified
     case license
     case firstLaunched
+    case dateRegistered
 }
 
 

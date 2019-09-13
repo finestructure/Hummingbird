@@ -296,6 +296,7 @@ extension AppDelegate: RegistrationControllerDelegate {
         case .valid(let license):
             do {
                 try license.save(forKey: .license, defaults: defaults)
+                try Current.date().save(forKey: .dateRegistered, defaults: defaults)
             } catch {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
