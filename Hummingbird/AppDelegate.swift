@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
     lazy var preferencesController: PreferencesController = {
-        return PreferencesController(windowNibName: "HBPreferencesController")
+        return PreferencesController(windowNibName: "PreferencesController")
     }()
 
     lazy var registrationController: RegistrationController = {

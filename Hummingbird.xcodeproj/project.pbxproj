@@ -31,7 +31,7 @@
 		5A4D082722A56B4600504AB0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46190E2282B0EA0078E1B2 /* Notifications.swift */; };
 		5A5E275C232BBAC0000F54E9 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275B232BBAC0000F54E9 /* Purchase.swift */; };
 		5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
-		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
+		5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */; };
 		5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
 		5A7F7865229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
 		5A7F78672295AA030064B39C /* DefaultStringInterpolation+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F78662295AA030064B39C /* DefaultStringInterpolation+ext.swift */; };
@@ -95,7 +95,7 @@
 		5A46191B2286C90B0078E1B2 /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
 		5A5E275B232BBAC0000F54E9 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		5A5E275D232BBB35000F54E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
+		5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
 		5A7F7863229455EB0064B39C /* OrderedDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDict.swift; sourceTree = "<group>"; };
 		5A7F78662295AA030064B39C /* DefaultStringInterpolation+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultStringInterpolation+ext.swift"; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		5A78DD1422F3177C00D0F23D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */,
 				5A22299E228A8F1400E4B95B /* StatsController.xib */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				5AA93C95231953AF00B268CF /* RegistrationController.xib */,
@@ -390,7 +390,7 @@
 				5A2229A0228A8F1400E4B95B /* StatsController.xib in Resources */,
 				F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */,
 				F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */,
-				5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */,
+				5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */,
 				5AA93C97231953AF00B268CF /* RegistrationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
