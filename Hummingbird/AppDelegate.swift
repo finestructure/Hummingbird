@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     enum State {
         case launching
         case validatingLicense
-        case unlicensed
+        case unregistered
         case activating
         case activated
         case deactivated
@@ -51,9 +51,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch (oldValue, currentState) {
             case (.launching, .validatingLicense):
                 checkLicense()
-            case (.validatingLicense, .activating),  (.unlicensed, .activating):
+            case (.validatingLicense, .activating),  (.unregistered, .activating):
                 activate(showAlert: true, keepTrying: true)
-            case (.validatingLicense, .unlicensed):
+            case (.validatingLicense, .unregistered):
                 Tracker.disable()
                 let alert = NSAlert()
                 alert.alertStyle = .critical
@@ -78,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 break
             case (.activating, .deactivated), (.activated, .deactivated):
                 break
-            case (.unlicensed, .unlicensed):
+            case (.unregistered, .unregistered):
                 break
             default:
                 assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
@@ -138,7 +138,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            enabledMenuItem.isHidden = (currentState == .unlicensed)
+            enabledMenuItem.isHidden = (currentState == .unregistered)
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
         }
         statsController.updateView()
@@ -164,11 +164,11 @@ extension AppDelegate {
             case .noLicenseKey:
                 // TODO: show purchase dialog
                 print("⚠️ no license")
-                self.currentState = .unlicensed
+                self.currentState = .unregistered
             case .invalidLicenseKey:
                 // TODO: show alert
                 print("⚠️ invalid license")
-                self.currentState = .unlicensed
+                self.currentState = .unregistered
             case .error(let error):
                 // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
                 print("⚠️ \(error)")
@@ -308,7 +308,7 @@ extension AppDelegate: RegistrationControllerDelegate {
             }
             self.currentState = .activating
         case .invalid:
-            self.currentState = .unlicensed
+            self.currentState = .unregistered
         case .error(let error):
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
             print("⚠️ \(error)")
