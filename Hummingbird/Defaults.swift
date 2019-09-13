@@ -13,13 +13,13 @@ let defaults = UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? 
 
 
 enum DefaultsKeys: String {
-    case moveModifiers
-    case resizeModifiers
+    case dateRegistered
+    case firstLaunched
     case history
     case lastNotified
     case license
-    case firstLaunched
-    case dateRegistered
+    case moveModifiers
+    case resizeModifiers
 }
 
 
