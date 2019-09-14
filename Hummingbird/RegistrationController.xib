@@ -11,6 +11,8 @@
             <connections>
                 <outlet property="errorLabel" destination="lx8-ub-Ep9" id="Xwo-Dn-xYk"/>
                 <outlet property="licenseKeyField" destination="fEj-jf-r4V" id="Jr8-R5-9GN"/>
+                <outlet property="spinner" destination="eS8-6u-Cfh" id="hpu-St-63S"/>
+                <outlet property="submitButton" destination="W38-BP-bHr" id="e7U-eW-flg"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -113,11 +115,15 @@ DQ
                         <rect key="frame" x="20" y="71" width="317" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="An error occurred, please try again." id="PMj-oc-dtq">
-                            <font key="font" metaFont="cellTitle"/>
+                            <font key="font" metaFont="controlContent"/>
                             <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="eS8-6u-Cfh">
+                        <rect key="frame" x="370" y="97" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </progressIndicator>
                 </subviews>
             </view>
             <connections>

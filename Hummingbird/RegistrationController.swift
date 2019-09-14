@@ -25,6 +25,8 @@ class RegistrationController: NSWindowController {
     
     @IBOutlet weak var licenseKeyField: NSTextField!
     @IBOutlet weak var errorLabel: NSTextField!
+    @IBOutlet weak var submitButton: NSButton!
+    @IBOutlet weak var spinner: NSProgressIndicator!
 
     weak var delegate: RegistrationControllerDelegate?
 
@@ -40,11 +42,20 @@ class RegistrationController: NSWindowController {
         return alert
     }()
 
+    var requestInProgress: Bool = false {
+        didSet {
+            licenseKeyField.isEnabled = !requestInProgress
+            submitButton.isHidden = requestInProgress
+            spinner.isHidden = !requestInProgress
+            requestInProgress ? spinner.startAnimation(self) : spinner.stopAnimation(self)
+        }
+    }
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
         errorLabel.isHidden = true
         errorLabel.stringValue = ""
+        requestInProgress = false
     }
 
 
@@ -59,6 +70,8 @@ class RegistrationController: NSWindowController {
         let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
         let license = License(key: licenseKeyField.stringValue)
         let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+
+        requestInProgress = true
         validate(licenseInfo) { status in
             DispatchQueue.main.async {
                 switch status {
@@ -76,6 +89,7 @@ class RegistrationController: NSWindowController {
                     self.errorLabel.stringValue = "⚠️ \(error.localizedDescription)"
                     self.errorLabel.isHidden = false
                 }
+                self.requestInProgress = false
             }
         }
     }
