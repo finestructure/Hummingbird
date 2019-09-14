@@ -10,12 +10,19 @@ import Cocoa
 import UserNotifications
 
 
+struct FeatureFlags {
+    static let commercial = false
+}
+
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
     @IBOutlet weak var enabledMenuItem: NSMenuItem!
+    @IBOutlet weak var registerMenuItem: NSMenuItem!
+    @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
@@ -24,13 +31,79 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
 
     lazy var preferencesController: PreferencesController = {
-        return PreferencesController(windowNibName: "HBPreferencesController")
+        let c = PreferencesController(windowNibName: "PreferencesController")
+        c.delegate = self
+        return c
+    }()
+
+    lazy var registrationController: RegistrationController = {
+        let c = RegistrationController(windowNibName: "RegistrationController")
+        c.delegate = self
+        return c
     }()
 
     lazy var statsController: StatsController = {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
+    enum State {
+        case launching
+        case validatingLicense
+        case unregistered
+        case activating
+        case activated
+        case deactivated
+    }
+
+    var currentState: State = .launching {
+        didSet(oldValue) {
+            print("Transition: \(oldValue) -> \(currentState)")
+            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+
+            switch (oldValue, currentState) {
+            case (.launching, .validatingLicense):
+                checkLicense()
+            case (.activated, .activating):
+                // license check succeeded while already active (i.e. when in trial)
+                break
+            case (.validatingLicense, .activating),  (.unregistered, .activating):
+                activate(showAlert: true, keepTrying: true)
+            case (.validatingLicense, .unregistered):
+                Tracker.disable()
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Trial expired"
+                alert.informativeText = """
+                Your trial period has expired 😞.
+
+                Please support the development of Hummingbird by purchasing a license!
+                """
+                alert.addButton(withTitle: "Purchase")
+                alert.addButton(withTitle: "Register")
+                alert.addButton(withTitle: "Quit")
+                switch alert.runModal() {
+                case .alertFirstButtonReturn:
+                    presentPurchaseView()
+                case .alertSecondButtonReturn:
+                    registrationController.showWindow(self)
+                default:
+                    NSApp.terminate(self)
+                }
+            case (.activating, .activated), (.deactivated, .activated):
+                break
+            case (.activating, .deactivated), (.activated, .deactivated):
+                break
+            case (.unregistered, .unregistered):
+                // license check failed while already unregistered
+                break
+            case (.activated, .unregistered):
+                // license check failed while on trial
+                break
+            default:
+                assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
+            }
+        }
+    }
 }
 
 
@@ -38,6 +111,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        precondition(currentState == .launching)
+
+        if Date(forKey: .firstLaunched, defaults: defaults) == nil {
+            try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
+        }
+
         statusMenu.delegate = self
         defaults.register(defaults: DefaultPreferences)
 
@@ -46,15 +125,7 @@ extension AppDelegate {
             UNUserNotificationCenter.current().delegate = self
         }
 
-        activate(allowAlert: true)
-    }
-
-    func activate(allowAlert: Bool) {
-        if !_activate(allowAlert: allowAlert) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.activate(allowAlert: false)
-            }
-        }
+        currentState = .validatingLicense
     }
 
     override func awakeFromNib() {
@@ -85,54 +156,105 @@ extension AppDelegate: NSMenuDelegate {
             let hidden = NSEvent.modifierFlags.intersection(.deviceIndependentFlagsMask) == .option
             versionMenuItem.isHidden = !hidden
         }
+        do {
+            enabledMenuItem.isHidden = (currentState == .unregistered)
+            registerMenuItem.isHidden = !enabledMenuItem.isHidden
+        }
+        do {
+            sendCoffeeMenuItem.isHidden = FeatureFlags.commercial
+        }
         statsController.updateView()
     }
 }
 
 
-// Helpers
+// MARK:- State transitions
+extension AppDelegate {
+
+    func checkLicense() {
+        // Yes, it is really that simple to circumvent the license check. But if you can build it from source
+        // it's free of charge anyway. Although it'd be great if you'd send a coffee!
+        if FeatureFlags.commercial {
+            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+            let license = License(forKey: .license, defaults: defaults)
+            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+            validate(licenseInfo) { status in
+                switch status {
+                    case .validLicenseKey:
+                        print("OK: valid license")
+                        self.currentState = .activating
+                    case .inTrial:
+                        print("OK: in trial")
+                        self.currentState = .activating
+                    case .noLicenseKey:
+                        print("⚠️ no license")
+                        self.currentState = .unregistered
+                    case .invalidLicenseKey:
+                        print("⚠️ invalid license")
+                        self.currentState = .unregistered
+                    case .error(let error):
+                        // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+                        print("⚠️ \(error)")
+                }
+            }
+        } else {
+            print("Open source version")
+            currentState = .activating
+        }
+    }
+
+    func activate(showAlert: Bool, keepTrying: Bool) {
+        Tracker.enable()
+        if Tracker.isActive {
+            currentState = .activated
+        } else {
+            if showAlert {
+                let alert = NSAlert()
+                alert.messageText = "Accessibility permissions required"
+                alert.informativeText = """
+                Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
+
+                You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
+
+                Click "Help" for more information.
+
+                """
+                alert.addButton(withTitle: "Open System Preferences")
+                alert.addButton(withTitle: "Help")
+                switch alert.runModal() {
+                case .alertFirstButtonReturn:
+                    NSWorkspace.shared.open(Links.securitySystemPreferences.url)
+                case .alertSecondButtonReturn:
+                    NSWorkspace.shared.open(Links.accessibilityHelp.url)
+                default:
+                    break
+                }
+            }
+            if keepTrying {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.activate(showAlert: false, keepTrying: true)
+                }
+            } else {
+                currentState = .deactivated
+            }
+        }
+    }
+
+    func deactivate() {
+        Tracker.disable()
+        currentState = .deactivated
+    }
+
+}
+
+
+// MARK:- Helpers
 extension AppDelegate {
 
     func isTrusted() -> Bool {
         let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
         let options = [prompt: true] as CFDictionary
         return AXIsProcessTrustedWithOptions(options)
-    }
-
-    @discardableResult
-    func _activate(allowAlert: Bool) -> Bool {
-        Tracker.enable()
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-        if !Tracker.isActive && allowAlert {
-            let alert = NSAlert()
-            alert.messageText = "Accessibility permissions required"
-            alert.informativeText = """
-            Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
-
-            You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
-
-            Click "Help" for more information.
-            
-            """
-            alert.addButton(withTitle: "Open System Preferences")
-            alert.addButton(withTitle: "Help")
-            switch alert.runModal() {
-            case .alertFirstButtonReturn:
-                let url = URL.init(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane/")
-                NSWorkspace.shared.open(url)
-            case .alertSecondButtonReturn:
-                let url = URL(string: "https://finestructure.co/hummingbird-accessibility")!
-                NSWorkspace.shared.open(url)
-            default:
-                break
-            }
-        }
-        return Tracker.isActive
-    }
-
-    func disable() {
-        Tracker.disable()
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 
     var version: String {
@@ -144,15 +266,23 @@ extension AppDelegate {
 }
 
 
-// IBActions
+// MARK:- IBActions
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        if enabledMenuItem.state == .on {
-            disable()
-        } else {
-            _activate(allowAlert: true)
+        switch currentState {
+        case .activated:
+            deactivate()
+        case .deactivated:
+            activate(showAlert: true, keepTrying: false)
+        default:
+            break
         }
+    }
+
+    @IBAction func registerLicense(_ sender: Any) {
+        NSApp.activate(ignoringOtherApps: true)
+        registrationController.showWindow(sender)
     }
 
     @IBAction func showTipJar(_ sender: Any) {
@@ -188,5 +318,45 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         case .none:
             print("no action")
         }
+    }
+}
+
+
+// MARK:- RegistrationControllerDelegate
+
+extension AppDelegate: RegistrationControllerDelegate {
+    func didSubmit(license: LicenseCheck) {
+        switch license {
+        case .valid(let license):
+            do {
+                try license.save(forKey: .license, defaults: defaults)
+                try Current.date().save(forKey: .dateRegistered, defaults: defaults)
+            } catch {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Error saving license key"
+                alert.informativeText = error.localizedDescription
+                alert.runModal()
+            }
+            self.currentState = .activating
+        case .invalid:
+            self.currentState = .unregistered
+        case .error(let error):
+            // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+            print("⚠️ \(error)")
+        }
+    }
+}
+
+
+// MARK:- PreferencesControllerDelegate
+
+extension AppDelegate: PreferencesControllerDelegate {
+    func didRequestRegistrationController() {
+        registrationController.showWindow(self)
+    }
+
+    func didRequestTipJarController() {
+        tipJarController.showWindow(self)
     }
 }

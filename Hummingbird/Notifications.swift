@@ -59,7 +59,7 @@ struct Notifications {
             print("no tracker")
             return
         }
-        if let lastNotified = defaults.object(forKey: DefaultsKeys.lastNotified.rawValue) as? Date {
+        if let lastNotified = Date(forKey: .lastNotified, defaults: defaults) {
             // send only one notification per day
             guard lastNotified.truncated() != Current.date().truncated() else { return }
         }
@@ -77,7 +77,7 @@ struct Notifications {
             if let error = error {
                 print("Error while sending notification: \(error)")
             } else {
-                defaults.set(Current.date(), forKey: DefaultsKeys.lastNotified.rawValue)
+                try? Current.date().save(forKey: .lastNotified, defaults: defaults)
             }
         }
     }

@@ -23,13 +23,15 @@
 		5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461910228333ED0078E1B2 /* HistoryTests.swift */; };
 		5A461913228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
 		5A461914228334260078E1B2 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A461912228334260078E1B2 /* History.swift */; };
-		5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191522847CF40078E1B2 /* TestUtils.swift */; };
+		5A46191622847CF40078E1B2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191522847CF40078E1B2 /* Common.swift */; };
 		5A4619182286C4DA0078E1B2 /* ModifiertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */; };
 		5A46191A2286C63A0078E1B2 /* MetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4619192286C63A0078E1B2 /* MetricsTests.swift */; };
 		5A46191C2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
 		5A46191D2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
 		5A4D082722A56B4600504AB0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46190E2282B0EA0078E1B2 /* Notifications.swift */; };
-		5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */; };
+		5A5E275C232BBAC0000F54E9 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275B232BBAC0000F54E9 /* Purchase.swift */; };
+		5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
+		5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */; };
 		5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A78DD1022F2FBF600D0F23D /* TipJarController.swift */; };
 		5A78DD1322F2FBF600D0F23D /* TipJarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A78DD1122F2FBF600D0F23D /* TipJarController.xib */; };
 		5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
@@ -52,6 +54,11 @@
 		5A8F911E227C7A2B00B78C47 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911C227C7A2B00B78C47 /* Metrics.swift */; };
 		5A8F9120227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
 		5A8F9121227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
+		5AA93C96231953AF00B268CF /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA93C94231953AF00B268CF /* RegistrationController.swift */; };
+		5AA93C97231953AF00B268CF /* RegistrationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA93C95231953AF00B268CF /* RegistrationController.xib */; };
+		5AE57A4522F72B490015B090 /* Licensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4422F72B490015B090 /* Licensing.swift */; };
+		5AE57A4622F72B490015B090 /* Licensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4422F72B490015B090 /* Licensing.swift */; };
+		5AE57A4822F72C090015B090 /* LicensingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4722F72C090015B090 /* LicensingTests.swift */; };
 		6ED47B65183BF3E800859244 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED47B64183BF3E800859244 /* Cocoa.framework */; };
 		6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B6D183BF3E800859244 /* InfoPlist.strings */; };
 		6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6ED47B79183BF3E800859244 /* MainMenu.xib */; };
@@ -84,11 +91,13 @@
 		5A46190E2282B0EA0078E1B2 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5A461910228333ED0078E1B2 /* HistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTests.swift; sourceTree = "<group>"; };
 		5A461912228334260078E1B2 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		5A46191522847CF40078E1B2 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		5A46191522847CF40078E1B2 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiertTests.swift; sourceTree = "<group>"; };
 		5A4619192286C63A0078E1B2 /* MetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTests.swift; sourceTree = "<group>"; };
 		5A46191B2286C90B0078E1B2 /* Date+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ext.swift"; sourceTree = "<group>"; };
-		5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HBPreferencesController.xib; sourceTree = "<group>"; };
+		5A5E275B232BBAC0000F54E9 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		5A5E275D232BBB35000F54E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
 		5A78DD1022F2FBF600D0F23D /* TipJarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarController.swift; sourceTree = "<group>"; };
 		5A78DD1122F2FBF600D0F23D /* TipJarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TipJarController.xib; sourceTree = "<group>"; };
 		5A7F7863229455EB0064B39C /* OrderedDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDict.swift; sourceTree = "<group>"; };
@@ -101,6 +110,10 @@
 		5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGEvent+ext.swift"; sourceTree = "<group>"; };
 		5A8F911C227C7A2B00B78C47 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+ext.swift"; sourceTree = "<group>"; };
+		5AA93C94231953AF00B268CF /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		5AA93C95231953AF00B268CF /* RegistrationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationController.xib; sourceTree = "<group>"; };
+		5AE57A4422F72B490015B090 /* Licensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Licensing.swift; sourceTree = "<group>"; };
+		5AE57A4722F72C090015B090 /* LicensingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingTests.swift; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CF01661F229C34002259F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E238EE0184504BC00E47948 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -144,20 +157,21 @@
 			isa = PBXGroup;
 			children = (
 				5A45FBCC227B281E00DC184E /* AppDelegate.swift */,
+				5A5E275D232BBB35000F54E9 /* Constants.swift */,
 				5A1C2D93225B6E21002EC3AD /* Defaults.swift */,
 				5A2229A1228BE59600E4B95B /* Environment.swift */,
 				5A461912228334260078E1B2 /* History.swift */,
+				5AE57A4422F72B490015B090 /* Licensing.swift */,
 				5A8F911C227C7A2B00B78C47 /* Metrics.swift */,
 				5A8F910F227C418200B78C47 /* Modifiers.swift */,
 				5A46190E2282B0EA0078E1B2 /* Notifications.swift */,
 				5A8F9115227C460100B78C47 /* Operators.swift */,
 				5A7F7863229455EB0064B39C /* OrderedDict.swift */,
-				5A45FBCF227B3EF000DC184E /* PreferencesController.swift */,
+				5A5E275B232BBAC0000F54E9 /* Purchase.swift */,
 				5A8F9112227C41C800B78C47 /* State.swift */,
-				5A22299D228A8F1400E4B95B /* StatsController.swift */,
-				5A78DD1022F2FBF600D0F23D /* TipJarController.swift */,
 				5A45FBAE227B1BB800DC184E /* Tracker.swift */,
 				5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */,
+				5AA93C98231953D100B268CF /* Controllers */,
 				5A8F911B227C4CF600B78C47 /* Extensions */,
 			);
 			name = Sources;
@@ -166,7 +180,8 @@
 		5A78DD1422F3177C00D0F23D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5A6B5BCB20D1720000F7A36C /* HBPreferencesController.xib */,
+				5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */,
+				5AA93C95231953AF00B268CF /* RegistrationController.xib */,
 				5A22299E228A8F1400E4B95B /* StatsController.xib */,
 				5A78DD1122F2FBF600D0F23D /* TipJarController.xib */,
 				6ED47B79183BF3E800859244 /* MainMenu.xib */,
@@ -186,15 +201,27 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		5AA93C98231953D100B268CF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5A45FBCF227B3EF000DC184E /* PreferencesController.swift */,
+				5AA93C94231953AF00B268CF /* RegistrationController.swift */,
+				5A22299D228A8F1400E4B95B /* StatsController.swift */,
+				5A78DD1022F2FBF600D0F23D /* TipJarController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		65CF01631F229C34002259F2 /* HummingbirdTests */ = {
 			isa = PBXGroup;
 			children = (
 				65CF01661F229C34002259F2 /* Info.plist */,
+				5A46191522847CF40078E1B2 /* Common.swift */,
 				5A461910228333ED0078E1B2 /* HistoryTests.swift */,
 				5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */,
+				5AE57A4722F72C090015B090 /* LicensingTests.swift */,
 				5A4619192286C63A0078E1B2 /* MetricsTests.swift */,
 				5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */,
-				5A46191522847CF40078E1B2 /* TestUtils.swift */,
 			);
 			path = HummingbirdTests;
 			sourceTree = "<group>";
@@ -310,7 +337,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = HB;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = finestructure;
 				TargetAttributes = {
 					65CF01611F229C34002259F2 = {
@@ -333,10 +360,9 @@
 			};
 			buildConfigurationList = 6ED47B5C183BF3E800859244 /* Build configuration list for PBXProject "Hummingbird" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -370,7 +396,8 @@
 				5A2229A0228A8F1400E4B95B /* StatsController.xib in Resources */,
 				F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */,
 				F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */,
-				5A6B5BCD20D1720000F7A36C /* HBPreferencesController.xib in Resources */,
+				5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */,
+				5AA93C97231953AF00B268CF /* RegistrationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +430,7 @@
 			files = (
 				5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
 				5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */,
+				5AE57A4822F72C090015B090 /* LicensingTests.swift in Sources */,
 				5A4D082722A56B4600504AB0 /* Notifications.swift in Sources */,
 				5A461914228334260078E1B2 /* History.swift in Sources */,
 				5A8F911E227C7A2B00B78C47 /* Metrics.swift in Sources */,
@@ -412,6 +440,7 @@
 				5A8F9121227C81E600B78C47 /* CGPoint+ext.swift in Sources */,
 				5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */,
 				5A2229A3228BE59600E4B95B /* Environment.swift in Sources */,
+				5AE57A4622F72B490015B090 /* Licensing.swift in Sources */,
 				5A46191D2286C90B0078E1B2 /* Date+ext.swift in Sources */,
 				5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */,
 				5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */,
@@ -421,7 +450,7 @@
 				5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */,
 				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
 				5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
-				5A46191622847CF40078E1B2 /* TestUtils.swift in Sources */,
+				5A46191622847CF40078E1B2 /* Common.swift in Sources */,
 				5A8F9117227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,13 +459,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5E275C232BBAC0000F54E9 /* Purchase.swift in Sources */,
 				5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
 				5A2229A2228BE59600E4B95B /* Environment.swift in Sources */,
 				5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */,
 				5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */,
 				5A461913228334260078E1B2 /* History.swift in Sources */,
+				5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */,
 				5A22299F228A8F1400E4B95B /* StatsController.swift in Sources */,
+				5AA93C96231953AF00B268CF /* RegistrationController.swift in Sources */,
 				5A8F911D227C7A2B00B78C47 /* Metrics.swift in Sources */,
+				5AE57A4522F72B490015B090 /* Licensing.swift in Sources */,
 				5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */,
 				5A8F9120227C81E600B78C47 /* CGPoint+ext.swift in Sources */,
 				5A46190F2282B0EA0078E1B2 /* Notifications.swift in Sources */,
@@ -641,6 +674,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
@@ -661,6 +695,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Hummingbird/Hummingbird-Prefix.pch";
