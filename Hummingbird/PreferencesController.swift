@@ -11,6 +11,7 @@ import Cocoa
 
 protocol PreferencesControllerDelegate: class {
     func didRequestRegistrationController()
+    func didRequestTipJarController()
 }
 
 
@@ -39,9 +40,9 @@ class PreferencesController: NSWindowController {
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        registrationStatusLabel.stringValue = isRegistered
-            ? "🎫 Registered copy"
-            : "⚠️ Unregistered – click to register"
+        registrationStatusLabel.stringValue = FeatureFlags.commercial
+            ? ( isRegistered ? "🎫 Registered copy" : "⚠️ Unregistered – click to register" )
+            : "Fancy sending a coffee? ☕️ Please click here to support Hummingbird."
     }
 
 
@@ -69,9 +70,12 @@ class PreferencesController: NSWindowController {
 
 
     @IBAction func registrationLabelClicked(_ sender: Any) {
-        if !isRegistered {
-            close()
-            delegate?.didRequestRegistrationController()
+        if FeatureFlags.commercial {
+            if !isRegistered {
+                delegate?.didRequestRegistrationController()
+            }
+        } else {
+            delegate?.didRequestTipJarController()
         }
     }
 

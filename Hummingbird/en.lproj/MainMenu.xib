@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -666,6 +666,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
+                <menuItem title="Send coffee..." id="YPG-30-mN1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showTipJar:" target="494" id="4ry-aO-MyG"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -692,6 +698,7 @@
             <connections>
                 <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
                 <outlet property="registerMenuItem" destination="Bjm-xz-6Bf" id="l3l-LH-hyr"/>
+                <outlet property="sendCoffeeMenuItem" destination="YPG-30-mN1" id="NXf-Fn-eh1"/>
                 <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>
                 <outlet property="statusMenu" destination="obP-gH-pam" id="5fI-Ya-ozy"/>
                 <outlet property="versionMenuItem" destination="kcl-fA-tiB" id="VQB-ps-gX5"/>
