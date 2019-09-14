@@ -72,7 +72,6 @@ class PreferencesController: NSWindowController {
     @IBAction func registrationLabelClicked(_ sender: Any) {
         if FeatureFlags.commercial {
             if !isRegistered {
-                close()
                 delegate?.didRequestRegistrationController()
             }
         } else {
