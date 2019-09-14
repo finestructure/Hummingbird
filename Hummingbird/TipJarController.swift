@@ -9,17 +9,6 @@
 import Cocoa
 
 
-enum Tip: String {
-    case small
-    case medium
-    case large
-
-    var url: URL {
-        return URL(string: "https://gum.co/hb-tip-\(rawValue)?wanted=true")!
-    }
-}
-
-
 class TipJarController: NSWindowController {
 
     override func windowDidLoad() {
@@ -27,18 +16,14 @@ class TipJarController: NSWindowController {
     }
     
     @IBAction func smallCoffeeButtonClicked(_ sender: Any) {
-        purchase(tip: .small)
+        NSWorkspace.shared.open(Links.gumroadTip(size: .small))
     }
 
     @IBAction func mediumCoffeeButtonClicked(_ sender: Any) {
-        purchase(tip: .medium)
+        NSWorkspace.shared.open(Links.gumroadTip(size: .medium))
     }
 
     @IBAction func largeCoffeeButtonClicked(_ sender: Any) {
-        purchase(tip: .large)
-    }
-
-    func purchase(tip: Tip) {
-        NSWorkspace.shared.open(tip.url)
+        NSWorkspace.shared.open(Links.gumroadTip(size: .large))
     }
 }

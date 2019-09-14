@@ -10,5 +10,5 @@ import Cocoa
 
 
 func presentPurchaseView() {
-    NSWorkspace.shared.open(Links.gumroadProductPage.url)
+    NSWorkspace.shared.open(Links.gumroadProductPage)
 }

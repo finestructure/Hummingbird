@@ -223,9 +223,9 @@ extension AppDelegate {
                 alert.addButton(withTitle: "Help")
                 switch alert.runModal() {
                 case .alertFirstButtonReturn:
-                    NSWorkspace.shared.open(Links.securitySystemPreferences.url)
+                    NSWorkspace.shared.open(Links.securitySystemPreferences)
                 case .alertSecondButtonReturn:
-                    NSWorkspace.shared.open(Links.accessibilityHelp.url)
+                    NSWorkspace.shared.open(Links.accessibilityHelp)
                 default:
                     break
                 }
