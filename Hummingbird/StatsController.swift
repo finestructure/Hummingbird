@@ -28,7 +28,7 @@ class StatsController: NSViewController {
 
     func updateView() {
         guard let tracker = Tracker.shared else {
-            print("No tracker")
+            log(.debug, "No tracker")
             return
         }
         distanceToday.stringValue = "\(distance: tracker.metricsHistory.currentValue.distanceMoved)"

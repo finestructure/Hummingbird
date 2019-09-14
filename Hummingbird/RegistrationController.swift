@@ -98,7 +98,7 @@ class RegistrationController: NSWindowController {
                     self.delegate?.didSubmit(license: .invalid)
                     self.error = "⚠️ License key invalid."
                 case .error(let error):
-                    print("⚠️ \(error)")
+                    log(.debug, "⚠️ \(error)")
                     self.delegate?.didSubmit(license: .error(error))
                     self.error = "⚠️ \(error.localizedDescription)"
                 }

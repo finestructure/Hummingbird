@@ -58,7 +58,7 @@ extension AXUIElement {
                         AXValueGetValue(ref as! AXValue, .cgPoint, ptr)
                     }
                     if !success {
-                        print("ERROR: Could not decode position")
+                        log(.debug, "ERROR: Could not decode position")
                     }
                     return success
                 default:
@@ -83,7 +83,7 @@ extension AXUIElement {
                 return false
             }
             if !success {
-                print("ERROR: failed to set window origin")
+                log(.debug, "ERROR: failed to set window origin")
             }
         }
     }
@@ -102,7 +102,7 @@ extension AXUIElement {
                         AXValueGetValue(ref as! AXValue, .cgSize, sizePtr)
                     }
                     if !success {
-                        print("ERROR: Could not decode size")
+                        log(.debug, "ERROR: Could not decode size")
                     }
                     return success
                 default:
@@ -127,7 +127,7 @@ extension AXUIElement {
                 return false
             }
             if !success {
-                print("ERROR: failed to set window size")
+                log(.debug, "ERROR: failed to set window size")
             }
         }
     }
