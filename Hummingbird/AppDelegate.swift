@@ -86,6 +86,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             case (.unregistered, .unregistered):
                 // license check failed while already unregistered
                 break
+            case (.activated, .unregistered):
+                // license check failed while on trial
+                break
             default:
                 assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
             }
