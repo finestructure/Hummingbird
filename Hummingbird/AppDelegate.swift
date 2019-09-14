@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     @IBOutlet weak var enabledMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
+    @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
@@ -158,6 +159,9 @@ extension AppDelegate: NSMenuDelegate {
         do {
             enabledMenuItem.isHidden = (currentState == .unregistered)
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
+        }
+        do {
+            sendCoffeeMenuItem.isHidden = FeatureFlags.commercial
         }
         statsController.updateView()
     }
