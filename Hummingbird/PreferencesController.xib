@@ -176,7 +176,7 @@ Resizing will act on the lower right corner of the window</string>
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4GT-ci-hjf">
-                        <rect key="frame" x="18" y="20" width="200" height="16"/>
+                        <rect key="frame" x="18" y="20" width="385" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <gestureRecognizers>
                             <clickGestureRecognizer delaysPrimaryMouseButtonEvents="YES" numberOfClicksRequired="1" id="ccU-Ch-ogM">

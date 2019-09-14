@@ -355,4 +355,8 @@ extension AppDelegate: PreferencesControllerDelegate {
     func didRequestRegistrationController() {
         registrationController.showWindow(self)
     }
+
+    func didRequestTipJarController() {
+        tipJarController.showWindow(self)
+    }
 }
