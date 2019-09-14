@@ -30,6 +30,7 @@ class RegistrationController: NSWindowController {
 
     weak var delegate: RegistrationControllerDelegate?
 
+
     lazy var successAlert: NSAlert = {
         let alert = NSAlert()
         alert.alertStyle = .informational
@@ -42,6 +43,20 @@ class RegistrationController: NSWindowController {
         return alert
     }()
 
+
+    var error: String? {
+        didSet {
+            if let error = error {
+                errorLabel.stringValue = error
+                errorLabel.isHidden = false
+            } else {
+                errorLabel.stringValue = ""
+                errorLabel.isHidden = true
+            }
+        }
+    }
+
+
     var requestInProgress: Bool = false {
         didSet {
             licenseKeyField.isEnabled = !requestInProgress
@@ -51,10 +66,10 @@ class RegistrationController: NSWindowController {
         }
     }
 
+
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        errorLabel.isHidden = true
-        errorLabel.stringValue = ""
+        error = nil
         requestInProgress = false
     }
 
@@ -62,8 +77,7 @@ class RegistrationController: NSWindowController {
     // TODO: enabled Submit button only if string is valid
     @IBAction func submit(_ sender: Any) {
         guard !licenseKeyField.stringValue.isEmpty else {
-            errorLabel.stringValue = "Please enter a license key."
-            errorLabel.isHidden = false
+            error = "Please enter a license key."
             return
         }
 
@@ -71,6 +85,7 @@ class RegistrationController: NSWindowController {
         let license = License(key: licenseKeyField.stringValue)
         let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
 
+        error = nil
         requestInProgress = true
         validate(licenseInfo) { status in
             DispatchQueue.main.async {
@@ -81,13 +96,11 @@ class RegistrationController: NSWindowController {
                     self.delegate?.didSubmit(license: .valid(license))
                 case .inTrial, .invalidLicenseKey, .noLicenseKey:
                     self.delegate?.didSubmit(license: .invalid)
-                    self.errorLabel.stringValue = "⚠️ License key invalid."
-                    self.errorLabel.isHidden = false
+                    self.error = "⚠️ License key invalid."
                 case .error(let error):
                     print("⚠️ \(error)")
                     self.delegate?.didSubmit(license: .error(error))
-                    self.errorLabel.stringValue = "⚠️ \(error.localizedDescription)"
-                    self.errorLabel.isHidden = false
+                    self.error = "⚠️ \(error.localizedDescription)"
                 }
                 self.requestInProgress = false
             }
