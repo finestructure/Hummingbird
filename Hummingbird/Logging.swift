@@ -18,7 +18,7 @@ enum LogLevel: String {
 }
 
 
-private func log(_ level: LogLevel = .default, _ message: StaticString, _ args: CVarArg...) {
+private func _log(_ level: LogLevel = .default, _ message: StaticString, _ args: CVarArg...) {
     if #available(OSX 10.14, *) {
         let type: OSLogType
         switch level {
@@ -36,7 +36,7 @@ private func log(_ level: LogLevel = .default, _ message: StaticString, _ args: 
 func log(_ level: LogLevel = .default, _ message: String) {
     if _isDebugAssertConfiguration() {
         // just use `print` logging for now, it's easier to read in the Xcode console
-        log(.debug, "\(level.rawValue): \(message)")
+        print("\(level.rawValue): \(message)")
         //    } else {
         //        log(level, "%@", message)
     }
