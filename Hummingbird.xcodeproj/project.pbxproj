@@ -32,6 +32,8 @@
 		5A5E275C232BBAC0000F54E9 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275B232BBAC0000F54E9 /* Purchase.swift */; };
 		5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
 		5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */; };
+		5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A78DD1022F2FBF600D0F23D /* TipJarController.swift */; };
+		5A78DD1322F2FBF600D0F23D /* TipJarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A78DD1122F2FBF600D0F23D /* TipJarController.xib */; };
 		5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
 		5A7F7865229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
 		5A7F78672295AA030064B39C /* DefaultStringInterpolation+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F78662295AA030064B39C /* DefaultStringInterpolation+ext.swift */; };
@@ -96,6 +98,8 @@
 		5A5E275B232BBAC0000F54E9 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		5A5E275D232BBB35000F54E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
+		5A78DD1022F2FBF600D0F23D /* TipJarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarController.swift; sourceTree = "<group>"; };
+		5A78DD1122F2FBF600D0F23D /* TipJarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TipJarController.xib; sourceTree = "<group>"; };
 		5A7F7863229455EB0064B39C /* OrderedDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDict.swift; sourceTree = "<group>"; };
 		5A7F78662295AA030064B39C /* DefaultStringInterpolation+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DefaultStringInterpolation+ext.swift"; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
@@ -177,9 +181,10 @@
 			isa = PBXGroup;
 			children = (
 				5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */,
-				5A22299E228A8F1400E4B95B /* StatsController.xib */,
-				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 				5AA93C95231953AF00B268CF /* RegistrationController.xib */,
+				5A22299E228A8F1400E4B95B /* StatsController.xib */,
+				5A78DD1122F2FBF600D0F23D /* TipJarController.xib */,
+				6ED47B79183BF3E800859244 /* MainMenu.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				5A45FBCF227B3EF000DC184E /* PreferencesController.swift */,
 				5AA93C94231953AF00B268CF /* RegistrationController.swift */,
 				5A22299D228A8F1400E4B95B /* StatsController.swift */,
+				5A78DD1022F2FBF600D0F23D /* TipJarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 				6ED47B6F183BF3E800859244 /* InfoPlist.strings in Resources */,
 				6ED47B7D183BF3E800859244 /* Images.xcassets in Resources */,
 				6ED47B7B183BF3E800859244 /* MainMenu.xib in Resources */,
+				5A78DD1322F2FBF600D0F23D /* TipJarController.xib in Resources */,
 				5A2229A0228A8F1400E4B95B /* StatsController.xib in Resources */,
 				F907ABDDEEAF5BF83F0AF9EA /* readme.md in Resources */,
 				F907A53FB2CAEBEB31895CD2 /* contributing.md in Resources */,
@@ -471,6 +478,7 @@
 				5A46191C2286C90B0078E1B2 /* Date+ext.swift in Sources */,
 				5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */,
 				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
+				5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */,
 				5A8F9113227C41C800B78C47 /* State.swift in Sources */,
 				5A8F9119227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
 				5A8F9116227C460100B78C47 /* Operators.swift in Sources */,

@@ -666,6 +666,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="a5T-MQ-31B"/>
+                <menuItem title="Send coffee..." id="YPG-30-mN1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showTipJar:" target="494" id="4ry-aO-MyG"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
