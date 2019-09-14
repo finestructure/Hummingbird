@@ -171,11 +171,9 @@ extension AppDelegate {
                 print("OK: in trial")
                 self.currentState = .activating
             case .noLicenseKey:
-                // TODO: show purchase dialog
                 print("⚠️ no license")
                 self.currentState = .unregistered
             case .invalidLicenseKey:
-                // TODO: show alert
                 print("⚠️ invalid license")
                 self.currentState = .unregistered
             case .error(let error):
