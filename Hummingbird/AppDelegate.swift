@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import os
 import UserNotifications
 
 
@@ -57,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var currentState: State = .launching {
         didSet(oldValue) {
-            print("Transition: \(oldValue) -> \(currentState)")
+            log(.debug, "Transition: \(oldValue) -> \(currentState)")
             enabledMenuItem.state = (Tracker.isActive ? .on : .off)
 
             switch (oldValue, currentState) {
@@ -181,24 +182,24 @@ extension AppDelegate {
             validate(licenseInfo) { status in
                 switch status {
                     case .validLicenseKey:
-                        print("OK: valid license")
+                        log(.debug, "OK: valid license")
                         self.currentState = .activating
                     case .inTrial:
-                        print("OK: in trial")
+                        log(.debug, "OK: in trial")
                         self.currentState = .activating
                     case .noLicenseKey:
-                        print("⚠️ no license")
+                        log(.debug, "⚠️ no license")
                         self.currentState = .unregistered
                     case .invalidLicenseKey:
-                        print("⚠️ invalid license")
+                        log(.debug, "⚠️ invalid license")
                         self.currentState = .unregistered
                     case .error(let error):
                         // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-                        print("⚠️ \(error)")
+                        log(.debug, "⚠️ \(error)")
                 }
             }
         } else {
-            print("Open source version")
+            log(.debug, "Open source version")
             currentState = .activating
         }
     }
@@ -312,11 +313,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.action {
         case .turnOff?:
-            print("turn off")
+            log(.debug, "turn off")
         case .show?:
-            print("show")
+            log(.debug, "show")
         case .none:
-            print("no action")
+            log(.debug, "no action")
         }
     }
 }
@@ -343,7 +344,7 @@ extension AppDelegate: RegistrationControllerDelegate {
             self.currentState = .unregistered
         case .error(let error):
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-            print("⚠️ \(error)")
+            log(.debug, "⚠️ \(error)")
         }
     }
 }

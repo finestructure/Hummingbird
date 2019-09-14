@@ -56,7 +56,7 @@ struct Notifications {
 
     static func send(milestone: Milestone) {
         guard let tracker = Tracker.shared else {
-            print("no tracker")
+            log(.debug, "no tracker")
             return
         }
         if let lastNotified = Date(forKey: .lastNotified, defaults: defaults) {
@@ -75,7 +75,7 @@ struct Notifications {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request) { (error) in
             if let error = error {
-                print("Error while sending notification: \(error)")
+                log(.debug, "Error while sending notification: \(error)")
             } else {
                 try? Current.date().save(forKey: .lastNotified, defaults: defaults)
             }

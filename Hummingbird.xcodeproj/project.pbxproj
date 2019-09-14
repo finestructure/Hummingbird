@@ -54,6 +54,7 @@
 		5A8F911E227C7A2B00B78C47 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911C227C7A2B00B78C47 /* Metrics.swift */; };
 		5A8F9120227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
 		5A8F9121227C81E600B78C47 /* CGPoint+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */; };
+		5AA91420232D33E700167991 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9141F232D33E700167991 /* Logging.swift */; };
 		5AA93C96231953AF00B268CF /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA93C94231953AF00B268CF /* RegistrationController.swift */; };
 		5AA93C97231953AF00B268CF /* RegistrationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA93C95231953AF00B268CF /* RegistrationController.xib */; };
 		5AE57A4522F72B490015B090 /* Licensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4422F72B490015B090 /* Licensing.swift */; };
@@ -110,6 +111,7 @@
 		5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGEvent+ext.swift"; sourceTree = "<group>"; };
 		5A8F911C227C7A2B00B78C47 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		5A8F911F227C81E600B78C47 /* CGPoint+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+ext.swift"; sourceTree = "<group>"; };
+		5AA9141F232D33E700167991 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		5AA93C94231953AF00B268CF /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		5AA93C95231953AF00B268CF /* RegistrationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationController.xib; sourceTree = "<group>"; };
 		5AE57A4422F72B490015B090 /* Licensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Licensing.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				5A2229A1228BE59600E4B95B /* Environment.swift */,
 				5A461912228334260078E1B2 /* History.swift */,
 				5AE57A4422F72B490015B090 /* Licensing.swift */,
+				5AA9141F232D33E700167991 /* Logging.swift */,
 				5A8F911C227C7A2B00B78C47 /* Metrics.swift */,
 				5A8F910F227C418200B78C47 /* Modifiers.swift */,
 				5A46190E2282B0EA0078E1B2 /* Notifications.swift */,
@@ -470,6 +473,7 @@
 				5AA93C96231953AF00B268CF /* RegistrationController.swift in Sources */,
 				5A8F911D227C7A2B00B78C47 /* Metrics.swift in Sources */,
 				5AE57A4522F72B490015B090 /* Licensing.swift in Sources */,
+				5AA91420232D33E700167991 /* Logging.swift in Sources */,
 				5A8F9110227C418200B78C47 /* Modifiers.swift in Sources */,
 				5A8F9120227C81E600B78C47 /* CGPoint+ext.swift in Sources */,
 				5A46190F2282B0EA0078E1B2 /* Notifications.swift in Sources */,

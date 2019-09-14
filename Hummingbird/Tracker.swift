@@ -56,7 +56,7 @@ class Tracker {
     public func handleEvent(_ event: CGEvent, type: CGEventType) -> Bool {
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
             // need to re-enable our eventTap (We got disabled. Usually happens on a slow resizing app)
-            print("Re-enabling")
+            log(.debug, "Re-enabling")
             CGEvent.tapEnable(tap: eventTap, enable: true)
             return false
         }
@@ -140,14 +140,14 @@ class Tracker {
         do {
             try metricsHistory.save(forKey: .history, defaults: defaults)
         } catch {
-            print("Error while saving preferences: \(error)")
+            log(.debug, "Error while saving preferences: \(error)")
         }
     }
 
 
     private func keepMoving(event: CGEvent) {
         guard let window = trackingInfo.window else {
-            print("No window!")
+            log(.debug, "No window!")
             return
         }
 
@@ -172,7 +172,7 @@ class Tracker {
 
     private func keepResizing(event: CGEvent) {
         guard let window = trackingInfo.window else {
-            print("No window!")
+            log(.debug, "No window!")
             return
         }
 
@@ -229,7 +229,7 @@ private func enableTap() throws -> (eventTap: CFMachPort, runLoopSource: CFRunLo
 
 
 private func disableTap(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
-    print("Disabling event tap")
+    log(.debug, "Disabling event tap")
     CGEvent.tapEnable(tap: eventTap, enable: false)
     CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes);
 }
@@ -238,7 +238,7 @@ private func disableTap(eventTap: CFMachPort, runLoopSource: CFRunLoopSource?) {
 private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
 
     guard let tracker = Tracker.shared else {
-        print("🔴 tracker must not be nil")
+        log(.debug, "🔴 tracker must not be nil")
         return Unmanaged.passRetained(event)
     }
 
