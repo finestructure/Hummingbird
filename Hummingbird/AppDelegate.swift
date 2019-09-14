@@ -10,6 +10,11 @@ import Cocoa
 import UserNotifications
 
 
+struct FeatureFlags {
+    static let commercial = false
+}
+
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -159,27 +164,34 @@ extension AppDelegate: NSMenuDelegate {
 extension AppDelegate {
 
     func checkLicense() {
-        let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
-        let license = License(forKey: .license, defaults: defaults)
-        let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
-        validate(licenseInfo) { status in
-            switch status {
-            case .validLicenseKey:
-                print("OK: valid license")
-                self.currentState = .activating
-            case .inTrial:
-                print("OK: in trial")
-                self.currentState = .activating
-            case .noLicenseKey:
-                print("⚠️ no license")
-                self.currentState = .unregistered
-            case .invalidLicenseKey:
-                print("⚠️ invalid license")
-                self.currentState = .unregistered
-            case .error(let error):
-                // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-                print("⚠️ \(error)")
+        // Yes, it is really that simple to circumvent the license check. But if you can build it from source
+        // it's free of charge anyway. Although it'd be great if you'd send a coffee!
+        if FeatureFlags.commercial {
+            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+            let license = License(forKey: .license, defaults: defaults)
+            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
+            validate(licenseInfo) { status in
+                switch status {
+                    case .validLicenseKey:
+                        print("OK: valid license")
+                        self.currentState = .activating
+                    case .inTrial:
+                        print("OK: in trial")
+                        self.currentState = .activating
+                    case .noLicenseKey:
+                        print("⚠️ no license")
+                        self.currentState = .unregistered
+                    case .invalidLicenseKey:
+                        print("⚠️ invalid license")
+                        self.currentState = .unregistered
+                    case .error(let error):
+                        // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
+                        print("⚠️ \(error)")
+                }
             }
+        } else {
+            print("Open source version")
+            currentState = .activating
         }
     }
 
