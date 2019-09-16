@@ -228,14 +228,10 @@ extension AppDelegate {
                     case .error(let error):
                         // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
                         log(.debug, "⚠️ \(error)")
-                        self.stateMachine.state = .deactivated
-                        do {
-                            let alert = NSAlert()
-                            alert.alertStyle = .critical
-                            alert.messageText = "Something went wrong while checking your license"
-                            alert.informativeText = error.localizedDescription
-                            alert.runModal()
-                    }
+                        // We're graceful here to avoid nagging folks with a license who are offline.
+                        // Yes, you can block the app from connecting but if you can figure that out you can probably also build
+                        // and run the free app. Please support indie software :)
+                        self.stateMachine.state = .activating
                 }
             }
         } else {
