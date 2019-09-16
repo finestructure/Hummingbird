@@ -10,6 +10,7 @@
 		5A0E2B8F227ACB55009CAA74 /* HummingbirdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */; };
 		5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
 		5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
+		5A1F1C09232F94E20023D5A4 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F1C08232F94E20023D5A4 /* StateMachine.swift */; };
 		5A22299F228A8F1400E4B95B /* StatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A22299D228A8F1400E4B95B /* StatsController.swift */; };
 		5A2229A0228A8F1400E4B95B /* StatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A22299E228A8F1400E4B95B /* StatsController.xib */; };
 		5A2229A2228BE59600E4B95B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2229A1228BE59600E4B95B /* Environment.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingbirdTests.swift; sourceTree = "<group>"; };
 		5A1C2D93225B6E21002EC3AD /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		5A1F1C08232F94E20023D5A4 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		5A22299D228A8F1400E4B95B /* StatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsController.swift; sourceTree = "<group>"; };
 		5A22299E228A8F1400E4B95B /* StatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsController.xib; sourceTree = "<group>"; };
 		5A2229A1228BE59600E4B95B /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				5A7F7863229455EB0064B39C /* OrderedDict.swift */,
 				5A5E275B232BBAC0000F54E9 /* Purchase.swift */,
 				5A8F9112227C41C800B78C47 /* State.swift */,
+				5A1F1C08232F94E20023D5A4 /* StateMachine.swift */,
 				5A45FBAE227B1BB800DC184E /* Tracker.swift */,
 				5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */,
 				5AA93C98231953D100B268CF /* Controllers */,
@@ -483,6 +486,7 @@
 				5A45FBD0227B3EF000DC184E /* PreferencesController.swift in Sources */,
 				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
 				5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */,
+				5A1F1C09232F94E20023D5A4 /* StateMachine.swift in Sources */,
 				5A8F9113227C41C800B78C47 /* State.swift in Sources */,
 				5A8F9119227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
 				5A8F9116227C460100B78C47 /* Operators.swift in Sources */,
