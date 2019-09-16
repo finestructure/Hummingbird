@@ -130,28 +130,36 @@ extension AppDelegate: StateMachineDelegate {
             log(.debug, "Transition: \(from) -> \(to)")
 
             switch (from, to) {
-            case (.launching, .validatingLicense):
-                return .continue
-            case (.activated, .activating):
-                // license check succeeded while already active (i.e. when in trial)
-                return .continue
-            case (.validatingLicense, .activating),  (.unregistered, .activating):
-                return .continue
-            case (.validatingLicense, .unregistered):
-                return .continue
-            case (.activating, .activated), (.deactivated, .activated):
-                return .continue
-            case (.activating, .deactivated), (.activated, .deactivated):
-                return .continue
-            case (.unregistered, .unregistered):
-                // license check failed while already unregistered
-                return .continue
-            case (.activated, .unregistered):
-                // license check failed while on trial
-                return .continue
-            default:
-                assertionFailure("💣 Unhandled state transition: \(from) -> \(to)")
-                return .abort
+                case (.launching, .validatingLicense):
+                    return .continue
+                case (.activated, .activating):
+                    // license check succeeded while already active (i.e. when in trial)
+                    return .continue
+                case (.validatingLicense, .activating),  (.unregistered, .activating):
+                    return .continue
+                case (.validatingLicense, .deactivated):
+                    // validating error
+                    return .continue
+                case (.validatingLicense, .unregistered):
+                    return .continue
+                case (.activating, .activated), (.deactivated, .activated):
+                    return .continue
+                case (.activating, .deactivated), (.activated, .deactivated):
+                    return .continue
+                case (.unregistered, .unregistered):
+                    // license check failed while already unregistered
+                    return .continue
+                case (.activated, .unregistered):
+                    // license check failed while on trial
+                    return .continue
+                case (.deactivated, .activating):
+                    return .continue
+                case (.deactivated, .deactivated):
+                    // activation error (lack of permissions)
+                    return .continue
+                default:
+                    assertionFailure("💣 Unhandled state transition: \(from) -> \(to)")
+                    return .abort
             }
 
         }
@@ -220,6 +228,14 @@ extension AppDelegate {
                     case .error(let error):
                         // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
                         log(.debug, "⚠️ \(error)")
+                        self.stateMachine.state = .deactivated
+                        do {
+                            let alert = NSAlert()
+                            alert.alertStyle = .critical
+                            alert.messageText = "Something went wrong while checking your license"
+                            alert.informativeText = error.localizedDescription
+                            alert.runModal()
+                    }
                 }
             }
         } else {
@@ -299,7 +315,7 @@ extension AppDelegate {
             case .activated:
                 deactivate()
             case .deactivated:
-                activate(showAlert: true, keepTrying: false)
+                checkLicense()
             default:
                 break
         }
