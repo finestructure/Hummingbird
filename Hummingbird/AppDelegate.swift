@@ -47,64 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
-    enum State {
-        case launching
-        case validatingLicense
-        case unregistered
-        case activating
-        case activated
-        case deactivated
-    }
 
-    var currentState: State = .launching {
-        didSet(oldValue) {
-            log(.debug, "Transition: \(oldValue) -> \(currentState)")
-            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-
-            switch (oldValue, currentState) {
-            case (.launching, .validatingLicense):
-                checkLicense()
-            case (.activated, .activating):
-                // license check succeeded while already active (i.e. when in trial)
-                break
-            case (.validatingLicense, .activating),  (.unregistered, .activating):
-                activate(showAlert: true, keepTrying: true)
-            case (.validatingLicense, .unregistered):
-                Tracker.disable()
-                let alert = NSAlert()
-                alert.alertStyle = .critical
-                alert.messageText = "Trial expired"
-                alert.informativeText = """
-                Your trial period has expired 😞.
-
-                Please support the development of Hummingbird by purchasing a license!
-                """
-                alert.addButton(withTitle: "Purchase")
-                alert.addButton(withTitle: "Register")
-                alert.addButton(withTitle: "Quit")
-                switch alert.runModal() {
-                case .alertFirstButtonReturn:
-                    presentPurchaseView()
-                case .alertSecondButtonReturn:
-                    registrationController.showWindow(self)
-                default:
-                    NSApp.terminate(self)
-                }
-            case (.activating, .activated), (.deactivated, .activated):
-                break
-            case (.activating, .deactivated), (.activated, .deactivated):
-                break
-            case (.unregistered, .unregistered):
-                // license check failed while already unregistered
-                break
-            case (.activated, .unregistered):
-                // license check failed while on trial
-                break
-            default:
-                assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
-            }
-        }
-    }
+    var stateMachine: StateMachine<AppDelegate>!
 }
 
 
@@ -112,7 +56,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        precondition(currentState == .launching)
+        stateMachine = StateMachine<AppDelegate>(initialState: .launching, delegate: self)
+
+        precondition(stateMachine.state == .launching)
 
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
@@ -126,7 +72,7 @@ extension AppDelegate {
             UNUserNotificationCenter.current().delegate = self
         }
 
-        currentState = .validatingLicense
+        stateMachine.state = .validatingLicense
     }
 
     override func awakeFromNib() {
@@ -158,13 +104,91 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            enabledMenuItem.isHidden = (currentState == .unregistered)
+            enabledMenuItem.isHidden = (stateMachine.state == .unregistered)
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
         }
         do {
             sendCoffeeMenuItem.isHidden = FeatureFlags.commercial
         }
         statsController.updateView()
+    }
+}
+
+
+// MARK:- State Machine
+
+extension AppDelegate: StateMachineDelegate {
+    enum State: TransitionDelegate {
+        case launching
+        case validatingLicense
+        case unregistered
+        case activating
+        case activated
+        case deactivated
+
+        func shouldTransition(from: AppDelegate.State, to: AppDelegate.State) -> Decision<AppDelegate.State> {
+            log(.debug, "Transition: \(from) -> \(to)")
+
+            switch (from, to) {
+            case (.launching, .validatingLicense):
+                return .continue
+            case (.activated, .activating):
+                // license check succeeded while already active (i.e. when in trial)
+                return .continue
+            case (.validatingLicense, .activating),  (.unregistered, .activating):
+                return .continue
+            case (.validatingLicense, .unregistered):
+                return .continue
+            case (.activating, .activated), (.deactivated, .activated):
+                return .continue
+            case (.activating, .deactivated), (.activated, .deactivated):
+                return .continue
+            case (.unregistered, .unregistered):
+                // license check failed while already unregistered
+                return .continue
+            case (.activated, .unregistered):
+                // license check failed while on trial
+                return .continue
+            default:
+                assertionFailure("💣 Unhandled state transition: \(from) -> \(to)")
+                return .abort
+            }
+
+        }
+    }
+
+    func didTransition(from: AppDelegate.State, to: AppDelegate.State) {
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+
+        switch (from, to) {
+            case (.launching, .validatingLicense):
+                checkLicense()
+            case (.validatingLicense, .activating),  (.unregistered, .activating):
+                activate(showAlert: true, keepTrying: true)
+            case (.validatingLicense, .unregistered):
+                Tracker.disable()
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Trial expired"
+                alert.informativeText = """
+                Your trial period has expired 😞.
+
+                Please support the development of Hummingbird by purchasing a license!
+                """
+                alert.addButton(withTitle: "Purchase")
+                alert.addButton(withTitle: "Register")
+                alert.addButton(withTitle: "Quit")
+                switch alert.runModal() {
+                    case .alertFirstButtonReturn:
+                        presentPurchaseView()
+                    case .alertSecondButtonReturn:
+                        registrationController.showWindow(self)
+                    default:
+                        NSApp.terminate(self)
+                }
+            default:
+                break
+        }
     }
 }
 
@@ -183,16 +207,16 @@ extension AppDelegate {
                 switch status {
                     case .validLicenseKey:
                         log(.debug, "OK: valid license")
-                        self.currentState = .activating
+                        self.stateMachine.state = .activating
                     case .inTrial:
                         log(.debug, "OK: in trial")
-                        self.currentState = .activating
+                        self.stateMachine.state = .activating
                     case .noLicenseKey:
                         log(.debug, "⚠️ no license")
-                        self.currentState = .unregistered
+                        self.stateMachine.state = .unregistered
                     case .invalidLicenseKey:
                         log(.debug, "⚠️ invalid license")
-                        self.currentState = .unregistered
+                        self.stateMachine.state = .unregistered
                     case .error(let error):
                         // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
                         log(.debug, "⚠️ \(error)")
@@ -200,14 +224,14 @@ extension AppDelegate {
             }
         } else {
             log(.debug, "Open source version")
-            currentState = .activating
+            stateMachine.state = .activating
         }
     }
 
     func activate(showAlert: Bool, keepTrying: Bool) {
         Tracker.enable()
         if Tracker.isActive {
-            currentState = .activated
+            stateMachine.state = .activated
         } else {
             if showAlert {
                 let alert = NSAlert()
@@ -236,14 +260,14 @@ extension AppDelegate {
                     self.activate(showAlert: false, keepTrying: true)
                 }
             } else {
-                currentState = .deactivated
+                stateMachine.state = .deactivated
             }
         }
     }
 
     func deactivate() {
         Tracker.disable()
-        currentState = .deactivated
+        stateMachine.state = .deactivated
     }
 
 }
@@ -271,13 +295,13 @@ extension AppDelegate {
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        switch currentState {
-        case .activated:
-            deactivate()
-        case .deactivated:
-            activate(showAlert: true, keepTrying: false)
-        default:
-            break
+        switch stateMachine.state {
+            case .activated:
+                deactivate()
+            case .deactivated:
+                activate(showAlert: true, keepTrying: false)
+            default:
+                break
         }
     }
 
@@ -339,9 +363,9 @@ extension AppDelegate: RegistrationControllerDelegate {
                 alert.informativeText = error.localizedDescription
                 alert.runModal()
             }
-            self.currentState = .activating
+            self.stateMachine.state = .activating
         case .invalid:
-            self.currentState = .unregistered
+            self.stateMachine.state = .unregistered
         case .error(let error):
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
             log(.debug, "⚠️ \(error)")
