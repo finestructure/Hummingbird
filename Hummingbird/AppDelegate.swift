@@ -47,64 +47,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
-    enum State {
-        case launching
-        case validatingLicense
-        case unregistered
-        case activating
-        case activated
-        case deactivated
-    }
 
-    var currentState: State = .launching {
-        didSet(oldValue) {
-            log(.debug, "Transition: \(oldValue) -> \(currentState)")
-            enabledMenuItem.state = (Tracker.isActive ? .on : .off)
-
-            switch (oldValue, currentState) {
-            case (.launching, .validatingLicense):
-                checkLicense()
-            case (.activated, .activating):
-                // license check succeeded while already active (i.e. when in trial)
-                break
-            case (.validatingLicense, .activating),  (.unregistered, .activating):
-                activate(showAlert: true, keepTrying: true)
-            case (.validatingLicense, .unregistered):
-                Tracker.disable()
-                let alert = NSAlert()
-                alert.alertStyle = .critical
-                alert.messageText = "Trial expired"
-                alert.informativeText = """
-                Your trial period has expired 😞.
-
-                Please support the development of Hummingbird by purchasing a license!
-                """
-                alert.addButton(withTitle: "Purchase")
-                alert.addButton(withTitle: "Register")
-                alert.addButton(withTitle: "Quit")
-                switch alert.runModal() {
-                case .alertFirstButtonReturn:
-                    presentPurchaseView()
-                case .alertSecondButtonReturn:
-                    registrationController.showWindow(self)
-                default:
-                    NSApp.terminate(self)
-                }
-            case (.activating, .activated), (.deactivated, .activated):
-                break
-            case (.activating, .deactivated), (.activated, .deactivated):
-                break
-            case (.unregistered, .unregistered):
-                // license check failed while already unregistered
-                break
-            case (.activated, .unregistered):
-                // license check failed while on trial
-                break
-            default:
-                assertionFailure("💣 Unhandled state transition: \(oldValue) -> \(currentState)")
-            }
-        }
-    }
+    var stateMachine: StateMachine<AppDelegate>!
 }
 
 
@@ -112,7 +56,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        precondition(currentState == .launching)
+        stateMachine = StateMachine<AppDelegate>(initialState: .launching, delegate: self)
+
+        precondition(stateMachine.state == .launching)
 
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
@@ -126,7 +72,7 @@ extension AppDelegate {
             UNUserNotificationCenter.current().delegate = self
         }
 
-        currentState = .validatingLicense
+        stateMachine.state = .validatingLicense
     }
 
     override func awakeFromNib() {
@@ -158,7 +104,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            enabledMenuItem.isHidden = (currentState == .unregistered)
+            enabledMenuItem.isHidden = (stateMachine.state == .unregistered)
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
         }
         do {
@@ -166,86 +112,6 @@ extension AppDelegate: NSMenuDelegate {
         }
         statsController.updateView()
     }
-}
-
-
-// MARK:- State transitions
-extension AppDelegate {
-
-    func checkLicense() {
-        // Yes, it is really that simple to circumvent the license check. But if you can build it from source
-        // it's free of charge anyway. Although it'd be great if you'd send a coffee!
-        if FeatureFlags.commercial {
-            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
-            let license = License(forKey: .license, defaults: defaults)
-            let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
-            validate(licenseInfo) { status in
-                switch status {
-                    case .validLicenseKey:
-                        log(.debug, "OK: valid license")
-                        self.currentState = .activating
-                    case .inTrial:
-                        log(.debug, "OK: in trial")
-                        self.currentState = .activating
-                    case .noLicenseKey:
-                        log(.debug, "⚠️ no license")
-                        self.currentState = .unregistered
-                    case .invalidLicenseKey:
-                        log(.debug, "⚠️ invalid license")
-                        self.currentState = .unregistered
-                    case .error(let error):
-                        // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
-                        log(.debug, "⚠️ \(error)")
-                }
-            }
-        } else {
-            log(.debug, "Open source version")
-            currentState = .activating
-        }
-    }
-
-    func activate(showAlert: Bool, keepTrying: Bool) {
-        Tracker.enable()
-        if Tracker.isActive {
-            currentState = .activated
-        } else {
-            if showAlert {
-                let alert = NSAlert()
-                alert.messageText = "Accessibility permissions required"
-                alert.informativeText = """
-                Hummingbird requires Accessibility permissions in order to be able to move and resize windows for you.
-
-                You can grant Accessibility permissions in "System Preferences" → "Security & Privacy" → "Privacy" → "Accessibility".
-
-                Click "Help" for more information.
-
-                """
-                alert.addButton(withTitle: "Open System Preferences")
-                alert.addButton(withTitle: "Help")
-                switch alert.runModal() {
-                case .alertFirstButtonReturn:
-                    NSWorkspace.shared.open(Links.securitySystemPreferences)
-                case .alertSecondButtonReturn:
-                    NSWorkspace.shared.open(Links.accessibilityHelp)
-                default:
-                    break
-                }
-            }
-            if keepTrying {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.activate(showAlert: false, keepTrying: true)
-                }
-            } else {
-                currentState = .deactivated
-            }
-        }
-    }
-
-    func deactivate() {
-        Tracker.disable()
-        currentState = .deactivated
-    }
-
 }
 
 
@@ -271,13 +137,13 @@ extension AppDelegate {
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        switch currentState {
-        case .activated:
-            deactivate()
-        case .deactivated:
-            activate(showAlert: true, keepTrying: false)
-        default:
-            break
+        switch stateMachine.state {
+            case .activated:
+                deactivate()
+            case .deactivated:
+                checkLicense()
+            default:
+                break
         }
     }
 
@@ -339,12 +205,13 @@ extension AppDelegate: RegistrationControllerDelegate {
                 alert.informativeText = error.localizedDescription
                 alert.runModal()
             }
-            self.currentState = .activating
+            self.stateMachine.state = .activating
         case .invalid:
-            self.currentState = .unregistered
+            self.stateMachine.state = .unregistered
         case .error(let error):
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
             log(.debug, "⚠️ \(error)")
+            // leave state unchanged for now
         }
     }
 }
