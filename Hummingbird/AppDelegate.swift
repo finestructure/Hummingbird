@@ -211,6 +211,7 @@ extension AppDelegate: RegistrationControllerDelegate {
         case .error(let error):
             // TODO: allow a number of errors but eventually lock (to prevent someone from blocking the network calls)
             log(.debug, "⚠️ \(error)")
+            // leave state unchanged for now
         }
     }
 }
