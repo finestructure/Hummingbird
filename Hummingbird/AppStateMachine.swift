@@ -13,10 +13,6 @@ protocol DidTransitionDelegate: class {
     func didTransition(from: AppStateMachine.State, to: AppStateMachine.State)
 }
 
-protocol ShowRegistrationControllerDelegate: class {
-    func showRegistrationController()
-}
-
 
 class AppStateMachine {
     var stateMachine: StateMachine<AppStateMachine>!

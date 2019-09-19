@@ -12,6 +12,7 @@
 		5A16ED062333A03000AF12CE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9141F232D33E700167991 /* Logging.swift */; };
 		5A16ED082333A04400AF12CE /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A16ED072333A04400AF12CE /* FeatureFlags.swift */; };
 		5A16ED092333A05500AF12CE /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A16ED072333A04400AF12CE /* FeatureFlags.swift */; };
+		5A16ED1D2333D40F00AF12CE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A16ED1C2333D40F00AF12CE /* Protocols.swift */; };
 		5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
 		5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C2D93225B6E21002EC3AD /* Defaults.swift */; };
 		5A1F1C09232F94E20023D5A4 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F1C08232F94E20023D5A4 /* StateMachine.swift */; };
@@ -88,6 +89,7 @@
 /* Begin PBXFileReference section */
 		5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HummingbirdTests.swift; sourceTree = "<group>"; };
 		5A16ED072333A04400AF12CE /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
+		5A16ED1C2333D40F00AF12CE /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5A1C2D93225B6E21002EC3AD /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		5A1F1C08232F94E20023D5A4 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		5A1F1C0A232FDB850023D5A4 /* AppStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateMachine.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */,
 				5AA93C98231953D100B268CF /* Controllers */,
 				5A8F911B227C4CF600B78C47 /* Extensions */,
+				5A16ED1C2333D40F00AF12CE /* Protocols.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				5A45FBCD227B281E00DC184E /* AppDelegate.swift in Sources */,
 				5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */,
 				5A1F1C09232F94E20023D5A4 /* StateMachine.swift in Sources */,
+				5A16ED1D2333D40F00AF12CE /* Protocols.swift in Sources */,
 				5A8F9113227C41C800B78C47 /* State.swift in Sources */,
 				5A8F9119227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
 				5A8F9116227C460100B78C47 /* Operators.swift in Sources */,

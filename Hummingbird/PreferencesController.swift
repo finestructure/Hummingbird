@@ -31,7 +31,7 @@ class PreferencesController: NSWindowController {
 
     @IBOutlet weak var registrationStatusLabel: NSTextField!
 
-    weak var delegate: PreferencesControllerDelegate?
+    weak var delegate: (ShowTipJarControllerDelegate & ShowRegistrationControllerDelegate)?
 
     var isRegistered: Bool {
         return License(forKey: .license, defaults: defaults) != nil
@@ -73,10 +73,10 @@ class PreferencesController: NSWindowController {
         if FeatureFlags.commercial {
             if !isRegistered {
                 close()
-                delegate?.didRequestRegistrationController()
+                delegate?.showRegistrationController()
             }
         } else {
-            delegate?.didRequestTipJarController()
+            delegate?.showTipJarController()
         }
     }
 

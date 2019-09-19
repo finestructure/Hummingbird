@@ -202,14 +202,10 @@ extension AppDelegate: RegistrationControllerDelegate {
 }
 
 
-// MARK:- PreferencesControllerDelegate
+// MARK:- ShowTipJarControllerDelegate
 
-extension AppDelegate: PreferencesControllerDelegate {
-    func didRequestRegistrationController() {
-        registrationController.showWindow(self)
-    }
-
-    func didRequestTipJarController() {
+extension AppDelegate: ShowTipJarControllerDelegate {
+    func showTipJarController() {
         tipJarController.showWindow(self)
     }
 }
