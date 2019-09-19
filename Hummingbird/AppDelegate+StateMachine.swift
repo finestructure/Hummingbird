@@ -9,8 +9,18 @@
 import Cocoa
 
 
+protocol DidTransitionDelegate: class {
+    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State)
+}
+
+protocol ShowRegistrationControllerDelegate: class {
+    func showRegistrationController()
+}
+
+
 class AppStateMachine {
     var stateMachine: StateMachine<AppStateMachine>!
+    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate)?
 
     var state: State {
         get {
@@ -92,8 +102,7 @@ extension AppStateMachine: StateMachineDelegate {
     }
 
     func didTransition(from: State, to: State) {
-        // FIXME: make delegate
-//        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        delegate?.didTransition(from: from, to: to)
 
         switch (from, to) {
             case (.launching, .validatingLicense):
@@ -117,9 +126,7 @@ extension AppStateMachine: StateMachineDelegate {
                     case .alertFirstButtonReturn:
                         presentPurchaseView()
                     case .alertSecondButtonReturn:
-                        // FIXME: make delegate
-//                        registrationController.showWindow(self)
-                        break
+                        delegate?.showRegistrationController()
                     default:
                         NSApp.terminate(self)
                 }

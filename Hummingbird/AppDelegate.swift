@@ -50,6 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        stateMachine.delegate = self
+
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
         }
@@ -209,5 +211,23 @@ extension AppDelegate: PreferencesControllerDelegate {
 
     func didRequestTipJarController() {
         tipJarController.showWindow(self)
+    }
+}
+
+
+// MARK:- ShowRegistrationControllerDelegate
+
+extension AppDelegate: ShowRegistrationControllerDelegate {
+    func showRegistrationController() {
+        registrationController.showWindow(self)
+    }
+}
+
+
+// MARK:- DidTransitionDelegate
+
+extension AppDelegate: DidTransitionDelegate {
+    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
