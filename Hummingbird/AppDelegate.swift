@@ -11,11 +11,6 @@ import os
 import UserNotifications
 
 
-struct FeatureFlags {
-    static let commercial = false
-}
-
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
