@@ -711,6 +711,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
@@ -733,6 +734,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -745,6 +747,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65CF016A1F229C34002259F2 /* Debug */,
+				5A16ED1A2333C0F000AF12CE /* Test */,
 				65CF016B1F229C34002259F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -754,6 +757,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6ED47B90183BF3E800859244 /* Debug */,
+				5A16ED182333C0F000AF12CE /* Test */,
 				6ED47B91183BF3E800859244 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -763,6 +767,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6ED47B93183BF3E800859244 /* Debug */,
+				5A16ED192333C0F000AF12CE /* Test */,
 				6ED47B94183BF3E800859244 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
