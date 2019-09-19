@@ -42,8 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
-
-    var stateMachine: StateMachine<AppDelegate>!
+    var stateMachine = MyStateMachine()
 }
 
 
@@ -51,10 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        stateMachine = StateMachine<AppDelegate>(initialState: .launching, delegate: self)
-
-        precondition(stateMachine.state == .launching)
-
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
         }
@@ -132,14 +127,7 @@ extension AppDelegate {
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        switch stateMachine.state {
-            case .activated:
-                deactivate()
-            case .deactivated:
-                checkLicense()
-            default:
-                break
-        }
+        stateMachine.toggleEnabled()
     }
 
     @IBAction func registerLicense(_ sender: Any) {
