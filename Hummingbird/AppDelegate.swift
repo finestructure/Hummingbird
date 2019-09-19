@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
-    var stateMachine = MyStateMachine()
+    var stateMachine = AppStateMachine()
 }
 
 

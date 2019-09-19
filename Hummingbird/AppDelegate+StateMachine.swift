@@ -9,8 +9,8 @@
 import Cocoa
 
 
-class MyStateMachine {
-    var stateMachine: StateMachine<MyStateMachine>!
+class AppStateMachine {
+    var stateMachine: StateMachine<AppStateMachine>!
 
     var state: State {
         get {
@@ -22,12 +22,12 @@ class MyStateMachine {
     }
 
     init() {
-        stateMachine = StateMachine<MyStateMachine>(initialState: .launching, delegate: self)
+        stateMachine = StateMachine<AppStateMachine>(initialState: .launching, delegate: self)
     }
 }
 
 
-extension MyStateMachine {
+extension AppStateMachine {
     func toggleEnabled() {
         switch state {
             case .activated:
@@ -43,7 +43,7 @@ extension MyStateMachine {
 
 // MARK:- StateMachineDelegate
 
-extension MyStateMachine: StateMachineDelegate {
+extension AppStateMachine: StateMachineDelegate {
     enum State: TransitionDelegate {
         case launching
         case validatingLicense
@@ -133,7 +133,7 @@ extension MyStateMachine: StateMachineDelegate {
 // MARK:- State transition helpers
 
 
-extension MyStateMachine {
+extension AppStateMachine {
 
     func checkLicense() {
         // Yes, it is really that simple to circumvent the license check. But if you can build it from source
