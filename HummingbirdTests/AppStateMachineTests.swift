@@ -14,21 +14,34 @@ let trackerIsActive = NSPredicate { (_, _) in
 }
 
 
+// replicates (in essence) that AppDelegate.applicationDidFinishLaunching is doing
+func applicationDidFinishLaunching(_ stateMachine: AppStateMachine) {
+    XCTAssertEqual(stateMachine.state, .launching)
+    XCTAssert(!Tracker.isActive)
+    stateMachine.state = .validatingLicense
+}
+
+
+
 class AppStateMachineTests: XCTestCase {
 
     override func tearDown() {
         Tracker.disable()
     }
 
-    func test_opensource() {  // opensource version
+    func test_opensource() throws {  // opensource version
         // setup
         Current.featureFlags = FeatureFlags(commercial: false)
+        Current.date = { ReferenceDate }
+        let defaults = testUserDefaults()
+        let firstLaunched = day(offset: -60, from: ReferenceDate)  // far out of trial period
+        try firstLaunched.save(forKey: .firstLaunched, defaults: defaults)
 
+        // MUT
         let sm = AppStateMachine()
-        XCTAssertEqual(sm.state, .launching)
-        XCTAssert(!Tracker.isActive)
-        sm.state = .validatingLicense
+        applicationDidFinishLaunching(sm)
 
+        // assert
         _ = expectation(for: trackerIsActive, evaluatedWith: nil)
         waitForExpectations(timeout: 2)
         XCTAssert(Tracker.isActive)
@@ -39,14 +52,14 @@ class AppStateMachineTests: XCTestCase {
         Current.featureFlags = FeatureFlags(commercial: true)
         Current.date = { ReferenceDate }
         let defaults = testUserDefaults()
-        let firstLaunched = day(offset: -5, from: ReferenceDate)
+        let firstLaunched = day(offset: -7, from: ReferenceDate)
         try firstLaunched.save(forKey: .firstLaunched, defaults: defaults)
 
+        // MUT
         let sm = AppStateMachine()
-        XCTAssertEqual(sm.state, .launching)
-        XCTAssert(!Tracker.isActive)
-        sm.state = .validatingLicense
+        applicationDidFinishLaunching(sm)
 
+        // assert
         _ = expectation(for: trackerIsActive, evaluatedWith: nil)
         waitForExpectations(timeout: 2)
         XCTAssert(Tracker.isActive)
