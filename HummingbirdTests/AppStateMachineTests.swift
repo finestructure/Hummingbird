@@ -70,7 +70,7 @@ class AppStateMachineTests: XCTestCase {
         XCTAssert(app.didTerminate)
     }
 
-    func test_commercial_3() throws { // commercial, show registration dialog
+    func test_commercial_3a() throws { // commercial, show registration dialog
         // setup
         Current.featureFlags = FeatureFlags(commercial: true)
         Current.date = { ReferenceDate }
@@ -88,6 +88,26 @@ class AppStateMachineTests: XCTestCase {
         XCTAssert(!Tracker.isActive)
         XCTAssert(app.trialExpiredAlertShown)
         XCTAssert(app.registrationControllerShown)
+    }
+
+    func test_commercial_3b() throws { // commercial, show purchase
+        // setup
+        Current.featureFlags = FeatureFlags(commercial: true)
+        Current.date = { ReferenceDate }
+        let defaults = try testUserDefaults(firstLaunched: day(offset: -15, from: ReferenceDate), license: nil)
+        Current.defaults = { defaults }
+
+        // MUT
+        let app = TestAppDelegate()
+        app.trialExpiredAlertResponse = .alertFirstButtonReturn  // Click on "Register"
+        app.applicationDidFinishLaunching()
+
+        // assert
+        _ = expectation(for: trackerIsNotActive, evaluatedWith: nil)
+        waitForExpectations(timeout: 2)
+        XCTAssert(!Tracker.isActive)
+        XCTAssert(app.trialExpiredAlertShown)
+        XCTAssert(app.purchaseViewPresented)
     }
 }
 
@@ -125,6 +145,7 @@ class TestAppDelegate {
     var trialExpiredAlertShown = false
     var trialExpiredAlertResponse: NSApplication.ModalResponse = .OK
     var didTerminate = false
+    var purchaseViewPresented = false
 
     // replicates (in essence) that AppDelegate.applicationDidFinishLaunching is doing
     func applicationDidFinishLaunching() {
@@ -157,5 +178,11 @@ extension TestAppDelegate: ShowTrialExpiredAlertDelegate {
 extension TestAppDelegate: ShouldTermindateDelegate {
     func shouldTerminate() {
         didTerminate = true
+    }
+}
+
+extension TestAppDelegate: PresentPurchaseViewDelegate {
+    func presentPurchaseView() {
+        purchaseViewPresented = true
     }
 }

@@ -257,3 +257,12 @@ extension AppDelegate: ShouldTermindateDelegate {
         NSApp.terminate(self)
     }
 }
+
+
+// MARK:- PresentPurchaseViewDelegate
+
+extension AppDelegate: PresentPurchaseViewDelegate {
+    func presentPurchaseView() {
+        NSWorkspace.shared.open(Links.gumroadProductPage)
+    }
+}

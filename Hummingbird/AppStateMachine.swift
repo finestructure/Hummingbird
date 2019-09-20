@@ -18,7 +18,8 @@ typealias AppStateMachineDelegate = (
     DidTransitionDelegate &
     ShowRegistrationControllerDelegate &
     ShowTrialExpiredAlertDelegate &
-    ShouldTermindateDelegate
+    ShouldTermindateDelegate &
+    PresentPurchaseViewDelegate
 )
 
 
@@ -118,7 +119,7 @@ extension AppStateMachine: StateMachineDelegate {
                 delegate?.showTrialExpiredAlert { result in
                     switch result {
                         case .alertFirstButtonReturn:
-                            presentPurchaseView()
+                            delegate?.presentPurchaseView()
                         case .alertSecondButtonReturn:
                             delegate?.showRegistrationController()
                         default:

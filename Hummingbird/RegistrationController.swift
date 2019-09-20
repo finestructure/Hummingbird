@@ -28,7 +28,7 @@ class RegistrationController: NSWindowController {
     @IBOutlet weak var submitButton: NSButton!
     @IBOutlet weak var spinner: NSProgressIndicator!
 
-    weak var delegate: RegistrationControllerDelegate?
+    weak var delegate: (RegistrationControllerDelegate & PresentPurchaseViewDelegate)?
 
 
     lazy var successAlert: NSAlert = {
@@ -109,7 +109,7 @@ class RegistrationController: NSWindowController {
 
 
     @IBAction func purchaseLinkClicked(_ sender: Any) {
-        presentPurchaseView()
+        delegate?.presentPurchaseView()
     }
 
 

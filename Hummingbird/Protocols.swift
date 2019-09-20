@@ -27,3 +27,8 @@ protocol ShowTrialExpiredAlertDelegate: class {
 protocol ShouldTermindateDelegate: class {
     func shouldTerminate()
 }
+
+
+protocol PresentPurchaseViewDelegate: class {
+    func presentPurchaseView()
+}
