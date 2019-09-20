@@ -32,7 +32,7 @@ class Tracker {
 
     private let trackingInfo = TrackingInfo()
 
-    #if !TEST  // cannot populate these ivars when UI testing
+    #if !TEST  // cannot populate these ivars when testing
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
     #endif
