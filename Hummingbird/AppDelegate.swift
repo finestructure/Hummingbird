@@ -100,7 +100,7 @@ extension AppDelegate: NSMenuDelegate {
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
         }
         do {
-            sendCoffeeMenuItem.isHidden = FeatureFlags.commercial
+            sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
         }
         statsController.updateView()
     }

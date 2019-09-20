@@ -82,6 +82,11 @@
 		5AB3A6F12334D39600D40DBF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
 		5AB3A6F22334D3A000D40DBF /* CGEvent+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9118227C461D00B78C47 /* CGEvent+ext.swift */; };
 		5AB3A6F32334D3AA00D40DBF /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F9115227C460100B78C47 /* Operators.swift */; };
+		5AB3A6F52334D7AA00D40DBF /* AppStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3A6F42334D7AA00D40DBF /* AppStateMachineTests.swift */; };
+		5AB3A6F62334D7E600D40DBF /* AppStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F1C0A232FDB850023D5A4 /* AppStateMachine.swift */; };
+		5AB3A6F72334D80F00D40DBF /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F1C08232F94E20023D5A4 /* StateMachine.swift */; };
+		5AB3A6F82334D82300D40DBF /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275B232BBAC0000F54E9 /* Purchase.swift */; };
+		5AB3A6F92334E02500D40DBF /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A16ED072333A04400AF12CE /* FeatureFlags.swift */; };
 		5AE57A4522F72B490015B090 /* Licensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4422F72B490015B090 /* Licensing.swift */; };
 		5AE57A4622F72B490015B090 /* Licensing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4422F72B490015B090 /* Licensing.swift */; };
 		5AE57A4822F72C090015B090 /* LicensingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE57A4722F72C090015B090 /* LicensingTests.swift */; };
@@ -143,6 +148,7 @@
 		5AA9141F232D33E700167991 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		5AA93C94231953AF00B268CF /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		5AA93C95231953AF00B268CF /* RegistrationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationController.xib; sourceTree = "<group>"; };
+		5AB3A6F42334D7AA00D40DBF /* AppStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateMachineTests.swift; sourceTree = "<group>"; };
 		5AE57A4422F72B490015B090 /* Licensing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Licensing.swift; sourceTree = "<group>"; };
 		5AE57A4722F72C090015B090 /* LicensingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingTests.swift; sourceTree = "<group>"; };
 		65CF01621F229C34002259F2 /* HummingbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HummingbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				65CF01661F229C34002259F2 /* Info.plist */,
+				5AB3A6F42334D7AA00D40DBF /* AppStateMachineTests.swift */,
 				5A46191522847CF40078E1B2 /* Common.swift */,
 				5A461910228333ED0078E1B2 /* HistoryTests.swift */,
 				5A0E2B8E227ACB55009CAA74 /* HummingbirdTests.swift */,
@@ -465,8 +472,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A16ED052333A02600AF12CE /* Constants.swift in Sources */,
+				5AB3A6F62334D7E600D40DBF /* AppStateMachine.swift in Sources */,
 				5A16ED062333A03000AF12CE /* Logging.swift in Sources */,
 				5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
+				5AB3A6F82334D82300D40DBF /* Purchase.swift in Sources */,
 				5A16ED092333A05500AF12CE /* FeatureFlags.swift in Sources */,
 				5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */,
 				5AE57A4822F72C090015B090 /* LicensingTests.swift in Sources */,
@@ -484,6 +493,7 @@
 				5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */,
 				5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */,
 				5A7F7865229455EB0064B39C /* OrderedDict.swift in Sources */,
+				5AB3A6F72334D80F00D40DBF /* StateMachine.swift in Sources */,
 				5A7F78682295AA030064B39C /* DefaultStringInterpolation+ext.swift in Sources */,
 				5A0E2B8F227ACB55009CAA74 /* HummingbirdTests.swift in Sources */,
 				5A461911228333ED0078E1B2 /* HistoryTests.swift in Sources */,
@@ -491,6 +501,7 @@
 				5A8F9114227C41C800B78C47 /* State.swift in Sources */,
 				5A8F911A227C461D00B78C47 /* CGEvent+ext.swift in Sources */,
 				5A46191622847CF40078E1B2 /* Common.swift in Sources */,
+				5AB3A6F52334D7AA00D40DBF /* AppStateMachineTests.swift in Sources */,
 				5A8F9117227C460100B78C47 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

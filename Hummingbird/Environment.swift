@@ -17,6 +17,7 @@ public struct Environment {
     public var defaults: () -> UserDefaults = {
         UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? .standard
     }
+    public var featureFlags = FeatureFlags(commercial: false)
     public var gumroad = Gumroad()
 }
 

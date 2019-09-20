@@ -141,7 +141,7 @@ extension AppStateMachine {
     func checkLicense() {
         // Yes, it is really that simple to circumvent the license check. But if you can build it from source
         // it's free of charge anyway. Although it'd be great if you'd send a coffee!
-        if FeatureFlags.commercial {
+        if Current.featureFlags.commercial {
             let firstLaunched = Date(forKey: .firstLaunched, defaults: Current.defaults()) ?? Current.date()
             let license = License(forKey: .license, defaults: Current.defaults())
             let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)

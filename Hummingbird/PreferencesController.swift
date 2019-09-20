@@ -40,7 +40,7 @@ class PreferencesController: NSWindowController {
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        registrationStatusLabel.stringValue = FeatureFlags.commercial
+        registrationStatusLabel.stringValue = Current.featureFlags.commercial
             ? ( isRegistered ? "🎫 Registered copy" : "⚠️ Unregistered – click to register" )
             : "Fancy sending a coffee? ☕️ Please click here to support Hummingbird."
     }
@@ -70,7 +70,7 @@ class PreferencesController: NSWindowController {
 
 
     @IBAction func registrationLabelClicked(_ sender: Any) {
-        if FeatureFlags.commercial {
+        if Current.featureFlags.commercial {
             if !isRegistered {
                 close()
                 delegate?.showRegistrationController()

@@ -9,6 +9,6 @@
 import Foundation
 
 
-struct FeatureFlags {
-    static let commercial = false
+public struct FeatureFlags {
+    let commercial: Bool
 }
