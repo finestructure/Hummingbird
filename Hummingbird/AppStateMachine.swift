@@ -9,9 +9,47 @@
 import Cocoa
 
 
+protocol DidTransitionDelegate: class {
+    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State)
+}
+
+
+class AppStateMachine {
+    var stateMachine: StateMachine<AppStateMachine>!
+    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate)?
+
+    var state: State {
+        get {
+            return stateMachine.state
+        }
+        set {
+            stateMachine.state = newValue
+        }
+    }
+
+    init() {
+        stateMachine = StateMachine<AppStateMachine>(initialState: .launching, delegate: self)
+    }
+}
+
+
+extension AppStateMachine {
+    func toggleEnabled() {
+        switch state {
+            case .activated:
+                deactivate()
+            case .deactivated:
+                checkLicense()
+            default:
+                break
+        }
+    }
+}
+
+
 // MARK:- StateMachineDelegate
 
-extension AppDelegate: StateMachineDelegate {
+extension AppStateMachine: StateMachineDelegate {
     enum State: TransitionDelegate {
         case launching
         case validatingLicense
@@ -20,7 +58,7 @@ extension AppDelegate: StateMachineDelegate {
         case activated
         case deactivated
 
-        func shouldTransition(from: AppDelegate.State, to: AppDelegate.State) -> Decision<AppDelegate.State> {
+        func shouldTransition(from: State, to: State) -> Decision<State> {
             log(.debug, "Transition: \(from) -> \(to)")
 
             switch (from, to) {
@@ -59,8 +97,8 @@ extension AppDelegate: StateMachineDelegate {
         }
     }
 
-    func didTransition(from: AppDelegate.State, to: AppDelegate.State) {
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+    func didTransition(from: State, to: State) {
+        delegate?.didTransition(from: from, to: to)
 
         switch (from, to) {
             case (.launching, .validatingLicense):
@@ -84,7 +122,7 @@ extension AppDelegate: StateMachineDelegate {
                     case .alertFirstButtonReturn:
                         presentPurchaseView()
                     case .alertSecondButtonReturn:
-                        registrationController.showWindow(self)
+                        delegate?.showRegistrationController()
                     default:
                         NSApp.terminate(self)
                 }
@@ -98,7 +136,7 @@ extension AppDelegate: StateMachineDelegate {
 // MARK:- State transition helpers
 
 
-extension AppDelegate {
+extension AppStateMachine {
 
     func checkLicense() {
         // Yes, it is really that simple to circumvent the license check. But if you can build it from source

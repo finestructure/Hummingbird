@@ -42,8 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return StatsController(nibName: "StatsController", bundle: nil)
     }()
 
-
-    var stateMachine: StateMachine<AppDelegate>!
+    var stateMachine = AppStateMachine()
 }
 
 
@@ -51,9 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        stateMachine = StateMachine<AppDelegate>(initialState: .launching, delegate: self)
-
-        precondition(stateMachine.state == .launching)
+        stateMachine.delegate = self
 
         if Date(forKey: .firstLaunched, defaults: defaults) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
@@ -132,14 +129,7 @@ extension AppDelegate {
 extension AppDelegate {
 
     @IBAction func toggleEnabled(_ sender: Any) {
-        switch stateMachine.state {
-            case .activated:
-                deactivate()
-            case .deactivated:
-                checkLicense()
-            default:
-                break
-        }
+        stateMachine.toggleEnabled()
     }
 
     @IBAction func registerLicense(_ sender: Any) {
@@ -212,14 +202,28 @@ extension AppDelegate: RegistrationControllerDelegate {
 }
 
 
-// MARK:- PreferencesControllerDelegate
+// MARK:- ShowTipJarControllerDelegate
 
-extension AppDelegate: PreferencesControllerDelegate {
-    func didRequestRegistrationController() {
+extension AppDelegate: ShowTipJarControllerDelegate {
+    func showTipJarController() {
+        tipJarController.showWindow(self)
+    }
+}
+
+
+// MARK:- ShowRegistrationControllerDelegate
+
+extension AppDelegate: ShowRegistrationControllerDelegate {
+    func showRegistrationController() {
         registrationController.showWindow(self)
     }
+}
 
-    func didRequestTipJarController() {
-        tipJarController.showWindow(self)
+
+// MARK:- DidTransitionDelegate
+
+extension AppDelegate: DidTransitionDelegate {
+    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
+        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
