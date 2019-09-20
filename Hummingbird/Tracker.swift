@@ -43,10 +43,8 @@ class Tracker {
     var metricsHistory = History<Metrics>(forKey: .history, defaults: Current.defaults())
 
     private init() throws {
-        #if TEST
         // don't enable tap for TEST or we'll trigger the permissions alert
-        #else
-
+        #if !TEST
         let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
