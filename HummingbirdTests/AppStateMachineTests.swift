@@ -9,36 +9,6 @@
 import XCTest
 
 
-let trackerIsActive = NSPredicate { (_, _) in
-    Tracker.isActive
-}
-
-
-let trackerIsNotActive = NSPredicate { (_, _) in
-    !Tracker.isActive
-}
-
-
-// replicates (in essence) that AppDelegate.applicationDidFinishLaunching is doing
-func applicationDidFinishLaunching(_ stateMachine: AppStateMachine) {
-    XCTAssertEqual(stateMachine.state, .launching)
-    XCTAssert(!Tracker.isActive)
-    stateMachine.state = .validatingLicense
-}
-
-
-func testUserDefaults(firstLaunched: Date?, license: License?) throws -> UserDefaults {
-    let def = testUserDefaults()
-    if let firstLaunched = firstLaunched {
-        try firstLaunched.save(forKey: .firstLaunched, defaults: def)
-    }
-    if let license = license {
-        try license.save(forKey: .license, defaults: def)
-    }
-    return def
-}
-
-
 class AppStateMachineTests: XCTestCase {
 
     override func tearDown() {
@@ -54,8 +24,8 @@ class AppStateMachineTests: XCTestCase {
         try firstLaunched.save(forKey: .firstLaunched, defaults: defaults)
 
         // MUT
-        let sm = AppStateMachine()
-        applicationDidFinishLaunching(sm)
+        let app = TestAppDelegate()
+        app.applicationDidFinishLaunching()
 
         // assert
         _ = expectation(for: trackerIsActive, evaluatedWith: nil)
@@ -71,8 +41,8 @@ class AppStateMachineTests: XCTestCase {
         Current.defaults = { defaults }
 
         // MUT
-        let sm = AppStateMachine()
-        applicationDidFinishLaunching(sm)
+        let app = TestAppDelegate()
+        app.applicationDidFinishLaunching()
 
         // assert
         _ = expectation(for: trackerIsActive, evaluatedWith: nil)
@@ -88,14 +58,85 @@ class AppStateMachineTests: XCTestCase {
         Current.defaults = { defaults }
 
         // MUT
-        let sm = AppStateMachine()
-        applicationDidFinishLaunching(sm)
+        let app = TestAppDelegate()
+        app.trialExpiredAlertResponse = .alertThirdButtonReturn  // Click on "Quit"
+        app.applicationDidFinishLaunching()
 
         // assert
         _ = expectation(for: trackerIsNotActive, evaluatedWith: nil)
         waitForExpectations(timeout: 2)
         XCTAssert(!Tracker.isActive)
-        // TODO: test alert
+        XCTAssert(app.trialExpiredAlertShown)
+        XCTAssert(app.didTerminate)
     }
 
+}
+
+
+// MARK:- Helpers
+
+
+let trackerIsActive = NSPredicate { (_, _) in
+    Tracker.isActive
+}
+
+
+let trackerIsNotActive = NSPredicate { (_, _) in
+    !Tracker.isActive
+}
+
+
+func testUserDefaults(firstLaunched: Date?, license: License?) throws -> UserDefaults {
+    let def = testUserDefaults()
+    if let firstLaunched = firstLaunched {
+        try firstLaunched.save(forKey: .firstLaunched, defaults: def)
+    }
+    if let license = license {
+        try license.save(forKey: .license, defaults: def)
+    }
+    return def
+}
+
+
+class TestAppDelegate {
+    var stateMachine = AppStateMachine()
+
+    var transitions = [(from: AppStateMachine.State, to: AppStateMachine.State)]()
+    var registrationControllerShown = false
+    var trialExpiredAlertShown = false
+    var trialExpiredAlertResponse: NSApplication.ModalResponse = .OK
+    var didTerminate = false
+
+    // replicates (in essence) that AppDelegate.applicationDidFinishLaunching is doing
+    func applicationDidFinishLaunching() {
+        stateMachine.delegate = self
+        XCTAssertEqual(stateMachine.state, .launching)
+        XCTAssert(!Tracker.isActive)
+        stateMachine.state = .validatingLicense
+    }
+}
+
+extension TestAppDelegate: DidTransitionDelegate {
+    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
+        transitions.append((from, to))
+    }
+}
+
+extension TestAppDelegate: ShowRegistrationControllerDelegate {
+    func showRegistrationController() {
+        registrationControllerShown = true
+    }
+}
+
+extension TestAppDelegate: ShowTrialExpiredAlertDelegate {
+    func showTrialExpiredAlert(completion: (NSApplication.ModalResponse) -> ()) {
+        trialExpiredAlertShown = true
+        completion(trialExpiredAlertResponse)
+    }
+}
+
+extension TestAppDelegate: ShouldTermindateDelegate {
+    func shouldTerminate() {
+        didTerminate = true
+    }
 }

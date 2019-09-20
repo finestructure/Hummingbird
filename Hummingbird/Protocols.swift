@@ -22,3 +22,8 @@ protocol ShowRegistrationControllerDelegate: class {
 protocol ShowTrialExpiredAlertDelegate: class {
     func showTrialExpiredAlert(completion: (NSApplication.ModalResponse) -> ())
 }
+
+
+protocol ShouldTermindateDelegate: class {
+    func shouldTerminate()
+}

@@ -14,9 +14,17 @@ protocol DidTransitionDelegate: class {
 }
 
 
+typealias AppStateMachineDelegate = (
+    DidTransitionDelegate &
+    ShowRegistrationControllerDelegate &
+    ShowTrialExpiredAlertDelegate &
+    ShouldTermindateDelegate
+)
+
+
 class AppStateMachine {
     var stateMachine: StateMachine<AppStateMachine>!
-    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate & ShowTrialExpiredAlertDelegate)?
+    weak var delegate: AppStateMachineDelegate?
 
     var state: State {
         get {
@@ -114,7 +122,7 @@ extension AppStateMachine: StateMachineDelegate {
                         case .alertSecondButtonReturn:
                             delegate?.showRegistrationController()
                         default:
-                            NSApp.terminate(self)
+                            delegate?.shouldTerminate()
                     }
                 }
             default:

@@ -248,3 +248,12 @@ extension AppDelegate: ShowTrialExpiredAlertDelegate {
         completion(result)
     }
 }
+
+
+// MARK:- ShouldTermindateDelegate
+
+extension AppDelegate: ShouldTermindateDelegate {
+    func shouldTerminate() {
+        NSApp.terminate(self)
+    }
+}
