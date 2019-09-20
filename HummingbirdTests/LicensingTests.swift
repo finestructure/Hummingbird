@@ -60,7 +60,7 @@ class LicensingTests: XCTestCase {
 
     func test_noKey_expired() throws {
         let now = Date()
-        Current.date = { day(offset: 8, from: now) }
+        Current.date = { day(offset: 15, from: now) }
         let td = LicenseInfo(firstLaunched: now, license: nil)
 
         let expectation = self.expectation(description: #function)
