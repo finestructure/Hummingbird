@@ -22,6 +22,17 @@ func applicationDidFinishLaunching(_ stateMachine: AppStateMachine) {
 }
 
 
+func testUserDefaults(firstLaunched: Date?, license: License?) throws -> UserDefaults {
+    let def = testUserDefaults()
+    if let firstLaunched = firstLaunched {
+        try firstLaunched.save(forKey: .firstLaunched, defaults: def)
+    }
+    if let license = license {
+        try license.save(forKey: .license, defaults: def)
+    }
+    return def
+}
+
 
 class AppStateMachineTests: XCTestCase {
 
@@ -51,9 +62,8 @@ class AppStateMachineTests: XCTestCase {
         // setup
         Current.featureFlags = FeatureFlags(commercial: true)
         Current.date = { ReferenceDate }
-        let defaults = testUserDefaults()
-        let firstLaunched = day(offset: -7, from: ReferenceDate)
-        try firstLaunched.save(forKey: .firstLaunched, defaults: defaults)
+        let defaults = try testUserDefaults(firstLaunched: day(offset: -7, from: ReferenceDate), license: nil)
+        Current.defaults = { defaults }
 
         // MUT
         let sm = AppStateMachine()
@@ -63,6 +73,24 @@ class AppStateMachineTests: XCTestCase {
         _ = expectation(for: trackerIsActive, evaluatedWith: nil)
         waitForExpectations(timeout: 2)
         XCTAssert(Tracker.isActive)
+    }
+
+    func test_commercial_2() throws {  // commercial, unregistered, after trial period
+        // setup
+        Current.featureFlags = FeatureFlags(commercial: true)
+        Current.date = { ReferenceDate }
+        let defaults = try testUserDefaults(firstLaunched: day(offset: -15, from: ReferenceDate), license: nil)
+        Current.defaults = { defaults }
+
+        // MUT
+        let sm = AppStateMachine()
+        applicationDidFinishLaunching(sm)
+
+        // assert
+        _ = expectation(for: trackerIsActive, evaluatedWith: nil)
+        waitForExpectations(timeout: 2)
+        XCTAssert(!Tracker.isActive)
+        // TODO: test alert
     }
 
 }
