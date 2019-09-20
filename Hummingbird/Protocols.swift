@@ -6,7 +6,7 @@
 //  Copyright © 2019 finestructure. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 
 protocol ShowTipJarControllerDelegate: class {
@@ -16,4 +16,19 @@ protocol ShowTipJarControllerDelegate: class {
 
 protocol ShowRegistrationControllerDelegate: class {
     func showRegistrationController()
+}
+
+
+protocol ShowTrialExpiredAlertDelegate: class {
+    func showTrialExpiredAlert(completion: (NSApplication.ModalResponse) -> ())
+}
+
+
+protocol ShouldTermindateDelegate: class {
+    func shouldTerminate()
+}
+
+
+protocol PresentPurchaseViewDelegate: class {
+    func presentPurchaseView()
 }

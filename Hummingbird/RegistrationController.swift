@@ -28,7 +28,7 @@ class RegistrationController: NSWindowController {
     @IBOutlet weak var submitButton: NSButton!
     @IBOutlet weak var spinner: NSProgressIndicator!
 
-    weak var delegate: RegistrationControllerDelegate?
+    weak var delegate: (RegistrationControllerDelegate & PresentPurchaseViewDelegate)?
 
 
     lazy var successAlert: NSAlert = {
@@ -81,7 +81,7 @@ class RegistrationController: NSWindowController {
             return
         }
 
-        let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+        let firstLaunched = Date(forKey: .firstLaunched, defaults: Current.defaults()) ?? Current.date()
         let license = License(key: licenseKeyField.stringValue)
         let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
 
@@ -109,7 +109,7 @@ class RegistrationController: NSWindowController {
 
 
     @IBAction func purchaseLinkClicked(_ sender: Any) {
-        presentPurchaseView()
+        delegate?.presentPurchaseView()
     }
 
 

@@ -30,26 +30,36 @@ class Tracker {
     }
 
 
-    private let trackingInfo: TrackingInfo
+    private let trackingInfo = TrackingInfo()
+
+    #if !TEST  // cannot populate these ivars when UI testing
     private let eventTap: CFMachPort
     private let runLoopSource: CFRunLoopSource?
+    #endif
+
     private var currentState: State = .idle
-    private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-    private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
-    var metricsHistory = History<Metrics>(forKey: .history, defaults: defaults)
+    private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
+    private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
+    var metricsHistory = History<Metrics>(forKey: .history, defaults: Current.defaults())
 
     private init() throws {
+        #if TEST
+        // don't enable tap for TEST or we'll trigger the permissions alert
+        #else
+
         let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
-        trackingInfo = TrackingInfo()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: defaults)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
+        #endif
     }
 
 
     deinit {
+        #if !TEST
         disableTap(eventTap: eventTap, runLoopSource: runLoopSource)
         NotificationCenter.default.removeObserver(self)
+        #endif
     }
 
 
@@ -57,7 +67,9 @@ class Tracker {
         if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
             // need to re-enable our eventTap (We got disabled. Usually happens on a slow resizing app)
             log(.debug, "Re-enabling")
+            #if !TEST
             CGEvent.tapEnable(tap: eventTap, enable: true)
+            #endif
             return false
         }
 
@@ -138,7 +150,7 @@ class Tracker {
             metricsHistory.checkMilestone(metricsHistory.currentValue).map(Notifications.send(milestone:))
         }
         do {
-            try metricsHistory.save(forKey: .history, defaults: defaults)
+            try metricsHistory.save(forKey: .history, defaults: Current.defaults())
         } catch {
             log(.debug, "Error while saving preferences: \(error)")
         }
@@ -189,8 +201,8 @@ class Tracker {
     }
 
     @objc private func updateModifiers() {
-        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
+        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
+        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
 
 }

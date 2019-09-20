@@ -14,9 +14,18 @@ protocol DidTransitionDelegate: class {
 }
 
 
+typealias AppStateMachineDelegate = (
+    DidTransitionDelegate &
+    ShowRegistrationControllerDelegate &
+    ShowTrialExpiredAlertDelegate &
+    ShouldTermindateDelegate &
+    PresentPurchaseViewDelegate
+)
+
+
 class AppStateMachine {
     var stateMachine: StateMachine<AppStateMachine>!
-    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate)?
+    weak var delegate: AppStateMachineDelegate?
 
     var state: State {
         get {
@@ -107,24 +116,15 @@ extension AppStateMachine: StateMachineDelegate {
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unregistered):
                 Tracker.disable()
-                let alert = NSAlert()
-                alert.alertStyle = .critical
-                alert.messageText = "Trial expired"
-                alert.informativeText = """
-                Your trial period has expired 😞.
-
-                Please support the development of Hummingbird by purchasing a license!
-                """
-                alert.addButton(withTitle: "Purchase")
-                alert.addButton(withTitle: "Register")
-                alert.addButton(withTitle: "Quit")
-                switch alert.runModal() {
-                    case .alertFirstButtonReturn:
-                        presentPurchaseView()
-                    case .alertSecondButtonReturn:
-                        delegate?.showRegistrationController()
-                    default:
-                        NSApp.terminate(self)
+                delegate?.showTrialExpiredAlert { result in
+                    switch result {
+                        case .alertFirstButtonReturn:
+                            delegate?.presentPurchaseView()
+                        case .alertSecondButtonReturn:
+                            delegate?.showRegistrationController()
+                        default:
+                            delegate?.shouldTerminate()
+                    }
                 }
             default:
                 break
@@ -141,9 +141,9 @@ extension AppStateMachine {
     func checkLicense() {
         // Yes, it is really that simple to circumvent the license check. But if you can build it from source
         // it's free of charge anyway. Although it'd be great if you'd send a coffee!
-        if FeatureFlags.commercial {
-            let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
-            let license = License(forKey: .license, defaults: defaults)
+        if Current.featureFlags.commercial {
+            let firstLaunched = Date(forKey: .firstLaunched, defaults: Current.defaults()) ?? Current.date()
+            let license = License(forKey: .license, defaults: Current.defaults())
             let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
             validate(licenseInfo) { status in
                 switch status {

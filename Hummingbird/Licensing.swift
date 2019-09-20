@@ -45,7 +45,7 @@ extension License: Defaultable {
 
 
 struct LicenseInfo {
-    static let length = DateComponents(day: 7)
+    static let length = DateComponents(day: 14)
 
     let firstLaunched: Date
     let license: License?

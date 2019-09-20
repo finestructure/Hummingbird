@@ -14,6 +14,10 @@ import Foundation
 public struct Environment {
     public var environment = ProcessInfo.processInfo.environment
     public var date: () -> Date = { Date() }
+    public var defaults: () -> UserDefaults = {
+        UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? .standard
+    }
+    public var featureFlags = FeatureFlags(commercial: false)
     public var gumroad = Gumroad()
 }
 

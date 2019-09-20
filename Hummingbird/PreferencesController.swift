@@ -34,13 +34,13 @@ class PreferencesController: NSWindowController {
     weak var delegate: (ShowTipJarControllerDelegate & ShowRegistrationControllerDelegate)?
 
     var isRegistered: Bool {
-        return License(forKey: .license, defaults: defaults) != nil
+        return License(forKey: .license, defaults: Current.defaults()) != nil
     }
 
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        registrationStatusLabel.stringValue = FeatureFlags.commercial
+        registrationStatusLabel.stringValue = Current.featureFlags.commercial
             ? ( isRegistered ? "🎫 Registered copy" : "⚠️ Unregistered – click to register" )
             : "Fancy sending a coffee? ☕️ Please click here to support Hummingbird."
     }
@@ -57,20 +57,20 @@ class PreferencesController: NSWindowController {
         )
         if let modifier = modifierForButton[sender] {
             if moveButtons.contains(sender) {
-                let modifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+                let modifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
                 let m = Modifiers<Move>(rawValue: modifier)
-                try? modifiers.toggle(m).save(forKey: .moveModifiers, defaults: defaults)
+                try? modifiers.toggle(m).save(forKey: .moveModifiers, defaults: Current.defaults())
             } else if resizeButtons.contains(sender) {
-                let modifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
+                let modifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
                 let m = Modifiers<Resize>(rawValue: modifier)
-                try? modifiers.toggle(m).save(forKey: .resizeModifiers, defaults: defaults)
+                try? modifiers.toggle(m).save(forKey: .resizeModifiers, defaults: Current.defaults())
             }
         }
     }
 
 
     @IBAction func registrationLabelClicked(_ sender: Any) {
-        if FeatureFlags.commercial {
+        if Current.featureFlags.commercial {
             if !isRegistered {
                 close()
                 delegate?.showRegistrationController()
@@ -86,7 +86,7 @@ extension PreferencesController: NSWindowDelegate {
 
     func windowDidChangeOcclusionState(_ notification: Notification) {
         do {
-            let prefs = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
+            let prefs = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
             let buttons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
             let allModifiers: [Modifiers<Move>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))
@@ -96,7 +96,7 @@ extension PreferencesController: NSWindowDelegate {
         }
 
         do {
-            let prefs = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
+            let prefs = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
             let buttons = [resizeAlt, resizeCommand, resizeControl, resizeFn, resizeShift]
             let allModifiers: [Modifiers<Resize>] = [.alt, .command, .control, .fn, .shift]
             let buttonForModifier = Dictionary(uniqueKeysWithValues: zip(allModifiers, buttons))

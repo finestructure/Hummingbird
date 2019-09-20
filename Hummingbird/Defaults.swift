@@ -9,9 +9,6 @@
 import Foundation
 
 
-let defaults = UserDefaults(suiteName: "co.finestructure.Hummingbird.prefs") ?? .standard
-
-
 enum DefaultsKeys: String {
     case dateRegistered
     case firstLaunched

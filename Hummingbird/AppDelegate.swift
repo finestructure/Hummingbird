@@ -52,12 +52,12 @@ extension AppDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         stateMachine.delegate = self
 
-        if Date(forKey: .firstLaunched, defaults: defaults) == nil {
-            try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
+        if Date(forKey: .firstLaunched, defaults: Current.defaults()) == nil {
+            try? Current.date().save(forKey: .firstLaunched, defaults: Current.defaults())
         }
 
         statusMenu.delegate = self
-        defaults.register(defaults: DefaultPreferences)
+        Current.defaults().register(defaults: DefaultPreferences)
 
         if #available(OSX 10.14, *) { // set up notification actions
             Notifications.registerCategories()
@@ -100,7 +100,7 @@ extension AppDelegate: NSMenuDelegate {
             registerMenuItem.isHidden = !enabledMenuItem.isHidden
         }
         do {
-            sendCoffeeMenuItem.isHidden = FeatureFlags.commercial
+            sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
         }
         statsController.updateView()
     }
@@ -181,8 +181,8 @@ extension AppDelegate: RegistrationControllerDelegate {
         switch license {
         case .valid(let license):
             do {
-                try license.save(forKey: .license, defaults: defaults)
-                try Current.date().save(forKey: .dateRegistered, defaults: defaults)
+                try license.save(forKey: .license, defaults: Current.defaults())
+                try Current.date().save(forKey: .dateRegistered, defaults: Current.defaults())
             } catch {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
@@ -225,5 +225,44 @@ extension AppDelegate: ShowRegistrationControllerDelegate {
 extension AppDelegate: DidTransitionDelegate {
     func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+    }
+}
+
+
+// MARK:- ShowTrialExpiredAlertDelegate
+
+extension AppDelegate: ShowTrialExpiredAlertDelegate {
+    func showTrialExpiredAlert(completion: (NSApplication.ModalResponse) -> ()) {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = "Trial expired"
+        alert.informativeText = """
+        Your trial period has expired 😞.
+
+        Please support the development of Hummingbird by purchasing a license!
+        """
+        alert.addButton(withTitle: "Purchase")
+        alert.addButton(withTitle: "Register")
+        alert.addButton(withTitle: "Quit")
+        let result = alert.runModal()
+        completion(result)
+    }
+}
+
+
+// MARK:- ShouldTermindateDelegate
+
+extension AppDelegate: ShouldTermindateDelegate {
+    func shouldTerminate() {
+        NSApp.terminate(self)
+    }
+}
+
+
+// MARK:- PresentPurchaseViewDelegate
+
+extension AppDelegate: PresentPurchaseViewDelegate {
+    func presentPurchaseView() {
+        NSWorkspace.shared.open(Links.gumroadProductPage)
     }
 }
