@@ -81,7 +81,7 @@ class RegistrationController: NSWindowController {
             return
         }
 
-        let firstLaunched = Date(forKey: .firstLaunched, defaults: defaults) ?? Current.date()
+        let firstLaunched = Date(forKey: .firstLaunched, defaults: Current.defaults()) ?? Current.date()
         let license = License(key: licenseKeyField.stringValue)
         let licenseInfo = LicenseInfo(firstLaunched: firstLaunched, license: license)
 

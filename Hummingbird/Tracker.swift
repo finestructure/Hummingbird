@@ -38,9 +38,9 @@ class Tracker {
     #endif
 
     private var currentState: State = .idle
-    private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-    private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
-    var metricsHistory = History<Metrics>(forKey: .history, defaults: defaults)
+    private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
+    private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
+    var metricsHistory = History<Metrics>(forKey: .history, defaults: Current.defaults())
 
     private init() throws {
         #if TEST
@@ -50,7 +50,7 @@ class Tracker {
         let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: defaults)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
         #endif
     }
 
@@ -150,7 +150,7 @@ class Tracker {
             metricsHistory.checkMilestone(metricsHistory.currentValue).map(Notifications.send(milestone:))
         }
         do {
-            try metricsHistory.save(forKey: .history, defaults: defaults)
+            try metricsHistory.save(forKey: .history, defaults: Current.defaults())
         } catch {
             log(.debug, "Error while saving preferences: \(error)")
         }
@@ -201,8 +201,8 @@ class Tracker {
     }
 
     @objc private func updateModifiers() {
-        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: defaults)
-        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: defaults)
+        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
+        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
 
 }

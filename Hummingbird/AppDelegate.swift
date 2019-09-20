@@ -52,12 +52,12 @@ extension AppDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         stateMachine.delegate = self
 
-        if Date(forKey: .firstLaunched, defaults: defaults) == nil {
-            try? Current.date().save(forKey: .firstLaunched, defaults: defaults)
+        if Date(forKey: .firstLaunched, defaults: Current.defaults()) == nil {
+            try? Current.date().save(forKey: .firstLaunched, defaults: Current.defaults())
         }
 
         statusMenu.delegate = self
-        defaults.register(defaults: DefaultPreferences)
+        Current.defaults().register(defaults: DefaultPreferences)
 
         if #available(OSX 10.14, *) { // set up notification actions
             Notifications.registerCategories()
@@ -181,8 +181,8 @@ extension AppDelegate: RegistrationControllerDelegate {
         switch license {
         case .valid(let license):
             do {
-                try license.save(forKey: .license, defaults: defaults)
-                try Current.date().save(forKey: .dateRegistered, defaults: defaults)
+                try license.save(forKey: .license, defaults: Current.defaults())
+                try Current.date().save(forKey: .dateRegistered, defaults: Current.defaults())
             } catch {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
