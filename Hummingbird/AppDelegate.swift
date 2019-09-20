@@ -227,3 +227,24 @@ extension AppDelegate: DidTransitionDelegate {
         enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
+
+
+// MARK:- ShowTrialExpiredAlertDelegate
+
+extension AppDelegate: ShowTrialExpiredAlertDelegate {
+    func showTrialExpiredAlert(completion: (NSApplication.ModalResponse) -> ()) {
+        let alert = NSAlert()
+        alert.alertStyle = .critical
+        alert.messageText = "Trial expired"
+        alert.informativeText = """
+        Your trial period has expired 😞.
+
+        Please support the development of Hummingbird by purchasing a license!
+        """
+        alert.addButton(withTitle: "Purchase")
+        alert.addButton(withTitle: "Register")
+        alert.addButton(withTitle: "Quit")
+        let result = alert.runModal()
+        completion(result)
+    }
+}

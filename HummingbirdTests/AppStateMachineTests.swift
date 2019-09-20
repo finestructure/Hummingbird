@@ -14,6 +14,11 @@ let trackerIsActive = NSPredicate { (_, _) in
 }
 
 
+let trackerIsNotActive = NSPredicate { (_, _) in
+    !Tracker.isActive
+}
+
+
 // replicates (in essence) that AppDelegate.applicationDidFinishLaunching is doing
 func applicationDidFinishLaunching(_ stateMachine: AppStateMachine) {
     XCTAssertEqual(stateMachine.state, .launching)
@@ -87,7 +92,7 @@ class AppStateMachineTests: XCTestCase {
         applicationDidFinishLaunching(sm)
 
         // assert
-        _ = expectation(for: trackerIsActive, evaluatedWith: nil)
+        _ = expectation(for: trackerIsNotActive, evaluatedWith: nil)
         waitForExpectations(timeout: 2)
         XCTAssert(!Tracker.isActive)
         // TODO: test alert

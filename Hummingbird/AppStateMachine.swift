@@ -16,7 +16,7 @@ protocol DidTransitionDelegate: class {
 
 class AppStateMachine {
     var stateMachine: StateMachine<AppStateMachine>!
-    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate)?
+    weak var delegate: (DidTransitionDelegate & ShowRegistrationControllerDelegate & ShowTrialExpiredAlertDelegate)?
 
     var state: State {
         get {
@@ -107,24 +107,15 @@ extension AppStateMachine: StateMachineDelegate {
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unregistered):
                 Tracker.disable()
-                let alert = NSAlert()
-                alert.alertStyle = .critical
-                alert.messageText = "Trial expired"
-                alert.informativeText = """
-                Your trial period has expired 😞.
-
-                Please support the development of Hummingbird by purchasing a license!
-                """
-                alert.addButton(withTitle: "Purchase")
-                alert.addButton(withTitle: "Register")
-                alert.addButton(withTitle: "Quit")
-                switch alert.runModal() {
-                    case .alertFirstButtonReturn:
-                        presentPurchaseView()
-                    case .alertSecondButtonReturn:
-                        delegate?.showRegistrationController()
-                    default:
-                        NSApp.terminate(self)
+                delegate?.showTrialExpiredAlert { result in
+                    switch result {
+                        case .alertFirstButtonReturn:
+                            presentPurchaseView()
+                        case .alertSecondButtonReturn:
+                            delegate?.showRegistrationController()
+                        default:
+                            NSApp.terminate(self)
+                    }
                 }
             default:
                 break
