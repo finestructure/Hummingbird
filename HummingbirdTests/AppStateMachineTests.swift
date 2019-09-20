@@ -70,6 +70,25 @@ class AppStateMachineTests: XCTestCase {
         XCTAssert(app.didTerminate)
     }
 
+    func test_commercial_3() throws { // commercial, show registration dialog
+        // setup
+        Current.featureFlags = FeatureFlags(commercial: true)
+        Current.date = { ReferenceDate }
+        let defaults = try testUserDefaults(firstLaunched: day(offset: -15, from: ReferenceDate), license: nil)
+        Current.defaults = { defaults }
+
+        // MUT
+        let app = TestAppDelegate()
+        app.trialExpiredAlertResponse = .alertSecondButtonReturn  // Click on "Register"
+        app.applicationDidFinishLaunching()
+
+        // assert
+        _ = expectation(for: trackerIsNotActive, evaluatedWith: nil)
+        waitForExpectations(timeout: 2)
+        XCTAssert(!Tracker.isActive)
+        XCTAssert(app.trialExpiredAlertShown)
+        XCTAssert(app.registrationControllerShown)
+    }
 }
 
 
