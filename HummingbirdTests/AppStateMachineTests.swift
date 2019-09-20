@@ -37,7 +37,7 @@ class AppStateMachineTests: XCTestCase {
         // setup
         Current.featureFlags = FeatureFlags(commercial: true)
         Current.date = { ReferenceDate }
-        let defaults = try testUserDefaults(firstLaunched: day(offset: -7, from: ReferenceDate), license: nil)
+        let defaults = try testUserDefaults(firstLaunched: day(offset: -14, from: ReferenceDate), license: nil)
         Current.defaults = { defaults }
 
         // MUT
