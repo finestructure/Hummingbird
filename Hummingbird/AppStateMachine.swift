@@ -112,7 +112,7 @@ extension AppStateMachine: StateMachineDelegate {
         switch (from, to) {
             case (.launching, .validatingLicense):
                 checkLicense()
-            case (.validatingLicense, .activating),  (.unregistered, .activating):
+            case (.validatingLicense, .activating),  (.unregistered, .activating), (.deactivated, .activating):
                 activate(showAlert: true, keepTrying: true)
             case (.validatingLicense, .unregistered):
                 Tracker.disable()
