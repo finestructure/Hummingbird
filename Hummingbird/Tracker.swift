@@ -42,6 +42,7 @@ class Tracker {
     private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     var metricsHistory = History<Metrics>(forKey: .history, defaults: Current.defaults())
 
+
     private init() throws {
         // don't enable tap for TEST or we'll trigger the permissions alert
         #if !TEST
@@ -58,6 +59,12 @@ class Tracker {
         disableTap(eventTap: eventTap, runLoopSource: runLoopSource)
         NotificationCenter.default.removeObserver(self)
         #endif
+    }
+
+
+    public func readModifiers() {
+        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
+        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
 
 

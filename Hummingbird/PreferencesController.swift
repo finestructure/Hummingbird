@@ -65,6 +65,8 @@ class PreferencesController: NSWindowController {
                 let m = Modifiers<Resize>(rawValue: modifier)
                 try? modifiers.toggle(m).save(forKey: .resizeModifiers, defaults: Current.defaults())
             }
+            // FIXME: this isn't great - maybe use a notification instead?
+            Tracker.shared?.readModifiers()
         }
     }
 
