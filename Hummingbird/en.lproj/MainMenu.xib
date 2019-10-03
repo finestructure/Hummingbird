@@ -672,6 +672,12 @@
                         <action selector="showTipJar:" target="494" id="4ry-aO-MyG"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Help..." id="8Jk-r5-2bm">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="helpClicked:" target="494" id="kNQ-zp-5cM"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Preferences..." id="XfF-1V-Bsx">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

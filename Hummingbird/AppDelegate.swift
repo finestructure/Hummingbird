@@ -155,6 +155,10 @@ extension AppDelegate {
         }
     }
 
+    @IBAction func helpClicked(_ sender: Any) {
+        NSWorkspace.shared.open(Links.hummingbirdHelp)
+    }
+
 }
 
 

@@ -197,7 +197,7 @@ extension AppStateMachine {
                 case .alertFirstButtonReturn:
                     NSWorkspace.shared.open(Links.securitySystemPreferences)
                 case .alertSecondButtonReturn:
-                    NSWorkspace.shared.open(Links.accessibilityHelp)
+                    NSWorkspace.shared.open(Links.hummingbirdAccessibility)
                 default:
                     break
                 }
