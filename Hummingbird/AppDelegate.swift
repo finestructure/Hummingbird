@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
-    @IBOutlet weak var enabledMenuItem: NSMenuItem!
+    @IBOutlet weak var accessibilityStatusMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
@@ -50,8 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        stateMachine.delegate = self
-
         if Date(forKey: .firstLaunched, defaults: Current.defaults()) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: Current.defaults())
         }
@@ -96,8 +94,10 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            enabledMenuItem.isHidden = (stateMachine.state == .unregistered)
-            registerMenuItem.isHidden = !enabledMenuItem.isHidden
+            accessibilityStatusMenuItem.isHidden = Tracker.isActive
+        }
+        do {
+            registerMenuItem.isHidden = (stateMachine.state != .unregistered)
         }
         do {
             sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
@@ -128,8 +128,8 @@ extension AppDelegate {
 // MARK:- IBActions
 extension AppDelegate {
 
-    @IBAction func toggleEnabled(_ sender: Any) {
-        stateMachine.toggleEnabled()
+    @IBAction func accessibilityStatusClicked(_ sender: Any) {
+        NSWorkspace.shared.open(Links.hummingbirdAccessibility)
     }
 
     @IBAction func registerLicense(_ sender: Any) {
@@ -220,15 +220,6 @@ extension AppDelegate: ShowTipJarControllerDelegate {
 extension AppDelegate: ShowRegistrationControllerDelegate {
     func showRegistrationController() {
         registrationController.showWindow(self)
-    }
-}
-
-
-// MARK:- DidTransitionDelegate
-
-extension AppDelegate: DidTransitionDelegate {
-    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
 
