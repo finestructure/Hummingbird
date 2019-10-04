@@ -50,8 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        stateMachine.delegate = self
-
         if Date(forKey: .firstLaunched, defaults: Current.defaults()) == nil {
             try? Current.date().save(forKey: .firstLaunched, defaults: Current.defaults())
         }
@@ -222,14 +220,6 @@ extension AppDelegate: ShowTipJarControllerDelegate {
 extension AppDelegate: ShowRegistrationControllerDelegate {
     func showRegistrationController() {
         registrationController.showWindow(self)
-    }
-}
-
-
-// MARK:- DidTransitionDelegate
-
-extension AppDelegate: DidTransitionDelegate {
-    func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
     }
 }
 
