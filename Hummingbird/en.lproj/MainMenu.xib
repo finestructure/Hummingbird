@@ -649,12 +649,6 @@
         </menu>
         <menu id="obP-gH-pam">
             <items>
-                <menuItem title="Enabled" id="Q0w-G0-Ppy">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="toggleEnabled:" target="494" id="t9F-ri-Nda"/>
-                    </connections>
-                </menuItem>
                 <menuItem title="Register license..." id="Bjm-xz-6Bf">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -702,7 +696,6 @@
         </menu>
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
-                <outlet property="enabledMenuItem" destination="Q0w-G0-Ppy" id="hc5-Wx-JSv"/>
                 <outlet property="registerMenuItem" destination="Bjm-xz-6Bf" id="l3l-LH-hyr"/>
                 <outlet property="sendCoffeeMenuItem" destination="YPG-30-mN1" id="NXf-Fn-eh1"/>
                 <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>

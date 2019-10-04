@@ -16,7 +16,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
-    @IBOutlet weak var enabledMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
@@ -96,8 +95,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            enabledMenuItem.isHidden = (stateMachine.state == .unregistered)
-            registerMenuItem.isHidden = !enabledMenuItem.isHidden
+            registerMenuItem.isHidden = (stateMachine.state != .unregistered)
         }
         do {
             sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
@@ -228,7 +226,7 @@ extension AppDelegate: ShowRegistrationControllerDelegate {
 
 extension AppDelegate: DidTransitionDelegate {
     func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
-        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
+        //        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
 
