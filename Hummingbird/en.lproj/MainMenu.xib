@@ -649,13 +649,19 @@
         </menu>
         <menu id="obP-gH-pam">
             <items>
+                <menuItem title="⚠️ Accessibility access required..." id="Odh-6g-pt0">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="accessibilityStatusClicked:" target="494" id="Dpl-IT-w3x"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Register license..." id="Bjm-xz-6Bf">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="registerLicense:" target="494" id="eSr-0K-RIt"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="mK5-2I-rRV"/>
+                <menuItem isSeparatorItem="YES" id="EEo-f4-j0Q"/>
                 <menuItem title="Stats" id="rJK-PF-i25">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
@@ -696,6 +702,7 @@
         </menu>
         <customObject id="494" customClass="AppDelegate" customModule="Hummingbird" customModuleProvider="target">
             <connections>
+                <outlet property="accessibilityStatusMenuItem" destination="Odh-6g-pt0" id="qAW-a1-vpR"/>
                 <outlet property="registerMenuItem" destination="Bjm-xz-6Bf" id="l3l-LH-hyr"/>
                 <outlet property="sendCoffeeMenuItem" destination="YPG-30-mN1" id="NXf-Fn-eh1"/>
                 <outlet property="statsMenuItem" destination="rJK-PF-i25" id="qEP-ya-HJX"/>

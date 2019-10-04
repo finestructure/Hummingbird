@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var statusMenu: NSMenu!
     var statusItem: NSStatusItem!
+    @IBOutlet weak var accessibilityStatusMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
     @IBOutlet weak var statsMenuItem: NSMenuItem!
@@ -95,6 +96,9 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
+            accessibilityStatusMenuItem.isHidden = Tracker.isActive
+        }
+        do {
             registerMenuItem.isHidden = (stateMachine.state != .unregistered)
         }
         do {
@@ -126,8 +130,8 @@ extension AppDelegate {
 // MARK:- IBActions
 extension AppDelegate {
 
-    @IBAction func toggleEnabled(_ sender: Any) {
-        stateMachine.toggleEnabled()
+    @IBAction func accessibilityStatusClicked(_ sender: Any) {
+        NSWorkspace.shared.open(Links.hummingbirdAccessibility)
     }
 
     @IBAction func registerLicense(_ sender: Any) {
@@ -226,7 +230,6 @@ extension AppDelegate: ShowRegistrationControllerDelegate {
 
 extension AppDelegate: DidTransitionDelegate {
     func didTransition(from: AppStateMachine.State, to: AppStateMachine.State) {
-        //        enabledMenuItem.state = (Tracker.isActive ? .on : .off)
     }
 }
 
