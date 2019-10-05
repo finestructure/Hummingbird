@@ -37,6 +37,7 @@
 		5A46191D2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
 		5A4D082722A56B4600504AB0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46190E2282B0EA0078E1B2 /* Notifications.swift */; };
 		5A4E24A5234900BF00A27B8F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E24A4234900BF00A27B8F /* Functions.swift */; };
+		5A4E24A62349035000A27B8F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E24A4234900BF00A27B8F /* Functions.swift */; };
 		5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
 		5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */; };
 		5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A78DD1022F2FBF600D0F23D /* TipJarController.swift */; };
@@ -455,6 +456,7 @@
 				5A16ED052333A02600AF12CE /* Constants.swift in Sources */,
 				5AB3A6F62334D7E600D40DBF /* AppStateMachine.swift in Sources */,
 				5A16ED062333A03000AF12CE /* Logging.swift in Sources */,
+				5A4E24A62349035000A27B8F /* Functions.swift in Sources */,
 				5A8F910E227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
 				5A16ED092333A05500AF12CE /* FeatureFlags.swift in Sources */,
 				5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */,
