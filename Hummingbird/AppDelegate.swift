@@ -129,7 +129,7 @@ extension AppDelegate {
 extension AppDelegate {
 
     @IBAction func accessibilityStatusClicked(_ sender: Any) {
-        NSWorkspace.shared.open(Links.hummingbirdAccessibility)
+        showAccessibilityAlert()
     }
 
     @IBAction func registerLicense(_ sender: Any) {
