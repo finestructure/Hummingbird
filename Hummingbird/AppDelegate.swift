@@ -94,7 +94,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            accessibilityStatusMenuItem.isHidden = Tracker.isActive
+            accessibilityStatusMenuItem.isHidden = isTrusted(prompt: false)
         }
         do {
             registerMenuItem.isHidden = (stateMachine.state != .unregistered)
@@ -110,9 +110,9 @@ extension AppDelegate: NSMenuDelegate {
 // MARK:- Helpers
 extension AppDelegate {
 
-    func isTrusted() -> Bool {
+    func isTrusted(prompt: Bool) -> Bool {
         let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let options = [prompt: true] as CFDictionary
+        let options = [prompt: prompt] as CFDictionary
         return AXIsProcessTrustedWithOptions(options)
     }
 
