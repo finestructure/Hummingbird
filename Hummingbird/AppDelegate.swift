@@ -75,7 +75,7 @@ extension AppDelegate {
             return statusItem
         }()
         statusMenu.autoenablesItems = false
-        versionMenuItem.title = "Version: \(version)"
+        versionMenuItem.title = "Version: \(appVersion())"
         statsMenuItem.view = statsController.view
         statsMenuItem.toolTip = "➝ distance moved\n⤢ aread resized"
         if _isDebugAssertConfiguration() {
@@ -94,7 +94,7 @@ extension AppDelegate: NSMenuDelegate {
             versionMenuItem.isHidden = !hidden
         }
         do {
-            accessibilityStatusMenuItem.isHidden = Tracker.isActive
+            accessibilityStatusMenuItem.isHidden = isTrusted(prompt: false)
         }
         do {
             registerMenuItem.isHidden = (stateMachine.state != .unregistered)
@@ -107,29 +107,11 @@ extension AppDelegate: NSMenuDelegate {
 }
 
 
-// MARK:- Helpers
-extension AppDelegate {
-
-    func isTrusted() -> Bool {
-        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let options = [prompt: true] as CFDictionary
-        return AXIsProcessTrustedWithOptions(options)
-    }
-
-    var version: String {
-        let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
-        let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
-        return "\(shortVersion) (\(bundleVersion))"
-    }
-
-}
-
-
 // MARK:- IBActions
 extension AppDelegate {
 
     @IBAction func accessibilityStatusClicked(_ sender: Any) {
-        NSWorkspace.shared.open(Links.hummingbirdAccessibility)
+        showAccessibilityAlert()
     }
 
     @IBAction func registerLicense(_ sender: Any) {
