@@ -75,7 +75,7 @@ extension AppDelegate {
             return statusItem
         }()
         statusMenu.autoenablesItems = false
-        versionMenuItem.title = "Version: \(version)"
+        versionMenuItem.title = "Version: \(appVersion())"
         statsMenuItem.view = statsController.view
         statsMenuItem.toolTip = "➝ distance moved\n⤢ aread resized"
         if _isDebugAssertConfiguration() {
@@ -104,24 +104,6 @@ extension AppDelegate: NSMenuDelegate {
         }
         statsController.updateView()
     }
-}
-
-
-// MARK:- Helpers
-extension AppDelegate {
-
-    func isTrusted(prompt: Bool) -> Bool {
-        let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
-        let options = [prompt: prompt] as CFDictionary
-        return AXIsProcessTrustedWithOptions(options)
-    }
-
-    var version: String {
-        let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
-        let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
-        return "\(shortVersion) (\(bundleVersion))"
-    }
-
 }
 
 

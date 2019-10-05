@@ -31,3 +31,17 @@ func showAccessibilityAlert() {
         break
     }
 }
+
+
+func isTrusted(prompt: Bool) -> Bool {
+    let prompt = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+    let options = [prompt: prompt] as CFDictionary
+    return AXIsProcessTrustedWithOptions(options)
+}
+
+
+func appVersion() -> String {
+    let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+    let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
+    return "\(shortVersion) (\(bundleVersion))"
+}
