@@ -138,10 +138,10 @@ class Tracker {
 
 
     private func startTracking(event: CGEvent) {
-        guard let clickedWindow = AXUIElement.window(at: event.location) else { return }
+        guard let trackedWindow = AXUIElement.window(at: event.location) else { return }
         trackingInfo.time = CACurrentMediaTime()
-        trackingInfo.origin = clickedWindow.origin ?? CGPoint.zero
-        trackingInfo.window = clickedWindow
+        trackingInfo.origin = trackedWindow.origin ?? CGPoint.zero
+        trackingInfo.window = trackedWindow
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
     }
@@ -256,7 +256,7 @@ private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event:
 
     guard let tracker = Tracker.shared else {
         log(.debug, "🔴 tracker must not be nil")
-        return Unmanaged.passRetained(event)
+        return Unmanaged.passUnretained(event)
     }
 
     let absortEvent = tracker.handleEvent(event, type: type)
