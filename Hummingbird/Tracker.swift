@@ -256,7 +256,7 @@ private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event:
 
     guard let tracker = Tracker.shared else {
         log(.debug, "🔴 tracker must not be nil")
-        return Unmanaged.passRetained(event)
+        return Unmanaged.passUnretained(event)
     }
 
     let absortEvent = tracker.handleEvent(event, type: type)
