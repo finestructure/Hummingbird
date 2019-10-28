@@ -261,5 +261,5 @@ private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event:
 
     let absortEvent = tracker.handleEvent(event, type: type)
 
-    return absortEvent ? nil : Unmanaged.passRetained(event)
+    return absortEvent ? nil : Unmanaged.passUnretained(event)
 }
