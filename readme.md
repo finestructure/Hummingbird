@@ -12,7 +12,7 @@ In the video above, holding `fn` and `ctrl` while moving the mouse moves the win
 
 ## Installation
 
-* Download the latest release from the [Hummingbird home page](https://hummingbirdapp.site)
+* Download the latest release from the [Hummingbird home page](https://hbird.app)
 * Unzip and run!
 
 Or use [Homebrew](https://brew.sh):
