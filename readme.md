@@ -42,6 +42,11 @@ Hummingbird has been tested on macOS 10.14 Mojave and 10.15 Catalina but it shou
 
     <img src="assets/docs/preferences.png" width="533">
 
+## Supporting development
+
+Hummingbird is open source but if you'd like to support the app or simply don't want to bother building it yourself, please head over to https://hbird.app to download the commercial version. It comes with a 14 day free trial and you can purchase a license through the website or from within the app.
+
+Every sale helps me to keep working on Hummingbird and if you find it useful, please spread the word!
 
 ## Contributing
 
