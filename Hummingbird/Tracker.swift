@@ -138,7 +138,10 @@ class Tracker {
 
 
     private func startTracking(event: CGEvent) {
-        guard let trackedWindow = AXUIElement.window(at: event.location) else { return }
+        guard let trackedWindow = AXUIElement.window(at: event.location) else {
+            log(.debug, "startTracking - no window")
+            return
+        }
         trackingInfo.time = CACurrentMediaTime()
         trackingInfo.origin = trackedWindow.origin ?? CGPoint.zero
         trackingInfo.window = trackedWindow
