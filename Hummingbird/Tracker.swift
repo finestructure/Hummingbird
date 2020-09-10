@@ -106,10 +106,10 @@ class Tracker {
             // event is not for us
             break
         case (.idle, .moving):
-            startTracking(event: event)
+            startTracking(at: event.location)
             absortEvent = true
         case (.idle, .resizing):
-            startTracking(event: event)
+            startTracking(at: event.location)
             determineResizeParams(event: event)
             absortEvent = true
 
@@ -125,7 +125,7 @@ class Tracker {
         case (.resizing, .idle):
             stopTracking()
         case (.resizing, .moving):
-            startTracking(event: event)
+            startTracking(at: event.location)
             absortEvent = true
         case (.resizing, .resizing):
             keepResizing(delta: event.mouseDelta)
@@ -137,9 +137,9 @@ class Tracker {
     }
 
 
-    private func startTracking(event: CGEvent) {
+    private func startTracking(at location: CGPoint) {
         guard
-            let trackedWindow = AXUIElement.window(at: event.location),
+            let trackedWindow = AXUIElement.window(at: location),
             let origin = trackedWindow.origin,
             let size = trackedWindow.size
         else { return }
@@ -148,7 +148,7 @@ class Tracker {
         trackingInfo.window = trackedWindow
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
-        trackingInfo.corner = .corner(for: event.location - origin, in: size)
+        trackingInfo.corner = .corner(for: location - origin, in: size)
     }
 
 
