@@ -117,7 +117,7 @@ class Tracker {
         case (.moving, .idle):
             stopTracking()
         case (.moving, .moving):
-            keepMoving(event: event)
+            keepMoving(delta: event.mouseDelta)
         case (.moving, .resizing):
             absortEvent = determineResizeParams(event: event)
 
@@ -128,7 +128,7 @@ class Tracker {
             startTracking(event: event)
             absortEvent = true
         case (.resizing, .resizing):
-            keepResizing(event: event)
+            keepResizing(delta: event.mouseDelta)
         }
 
         currentState = nextState
@@ -162,13 +162,12 @@ class Tracker {
     }
 
 
-    private func keepMoving(event: CGEvent) {
+    private func keepMoving(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
         }
 
-        let delta = event.mouseDelta
         trackingInfo.distanceMoved += delta.magnitude
         trackingInfo.origin += delta
 
@@ -187,13 +186,12 @@ class Tracker {
     }
 
 
-    private func keepResizing(event: CGEvent) {
+    private func keepResizing(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
         }
 
-        let delta = event.mouseDelta
         trackingInfo.distanceMoved += delta.magnitude
         trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
         trackingInfo.origin += delta

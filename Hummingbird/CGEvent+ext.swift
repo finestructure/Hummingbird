@@ -11,10 +11,10 @@ import Foundation
 
 extension CGEvent {
 
-    var mouseDelta: CGPoint {
+    var mouseDelta: Delta {
         let dx = CGFloat(getDoubleValueField(.mouseEventDeltaX))
         let dy = CGFloat(getDoubleValueField(.mouseEventDeltaY))
-        return CGPoint(x: dx, y: dy)
+        return Delta(dx: dx, dy: dy)
     }
 
 }
