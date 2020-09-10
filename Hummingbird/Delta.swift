@@ -8,6 +8,8 @@ struct Delta {
     var magnitude: CGFloat {
         sqrt(dx * dx + dy * dy)
     }
+
+    static var zero: Self { .init(dx: 0, dy: 0) }
 }
 
 
@@ -22,10 +24,30 @@ func +=(a: inout CGPoint, delta: Delta) {
 
 
 func +(a: CGSize, delta: Delta) -> CGSize {
-    return CGSize(width: a.width + CGFloat(delta.dx), height: a.height + CGFloat(delta.dy))
+    return CGSize(width: a.width + delta.dx, height: a.height + delta.dy)
+}
+
+
+func -(a: CGSize, delta: Delta) -> CGSize {
+    return CGSize(width: a.width - delta.dx, height: a.height - delta.dy)
 }
 
 
 func +=(a: inout CGSize, delta: Delta) {
     a = a + delta
+}
+
+
+func -=(a: inout CGSize, delta: Delta) {
+    a = a - delta
+}
+
+
+func +(a: Delta, b: Delta) -> Delta {
+    .init(dx: a.dx + b.dx, dy: a.dy + b.dy)
+}
+
+
+func +=(a: inout Delta, b: Delta) {
+    a = a + b
 }

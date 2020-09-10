@@ -110,7 +110,6 @@ class Tracker {
             absortEvent = true
         case (.idle, .resizing):
             startTracking(at: event.location)
-            determineResizeParams(event: event)
             absortEvent = true
 
         // .moving -> X
@@ -119,7 +118,7 @@ class Tracker {
         case (.moving, .moving):
             keepMoving(delta: event.mouseDelta)
         case (.moving, .resizing):
-            absortEvent = determineResizeParams(event: event)
+            break
 
         // .resizing -> X
         case (.resizing, .idle):
@@ -183,28 +182,37 @@ class Tracker {
     }
 
 
-    @discardableResult
-    private func determineResizeParams(event: CGEvent) -> Bool {
-        guard let window = trackingInfo.window, let size = window.size else { return false }
-        trackingInfo.size = size
-        return true
-    }
-
-
     private func keepResizing(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
         }
 
-        trackingInfo.distanceMoved += delta.magnitude
-        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
-        trackingInfo.origin += delta
-        trackingInfo.size += delta
+        // TODO: remove history
+        //        trackingInfo.distanceMoved += delta.magnitude
+        //        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+        trackingInfo.aggregateDelta += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
 
-        window.size = trackingInfo.size
+        guard let origin = window.origin,
+              let size = window.size else { return }
+
+        switch trackingInfo.corner {
+            case .topLeft:
+                break
+            case .topRight:
+                window.origin = CGPoint(x: origin.x,
+                                        y: origin.y + trackingInfo.aggregateDelta.dy)
+                window.size = CGSize(width: size.width + trackingInfo.aggregateDelta.dx,
+                                     height: size.height - trackingInfo.aggregateDelta.dy)
+            case .bottomRight:
+                window.size = size + trackingInfo.aggregateDelta
+            case .bottomLeft:
+                break
+        }
+        trackingInfo.aggregateDelta = .zero
+
         trackingInfo.time = CACurrentMediaTime()
     }
 
