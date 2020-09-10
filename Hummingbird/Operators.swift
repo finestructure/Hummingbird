@@ -19,6 +19,11 @@ func +(a: CGSize, b: CGPoint) -> CGSize {
 }
 
 
+func -(a: CGPoint, b: CGPoint) -> CGPoint {
+    return CGPoint(x: a.x - b.x, y: a.y - b.y)
+}
+
+
 func +=(a: inout CGPoint, b: CGPoint) {
     a = a + b
 }

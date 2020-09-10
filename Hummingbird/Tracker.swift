@@ -138,12 +138,17 @@ class Tracker {
 
 
     private func startTracking(event: CGEvent) {
-        guard let trackedWindow = AXUIElement.window(at: event.location) else { return }
+        guard
+            let trackedWindow = AXUIElement.window(at: event.location),
+            let origin = trackedWindow.origin,
+            let size = trackedWindow.size
+        else { return }
         trackingInfo.time = CACurrentMediaTime()
-        trackingInfo.origin = trackedWindow.origin ?? CGPoint.zero
+        trackingInfo.origin = origin
         trackingInfo.window = trackedWindow
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
+        trackingInfo.corner = .corner(for: event.location - origin, in: size)
     }
 
 
