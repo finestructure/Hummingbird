@@ -200,7 +200,8 @@ class Tracker {
 
         switch trackingInfo.corner {
             case .topLeft:
-                break
+                window.origin = origin + trackingInfo.aggregateDelta
+                window.size = size - trackingInfo.aggregateDelta
             case .topRight:
                 window.origin = CGPoint(x: origin.x,
                                         y: origin.y + trackingInfo.aggregateDelta.dy)
@@ -209,7 +210,10 @@ class Tracker {
             case .bottomRight:
                 window.size = size + trackingInfo.aggregateDelta
             case .bottomLeft:
-                break
+                window.origin = CGPoint(x: origin.x + trackingInfo.aggregateDelta.dx,
+                                        y: origin.y)
+                window.size = CGSize(width: size.width - trackingInfo.aggregateDelta.dx,
+                                     height: size.height + trackingInfo.aggregateDelta.dy)
         }
         trackingInfo.aggregateDelta = .zero
 
