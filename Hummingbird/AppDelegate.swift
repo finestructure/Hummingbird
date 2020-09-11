@@ -19,7 +19,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var accessibilityStatusMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
-    @IBOutlet weak var statsMenuItem: NSMenuItem!
     @IBOutlet weak var versionMenuItem: NSMenuItem!
 
     lazy var tipJarController: TipJarController = {
@@ -38,10 +37,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return c
     }()
 
-    lazy var statsController: StatsController = {
-        return StatsController(nibName: "StatsController", bundle: nil)
-    }()
-
     var stateMachine = AppStateMachine()
 }
 
@@ -57,11 +52,6 @@ extension AppDelegate {
         statusMenu.delegate = self
         Current.defaults().register(defaults: DefaultPreferences)
 
-        if #available(OSX 10.14, *) { // set up notification actions
-            Notifications.registerCategories()
-            UNUserNotificationCenter.current().delegate = self
-        }
-
         stateMachine.state = .validatingLicense
     }
 
@@ -76,8 +66,6 @@ extension AppDelegate {
         }()
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(appVersion())"
-        statsMenuItem.view = statsController.view
-        statsMenuItem.toolTip = "➝ distance moved\n⤢ aread resized"
         if _isDebugAssertConfiguration() {
             // enable in debug mode to enable notification triggering
             versionMenuItem.isEnabled = true
@@ -102,7 +90,6 @@ extension AppDelegate: NSMenuDelegate {
         do {
             sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
         }
-        statsController.updateView()
     }
 }
 
@@ -129,34 +116,10 @@ extension AppDelegate {
         preferencesController.showWindow(sender)
     }
 
-    @IBAction func versionClicked(_ sender: Any) {
-        if #available(OSX 10.14, *) {
-            if _isDebugAssertConfiguration() {
-                Notifications.send(milestone: .exceededAverage)
-            }
-        }
-    }
-
     @IBAction func helpClicked(_ sender: Any) {
         NSWorkspace.shared.open(Links.hummingbirdHelp)
     }
 
-}
-
-
-// UNUserNotificationCenterDelegate
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    @available(OSX 10.14, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        switch response.action {
-        case .turnOff?:
-            log(.debug, "turn off")
-        case .show?:
-            log(.debug, "show")
-        case .none:
-            log(.debug, "no action")
-        }
-    }
 }
 
 
