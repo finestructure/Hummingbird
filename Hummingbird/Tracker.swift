@@ -106,29 +106,28 @@ class Tracker {
             // event is not for us
             break
         case (.idle, .moving):
-            startTracking(event: event)
+            startTracking(at: event.location)
             absortEvent = true
         case (.idle, .resizing):
-            startTracking(event: event)
-            determineResizeParams(event: event)
+            startTracking(at: event.location)
             absortEvent = true
 
         // .moving -> X
         case (.moving, .idle):
             stopTracking()
         case (.moving, .moving):
-            keepMoving(event: event)
+            keepMoving(delta: event.mouseDelta)
         case (.moving, .resizing):
-            absortEvent = determineResizeParams(event: event)
+            break
 
         // .resizing -> X
         case (.resizing, .idle):
             stopTracking()
         case (.resizing, .moving):
-            startTracking(event: event)
+            startTracking(at: event.location)
             absortEvent = true
         case (.resizing, .resizing):
-            keepResizing(event: event)
+            keepResizing(delta: event.mouseDelta)
         }
 
         currentState = nextState
@@ -137,13 +136,23 @@ class Tracker {
     }
 
 
-    private func startTracking(event: CGEvent) {
-        guard let trackedWindow = AXUIElement.window(at: event.location) else { return }
+    private func startTracking(at location: CGPoint) {
+        guard
+            let trackedWindow = AXUIElement.window(at: location),
+            let origin = trackedWindow.origin,
+            let size = trackedWindow.size
+        else { return }
         trackingInfo.time = CACurrentMediaTime()
-        trackingInfo.origin = trackedWindow.origin ?? CGPoint.zero
         trackingInfo.window = trackedWindow
+        trackingInfo.origin = origin
+        trackingInfo.size = size
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
+        if Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue) {
+            trackingInfo.corner = .corner(for: location - origin, in: size)
+        } else {
+            trackingInfo.corner = .bottomRight
+        }
     }
 
 
@@ -162,14 +171,15 @@ class Tracker {
     }
 
 
-    private func keepMoving(event: CGEvent) {
+    private func keepMoving(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
         }
 
-        let delta = event.mouseDelta
+        // TODO: remove
         trackingInfo.distanceMoved += delta.magnitude
+
         trackingInfo.origin += delta
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
@@ -179,29 +189,35 @@ class Tracker {
     }
 
 
-    @discardableResult
-    private func determineResizeParams(event: CGEvent) -> Bool {
-        guard let window = trackingInfo.window, let size = window.size else { return false }
-        trackingInfo.size = size
-        return true
-    }
-
-
-    private func keepResizing(event: CGEvent) {
+    private func keepResizing(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
         }
 
-        let delta = event.mouseDelta
+        // TODO: remove history
         trackingInfo.distanceMoved += delta.magnitude
         trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
-        trackingInfo.origin += delta
-        trackingInfo.size += delta
+
+        switch trackingInfo.corner {
+            case .topLeft:
+                trackingInfo.origin += delta
+                trackingInfo.size -= delta
+            case .topRight:
+                trackingInfo.origin += Delta(dx: 0, dy: delta.dy)
+                trackingInfo.size += Delta(dx: delta.dx, dy: -delta.dy)
+            case .bottomRight:
+                trackingInfo.size += delta
+            case .bottomLeft:
+                trackingInfo.origin += Delta(dx: delta.dx, dy: 0)
+                trackingInfo.size += Delta(dx: -delta.dx, dy: delta.dy)
+        }
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
 
+        window.origin = trackingInfo.origin
         window.size = trackingInfo.size
+
         trackingInfo.time = CACurrentMediaTime()
     }
 

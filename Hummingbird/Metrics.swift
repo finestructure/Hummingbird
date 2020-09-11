@@ -19,8 +19,8 @@ extension Metrics: Initializable { }
 extension Metrics: Summable { }
 
 
-func areaDelta(a: CGSize, d: CGPoint) -> CGFloat {
-    return (d.magnitude >= 0 ? d.x * d.y : 0) + abs(d.x) * a.height + a.width * abs(d.y)
+func areaDelta(a: CGSize, d: Delta) -> CGFloat {
+    return (d.magnitude >= 0 ? d.dx * d.dy : 0) + abs(d.dx) * a.height + a.width * abs(d.dy)
 }
 
 

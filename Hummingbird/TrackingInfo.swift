@@ -16,4 +16,5 @@ class TrackingInfo {
     var size: CGSize = .zero
     var distanceMoved: CGFloat = 0
     var areaResized: CGFloat = 0
+    var corner: Corner = .bottomRight
 }
