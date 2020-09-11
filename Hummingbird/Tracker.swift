@@ -148,11 +148,10 @@ class Tracker {
         trackingInfo.size = size
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
-        let defaultCornerBehavior = false
-        if defaultCornerBehavior {
-            trackingInfo.corner = .bottomRight
-        } else {
+        if Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue) {
             trackingInfo.corner = .corner(for: location - origin, in: size)
+        } else {
+            trackingInfo.corner = .bottomRight
         }
     }
 
