@@ -12,8 +12,6 @@ import Foundation
 class TrackingInfo {
     var time: CFTimeInterval = 0
     var window: AXUIElement? = nil
-    var start: CGPoint = .zero
-    var origin: CGPoint = .zero
     var size: CGSize = .zero
     var distanceMoved: CGFloat = 0
     var areaResized: CGFloat = 0

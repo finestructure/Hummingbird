@@ -143,7 +143,6 @@ class Tracker {
             let size = trackedWindow.size
         else { return }
         trackingInfo.time = CACurrentMediaTime()
-        trackingInfo.origin = origin
         trackingInfo.window = trackedWindow
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
@@ -172,12 +171,17 @@ class Tracker {
             return
         }
 
+        // TODO: remove
         trackingInfo.distanceMoved += delta.magnitude
-        trackingInfo.origin += delta
 
-        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
+        trackingInfo.aggregateDelta += delta
 
-        window.origin = trackingInfo.origin
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval,
+              let origin = window.origin
+        else { return }
+
+        window.origin = origin + trackingInfo.aggregateDelta
+        trackingInfo.aggregateDelta = .zero
         trackingInfo.time = CACurrentMediaTime()
     }
 
@@ -189,13 +193,13 @@ class Tracker {
         }
 
         // TODO: remove history
-        //        trackingInfo.distanceMoved += delta.magnitude
-        //        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+        trackingInfo.distanceMoved += delta.magnitude
+        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
+
         trackingInfo.aggregateDelta += delta
 
-        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
-
-        guard let origin = window.origin,
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval,
+              let origin = window.origin,
               let size = window.size else { return }
 
         switch trackingInfo.corner {
@@ -216,7 +220,6 @@ class Tracker {
                                      height: size.height + trackingInfo.aggregateDelta.dy)
         }
         trackingInfo.aggregateDelta = .zero
-
         trackingInfo.time = CACurrentMediaTime()
     }
 
