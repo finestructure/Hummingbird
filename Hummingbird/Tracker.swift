@@ -79,42 +79,24 @@ class Tracker {
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 
-        let eventModifiers = event.flags
-        let move = moveModifiers.exclusivelySet(in: eventModifiers)
-        let resize = resizeModifiers.exclusivelySet(in: eventModifiers)
-
-        let nextState: State
-        switch (move, resize) {
-            case (true, false):
-                nextState = .moving
-            case (false, true):
-                nextState = .resizing
-            case (true, true):
-                // unreachable unless both options are identical, in which case we default to .moving
-                nextState = .moving
-            case (false, false):
-                // event is not for us
-                nextState = .idle
-        }
-
         var absortEvent = false
+        let nextState = state(for: event.flags)
 
         switch (currentState, nextState) {
             // .idle -> X
             case (.idle, .idle):
                 // event is not for us
                 break
-            case (.idle, .moving):
-                startTracking(at: event.location)
-                absortEvent = true
-            case (.idle, .resizing):
+            case (.idle, .moving),
+                 (.idle, .resizing):
                 startTracking(at: event.location)
                 absortEvent = true
 
             // .moving -> X
             case (.moving, .moving):
-                keepMoving(delta: event.mouseDelta)
-            case (.moving, .idle), (.moving, .resizing):
+                move(delta: event.mouseDelta)
+            case (.moving, .idle),
+                 (.moving, .resizing):
                 break
 
             // .resizing -> X
@@ -124,12 +106,31 @@ class Tracker {
                 startTracking(at: event.location)
                 absortEvent = true
             case (.resizing, .resizing):
-                keepResizing(delta: event.mouseDelta)
+                resize(delta: event.mouseDelta)
         }
 
         currentState = nextState
 
         return absortEvent
+    }
+
+
+    private func state(for modifiers: CGEventFlags) -> State {
+        let moveModifiersDown = moveModifiers.exclusivelySet(in: modifiers)
+        let resizeModifiersDown = resizeModifiers.exclusivelySet(in: modifiers)
+
+        switch (moveModifiersDown, resizeModifiersDown) {
+            case (true, false):
+                return .moving
+            case (false, true):
+                return .resizing
+            case (true, true):
+                // unreachable unless both options are identical, in which case we default to .moving
+                return .moving
+            case (false, false):
+                // event is not for us
+                return .idle
+        }
     }
 
 
@@ -151,7 +152,7 @@ class Tracker {
     }
 
 
-    private func keepMoving(delta: Delta) {
+    private func move(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
@@ -166,7 +167,7 @@ class Tracker {
     }
 
 
-    private func keepResizing(delta: Delta) {
+    private func resize(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
