@@ -112,16 +112,14 @@ class Tracker {
             absortEvent = true
 
         // .moving -> X
-        case (.moving, .idle):
-            stopTracking()
         case (.moving, .moving):
             keepMoving(delta: event.mouseDelta)
-        case (.moving, .resizing):
+        case (.moving, .idle), (.moving, .resizing):
             break
 
         // .resizing -> X
         case (.resizing, .idle):
-            stopTracking()
+            break
         case (.resizing, .moving):
             startTracking(at: event.location)
             absortEvent = true
@@ -150,11 +148,6 @@ class Tracker {
         } else {
             trackingInfo.corner = .bottomRight
         }
-    }
-
-
-    private func stopTracking() {
-        trackingInfo.time = 0
     }
 
 
