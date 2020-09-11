@@ -33,8 +33,10 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeInfoLabel: NSTextField!
 
     @IBOutlet weak var registrationStatusLabel: NSTextField!
+    @IBOutlet weak var versionLabel: NSTextField!
 
     weak var delegate: (ShowTipJarControllerDelegate & ShowRegistrationControllerDelegate)?
+
 
     var isRegistered: Bool {
         return License(forKey: .license, defaults: Current.defaults()) != nil
@@ -131,5 +133,7 @@ extension PreferencesController: NSWindowDelegate {
         resizeInfoLabel.stringValue = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
             ? "Resizing will act on the window corner nearest to the cursor."
             : "Resizing will act on the lower right corner of the window."
+
+        versionLabel.stringValue = appVersion(short: true)
     }
 }
