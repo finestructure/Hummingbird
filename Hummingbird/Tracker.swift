@@ -144,9 +144,16 @@ class Tracker {
         else { return }
         trackingInfo.time = CACurrentMediaTime()
         trackingInfo.window = trackedWindow
+        trackingInfo.origin = origin
+        trackingInfo.size = size
         trackingInfo.distanceMoved = 0
         trackingInfo.areaResized = 0
-        trackingInfo.corner = .corner(for: location - origin, in: size)
+        let defaultCornerBehavior = false
+        if defaultCornerBehavior {
+            trackingInfo.corner = .bottomRight
+        } else {
+            trackingInfo.corner = .corner(for: location - origin, in: size)
+        }
     }
 
 
@@ -174,14 +181,11 @@ class Tracker {
         // TODO: remove
         trackingInfo.distanceMoved += delta.magnitude
 
-        trackingInfo.aggregateDelta += delta
+        trackingInfo.origin += delta
 
-        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval,
-              let origin = window.origin
-        else { return }
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.moveFilterInterval else { return }
 
-        window.origin = origin + trackingInfo.aggregateDelta
-        trackingInfo.aggregateDelta = .zero
+        window.origin = trackingInfo.origin
         trackingInfo.time = CACurrentMediaTime()
     }
 
@@ -196,30 +200,25 @@ class Tracker {
         trackingInfo.distanceMoved += delta.magnitude
         trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
 
-        trackingInfo.aggregateDelta += delta
-
-        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval,
-              let origin = window.origin,
-              let size = window.size else { return }
-
         switch trackingInfo.corner {
             case .topLeft:
-                window.origin = origin + trackingInfo.aggregateDelta
-                window.size = size - trackingInfo.aggregateDelta
+                trackingInfo.origin += delta
+                trackingInfo.size -= delta
             case .topRight:
-                window.origin = CGPoint(x: origin.x,
-                                        y: origin.y + trackingInfo.aggregateDelta.dy)
-                window.size = CGSize(width: size.width + trackingInfo.aggregateDelta.dx,
-                                     height: size.height - trackingInfo.aggregateDelta.dy)
+                trackingInfo.origin += Delta(dx: 0, dy: delta.dy)
+                trackingInfo.size += Delta(dx: delta.dx, dy: -delta.dy)
             case .bottomRight:
-                window.size = size + trackingInfo.aggregateDelta
+                trackingInfo.size += delta
             case .bottomLeft:
-                window.origin = CGPoint(x: origin.x + trackingInfo.aggregateDelta.dx,
-                                        y: origin.y)
-                window.size = CGSize(width: size.width - trackingInfo.aggregateDelta.dx,
-                                     height: size.height + trackingInfo.aggregateDelta.dy)
+                trackingInfo.origin += Delta(dx: delta.dx, dy: 0)
+                trackingInfo.size += Delta(dx: -delta.dx, dy: delta.dy)
         }
-        trackingInfo.aggregateDelta = .zero
+
+        guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
+
+        window.origin = trackingInfo.origin
+        window.size = trackingInfo.size
+
         trackingInfo.time = CACurrentMediaTime()
     }
 
