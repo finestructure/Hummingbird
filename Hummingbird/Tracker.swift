@@ -12,8 +12,8 @@ import Cocoa
 class Tracker {
     
     // constants to throttle moving and resizing
-    static let moveFilterInterval = 0.01
-    static let resizeFilterInterval = 0.02
+    static let moveFilterInterval = 0.001
+    static let resizeFilterInterval = 0.002
     
     static var shared: Tracker? = nil
     
