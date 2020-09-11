@@ -14,7 +14,5 @@ class TrackingInfo {
     var window: AXUIElement? = nil
     var origin: CGPoint = .zero
     var size: CGSize = .zero
-    var distanceMoved: CGFloat = 0
-    var areaResized: CGFloat = 0
     var corner: Corner = .bottomRight
 }

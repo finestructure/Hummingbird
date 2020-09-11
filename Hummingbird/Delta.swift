@@ -41,13 +41,3 @@ func +=(a: inout CGSize, delta: Delta) {
 func -=(a: inout CGSize, delta: Delta) {
     a = a - delta
 }
-
-
-func +(a: Delta, b: Delta) -> Delta {
-    .init(dx: a.dx + b.dx, dy: a.dy + b.dy)
-}
-
-
-func +=(a: inout Delta, b: Delta) {
-    a = a + b
-}

@@ -40,7 +40,6 @@ class Tracker {
     private var currentState: State = .idle
     private var moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
     private var resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
-    var metricsHistory = History<Metrics>(forKey: .history, defaults: Current.defaults())
 
 
     private init() throws {
@@ -146,8 +145,6 @@ class Tracker {
         trackingInfo.window = trackedWindow
         trackingInfo.origin = origin
         trackingInfo.size = size
-        trackingInfo.distanceMoved = 0
-        trackingInfo.areaResized = 0
         if Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue) {
             trackingInfo.corner = .corner(for: location - origin, in: size)
         } else {
@@ -158,16 +155,6 @@ class Tracker {
 
     private func stopTracking() {
         trackingInfo.time = 0
-        metricsHistory.currentValue.distanceMoved += trackingInfo.distanceMoved
-        metricsHistory.currentValue.areaResized += trackingInfo.areaResized
-        if #available(OSX 10.14, *) {
-            metricsHistory.checkMilestone(metricsHistory.currentValue).map(Notifications.send(milestone:))
-        }
-        do {
-            try metricsHistory.save(forKey: .history, defaults: Current.defaults())
-        } catch {
-            log(.debug, "Error while saving preferences: \(error)")
-        }
     }
 
 
@@ -176,9 +163,6 @@ class Tracker {
             log(.debug, "No window!")
             return
         }
-
-        // TODO: remove
-        trackingInfo.distanceMoved += delta.magnitude
 
         trackingInfo.origin += delta
 
@@ -194,10 +178,6 @@ class Tracker {
             log(.debug, "No window!")
             return
         }
-
-        // TODO: remove history
-        trackingInfo.distanceMoved += delta.magnitude
-        trackingInfo.areaResized += areaDelta(a: trackingInfo.size, d: delta)
 
         switch trackingInfo.corner {
             case .topLeft:

@@ -12,8 +12,6 @@ import Foundation
 enum DefaultsKeys: String {
     case dateRegistered
     case firstLaunched
-    case history
-    case lastNotified
     case license
     case moveModifiers
     case resizeModifiers
