@@ -40,8 +40,6 @@
 		5A6B5BCD20D1720000F7A36C /* PreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */; };
 		5A78DD1222F2FBF600D0F23D /* TipJarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A78DD1022F2FBF600D0F23D /* TipJarController.swift */; };
 		5A78DD1322F2FBF600D0F23D /* TipJarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A78DD1122F2FBF600D0F23D /* TipJarController.xib */; };
-		5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
-		5A7F7865229455EB0064B39C /* OrderedDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7F7863229455EB0064B39C /* OrderedDict.swift */; };
 		5A81BBC52276D8CC00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
 		5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */; };
 		5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */; };
@@ -109,7 +107,6 @@
 		5A6B5BCB20D1720000F7A36C /* PreferencesController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesController.xib; sourceTree = "<group>"; };
 		5A78DD1022F2FBF600D0F23D /* TipJarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarController.swift; sourceTree = "<group>"; };
 		5A78DD1122F2FBF600D0F23D /* TipJarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TipJarController.xib; sourceTree = "<group>"; };
-		5A7F7863229455EB0064B39C /* OrderedDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDict.swift; sourceTree = "<group>"; };
 		5A81BBC42276D8CC00881E2F /* AXUIElement+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AXUIElement+ext.swift"; sourceTree = "<group>"; };
 		5A8F910C227C3DF200B78C47 /* TrackingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInfo.swift; sourceTree = "<group>"; };
 		5A8F910F227C418200B78C47 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 				5AA9141F232D33E700167991 /* Logging.swift */,
 				5A8F910F227C418200B78C47 /* Modifiers.swift */,
 				5A8F9115227C460100B78C47 /* Operators.swift */,
-				5A7F7863229455EB0064B39C /* OrderedDict.swift */,
 				5A16ED1C2333D40F00AF12CE /* Protocols.swift */,
 				5A8F9112227C41C800B78C47 /* State.swift */,
 				5A1F1C08232F94E20023D5A4 /* StateMachine.swift */,
@@ -458,7 +454,6 @@
 				5A46191D2286C90B0078E1B2 /* Date+ext.swift in Sources */,
 				5A81BBC62276DC3B00881E2F /* AXUIElement+ext.swift in Sources */,
 				5A1C2D95225B6E21002EC3AD /* Defaults.swift in Sources */,
-				5A7F7865229455EB0064B39C /* OrderedDict.swift in Sources */,
 				5AB3A6F72334D80F00D40DBF /* StateMachine.swift in Sources */,
 				5A33F7B4250A404400956DD3 /* Delta.swift in Sources */,
 				5A0E2B8F227ACB55009CAA74 /* HummingbirdTests.swift in Sources */,
@@ -478,7 +473,6 @@
 				5A8F910D227C3DF200B78C47 /* TrackingInfo.swift in Sources */,
 				5A2229A2228BE59600E4B95B /* Environment.swift in Sources */,
 				5A1C2D94225B6E21002EC3AD /* Defaults.swift in Sources */,
-				5A7F7864229455EB0064B39C /* OrderedDict.swift in Sources */,
 				5A33F7B6250A450100956DD3 /* Corner.swift in Sources */,
 				5A16ED082333A04400AF12CE /* FeatureFlags.swift in Sources */,
 				5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */,
