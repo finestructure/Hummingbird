@@ -30,6 +30,7 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeShift: NSButton!
 
     @IBOutlet weak var resizeFromNearestCorner: NSButton!
+    @IBOutlet weak var resizeInfoLabel: NSTextField!
 
     @IBOutlet weak var registrationStatusLabel: NSTextField!
 
@@ -42,9 +43,7 @@ class PreferencesController: NSWindowController {
 
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
-        registrationStatusLabel.stringValue = Current.featureFlags.commercial
-            ? ( isRegistered ? "🎫 Registered copy" : "⚠️ Unregistered – click to register" )
-            : "Fancy sending a coffee? ☕️ Please click here to support Hummingbird."
+        updateCopy()
     }
 
 
@@ -85,10 +84,13 @@ class PreferencesController: NSWindowController {
     }
 
     @IBAction func resizeFromNearestCornerClicked(_ sender: Any) {
-        var value = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
-        value.toggle()
-        let n = NSNumber(booleanLiteral: value)
-        Current.defaults().set(n, forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+        let value: NSNumber = {
+            var v = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+            v.toggle()
+            return NSNumber(booleanLiteral: v)
+        }()
+        Current.defaults().set(value, forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+        updateCopy()
     }
 }
 
@@ -117,6 +119,17 @@ extension PreferencesController: NSWindowDelegate {
 
         resizeFromNearestCorner.state = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
             ? .on : .off
+
+        updateCopy()
     }
 
+    func updateCopy() {
+        registrationStatusLabel.stringValue = Current.featureFlags.commercial
+            ? ( isRegistered ? "🎫 Registered copy" : "⚠️ Unregistered – click to register" )
+            : "Fancy sending a coffee? ☕️ Please click here to support Hummingbird."
+
+        resizeInfoLabel.stringValue = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+            ? "Resizing will act on the window corner nearest to the cursor."
+            : "Resizing will act on the lower right corner of the window."
+    }
 }
