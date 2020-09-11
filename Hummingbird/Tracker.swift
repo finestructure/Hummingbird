@@ -48,7 +48,7 @@ class Tracker {
         let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
+        NotificationCenter.default.addObserver(self, selector: #selector(readModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
         #endif
     }
 
@@ -61,7 +61,7 @@ class Tracker {
     }
 
 
-    public func readModifiers() {
+    @objc func readModifiers() {
         moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
         resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
@@ -116,21 +116,13 @@ class Tracker {
 
 
     private func state(for modifiers: CGEventFlags) -> State {
-        let moveModifiersDown = moveModifiers.exclusivelySet(in: modifiers)
-        let resizeModifiersDown = resizeModifiers.exclusivelySet(in: modifiers)
-
-        switch (moveModifiersDown, resizeModifiersDown) {
-            case (true, false):
-                return .moving
-            case (false, true):
-                return .resizing
-            case (true, true):
-                // unreachable unless both options are identical, in which case we default to .moving
-                return .moving
-            case (false, false):
-                // event is not for us
-                return .idle
+        if moveModifiers.exclusivelySet(in: modifiers) {
+            return .moving
         }
+        if resizeModifiers.exclusivelySet(in: modifiers) {
+            return .resizing
+        }
+        return .idle
     }
 
 
@@ -193,11 +185,6 @@ class Tracker {
         window.size = trackingInfo.size
 
         trackingInfo.time = CACurrentMediaTime()
-    }
-
-    @objc private func updateModifiers() {
-        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
-        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
 
 }
