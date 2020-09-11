@@ -12,8 +12,8 @@ import Cocoa
 class Tracker {
 
     // constants to throttle moving and resizing
-    static let moveFilterInterval = 0.01
-    static let resizeFilterInterval = 0.02
+    static let moveFilterInterval = 0.001
+    static let resizeFilterInterval = 0.002
 
     static var shared: Tracker? = nil
 
@@ -48,7 +48,7 @@ class Tracker {
         let res = try enableTap()
         self.eventTap = res.eventTap
         self.runLoopSource = res.runLoopSource
-        NotificationCenter.default.addObserver(self, selector: #selector(updateModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
+        NotificationCenter.default.addObserver(self, selector: #selector(readModifiers), name: UserDefaults.didChangeNotification, object: Current.defaults())
         #endif
     }
 
@@ -61,7 +61,7 @@ class Tracker {
     }
 
 
-    public func readModifiers() {
+    @objc func readModifiers() {
         moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
         resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
     }
@@ -79,59 +79,50 @@ class Tracker {
 
         if moveModifiers.isEmpty && resizeModifiers.isEmpty { return false }
 
-        let eventModifiers = event.flags
-        let move = moveModifiers.exclusivelySet(in: eventModifiers)
-        let resize = resizeModifiers.exclusivelySet(in: eventModifiers)
-
-        let nextState: State
-        switch (move, resize) {
-        case (true, false):
-            nextState = .moving
-        case (false, true):
-            nextState = .resizing
-        case (true, true):
-            // unreachable unless both options are identical, in which case we default to .moving
-            nextState = .moving
-        case (false, false):
-            // event is not for us
-            nextState = .idle
-        }
-
         var absortEvent = false
+        let nextState = state(for: event.flags)
 
         switch (currentState, nextState) {
-        // .idle -> X
-        case (.idle, .idle):
-            // event is not for us
-            break
-        case (.idle, .moving):
-            startTracking(at: event.location)
-            absortEvent = true
-        case (.idle, .resizing):
-            startTracking(at: event.location)
-            absortEvent = true
+            // .idle -> X
+            case (.idle, .idle):
+                // event is not for us
+                break
+            case (.idle, .moving),
+                 (.idle, .resizing):
+                startTracking(at: event.location)
+                absortEvent = true
 
-        // .moving -> X
-        case (.moving, .idle):
-            stopTracking()
-        case (.moving, .moving):
-            keepMoving(delta: event.mouseDelta)
-        case (.moving, .resizing):
-            break
+            // .moving -> X
+            case (.moving, .moving):
+                move(delta: event.mouseDelta)
+            case (.moving, .idle),
+                 (.moving, .resizing):
+                break
 
-        // .resizing -> X
-        case (.resizing, .idle):
-            stopTracking()
-        case (.resizing, .moving):
-            startTracking(at: event.location)
-            absortEvent = true
-        case (.resizing, .resizing):
-            keepResizing(delta: event.mouseDelta)
+            // .resizing -> X
+            case (.resizing, .idle):
+                break
+            case (.resizing, .moving):
+                startTracking(at: event.location)
+                absortEvent = true
+            case (.resizing, .resizing):
+                resize(delta: event.mouseDelta)
         }
 
         currentState = nextState
 
         return absortEvent
+    }
+
+
+    private func state(for modifiers: CGEventFlags) -> State {
+        if moveModifiers.exclusivelySet(in: modifiers) {
+            return .moving
+        }
+        if resizeModifiers.exclusivelySet(in: modifiers) {
+            return .resizing
+        }
+        return .idle
     }
 
 
@@ -153,12 +144,7 @@ class Tracker {
     }
 
 
-    private func stopTracking() {
-        trackingInfo.time = 0
-    }
-
-
-    private func keepMoving(delta: Delta) {
+    private func move(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
@@ -173,7 +159,7 @@ class Tracker {
     }
 
 
-    private func keepResizing(delta: Delta) {
+    private func resize(delta: Delta) {
         guard let window = trackingInfo.window else {
             log(.debug, "No window!")
             return
@@ -201,20 +187,13 @@ class Tracker {
         trackingInfo.time = CACurrentMediaTime()
     }
 
-    @objc private func updateModifiers() {
-        moveModifiers = Modifiers<Move>(forKey: .moveModifiers, defaults: Current.defaults())
-        resizeModifiers = Modifiers<Resize>(forKey: .resizeModifiers, defaults: Current.defaults())
-    }
-
 }
 
 
 extension Tracker {
-
     enum Error: Swift.Error {
         case tapCreateFailed
     }
-
 }
 
 
@@ -229,8 +208,8 @@ private func enableTap() throws -> (eventTap: CFMachPort, runLoopSource: CFRunLo
         eventsOfInterest: CGEventMask(eventMask),
         callback: myCGEventCallback,
         userInfo: nil
-        ) else {
-            throw Tracker.Error.tapCreateFailed
+    ) else {
+        throw Tracker.Error.tapCreateFailed
     }
 
     let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
@@ -255,7 +234,7 @@ private func myCGEventCallback(proxy: CGEventTapProxy, type: CGEventType, event:
         return Unmanaged.passUnretained(event)
     }
 
-    let absortEvent = tracker.handleEvent(event, type: type)
+    let absorbEvent = tracker.handleEvent(event, type: type)
 
-    return absortEvent ? nil : Unmanaged.passUnretained(event)
+    return absorbEvent ? nil : Unmanaged.passUnretained(event)
 }
