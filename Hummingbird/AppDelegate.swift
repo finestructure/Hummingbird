@@ -66,10 +66,6 @@ extension AppDelegate {
         }()
         statusMenu.autoenablesItems = false
         versionMenuItem.title = "Version: \(appVersion())"
-        if _isDebugAssertConfiguration() {
-            // enable in debug mode to enable notification triggering
-            versionMenuItem.isEnabled = true
-        }
     }
 
 }
