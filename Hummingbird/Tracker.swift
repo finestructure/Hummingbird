@@ -191,11 +191,9 @@ class Tracker {
 
 
 extension Tracker {
-
     enum Error: Swift.Error {
         case tapCreateFailed
     }
-
 }
 
 
