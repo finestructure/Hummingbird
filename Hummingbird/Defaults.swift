@@ -17,6 +17,7 @@ enum DefaultsKeys: String {
     case license
     case moveModifiers
     case resizeModifiers
+    case resizeFromNearestCorner
 }
 
 

@@ -29,6 +29,8 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeFn: NSButton!
     @IBOutlet weak var resizeShift: NSButton!
 
+    @IBOutlet weak var resizeFromNearestCorner: NSButton!
+
     @IBOutlet weak var registrationStatusLabel: NSTextField!
 
     weak var delegate: (ShowTipJarControllerDelegate & ShowRegistrationControllerDelegate)?
@@ -82,6 +84,12 @@ class PreferencesController: NSWindowController {
         }
     }
 
+    @IBAction func resizeFromNearestCornerClicked(_ sender: Any) {
+        var value = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+        value.toggle()
+        let n = NSNumber(booleanLiteral: value)
+        Current.defaults().set(n, forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+    }
 }
 
 extension PreferencesController: NSWindowDelegate {
@@ -106,6 +114,9 @@ extension PreferencesController: NSWindowDelegate {
                 button?.state = prefs.contains(modifier) ? .on : .off
             }
         }
+
+        resizeFromNearestCorner.state = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+            ? .on : .off
     }
 
 }
