@@ -181,8 +181,13 @@ class Tracker {
 
         guard (CACurrentMediaTime() - trackingInfo.time) > Tracker.resizeFilterInterval else { return }
 
-        window.origin = trackingInfo.origin
-        window.size = trackingInfo.size
+        switch trackingInfo.corner {
+            case .topLeft, .topRight, .bottomLeft:
+                window.origin = trackingInfo.origin
+                window.size = trackingInfo.size
+            case .bottomRight:
+                window.size = trackingInfo.size
+        }
 
         trackingInfo.time = CACurrentMediaTime()
     }
