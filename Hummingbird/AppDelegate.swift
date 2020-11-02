@@ -59,8 +59,7 @@ extension AppDelegate {
         statusItem = {
             let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
             statusItem.menu = statusMenu
-            statusItem.image = NSImage(named: "MenuIcon")
-            statusItem.highlightMode = true
+            statusItem.button?.image = NSImage(named: "MenuIcon")
             return statusItem
         }()
         statusMenu.autoenablesItems = false
