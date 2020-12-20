@@ -19,6 +19,7 @@
                 <outlet property="resizeControl" destination="Vho-Wo-heQ" id="hHk-K6-Pom"/>
                 <outlet property="resizeFn" destination="ZoB-Ah-hDB" id="0dw-ya-nGD"/>
                 <outlet property="resizeFromNearestCorner" destination="bBy-AW-VTy" id="N3f-hX-Ymd"/>
+                <outlet property="hideMenuIcon" destination="pNU-or-TOn" id="maybe-some-special-id"/>
                 <outlet property="resizeInfoLabel" destination="kts-J2-yLG" id="FrF-JX-KO1"/>
                 <outlet property="resizeShift" destination="t0H-b4-ute" id="J8n-RE-hLE"/>
                 <outlet property="versionLabel" destination="eE9-Pq-pG9" id="Cny-Dl-tDQ"/>
@@ -193,6 +194,17 @@
                         </buttonCell>
                         <connections>
                             <action selector="resizeFromNearestCornerClicked:" target="-2" id="WcX-aB-Oy4"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNU-or-TOn">
+                        <rect key="frame" x="30" y="68" width="198" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Hide menu icon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="veU-QV-ewB">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="hideMenuIconClicked:" target="-2" id="mNd-W0-MRv"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eE9-Pq-pG9">

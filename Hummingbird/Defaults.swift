@@ -16,6 +16,7 @@ enum DefaultsKeys: String {
     case moveModifiers
     case resizeModifiers
     case resizeFromNearestCorner
+    case hideMenuIcon
 }
 
 
