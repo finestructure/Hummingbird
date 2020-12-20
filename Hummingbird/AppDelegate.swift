@@ -56,14 +56,22 @@ extension AppDelegate {
     }
 
     override func awakeFromNib() {
-        statusItem = {
-            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            statusItem.menu = statusMenu
-            statusItem.button?.image = NSImage(named: "MenuIcon")
-            return statusItem
-        }()
-        statusMenu.autoenablesItems = false
-        versionMenuItem.title = "Version: \(appVersion())"
+        if Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue) {
+            NSApp.activate(ignoringOtherApps: true)
+            preferencesController.showWindow(nil)
+            return
+        } else {
+            statusItem = {
+                let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+                statusItem.menu = statusMenu
+                statusItem.image = NSImage(named: "MenuIcon")
+                statusItem.alternateImage = NSImage(named: "MenuIconHighlight")
+                statusItem.highlightMode = true
+                return statusItem
+            }()
+            statusMenu.autoenablesItems = false
+            versionMenuItem.title = "Version: \(appVersion())"
+        }
     }
 
 }
