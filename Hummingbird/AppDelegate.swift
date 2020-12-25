@@ -14,8 +14,9 @@ import UserNotifications
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    private let statusItem = HummingbirdStatusItem.instance
+    
     @IBOutlet weak var statusMenu: NSMenu!
-    var statusItem: NSStatusItem!
     @IBOutlet weak var accessibilityStatusMenuItem: NSMenuItem!
     @IBOutlet weak var registerMenuItem: NSMenuItem!
     @IBOutlet weak var sendCoffeeMenuItem: NSMenuItem!
@@ -50,27 +51,24 @@ extension AppDelegate {
         }
 
         statusMenu.delegate = self
+        self.statusItem.statusMenu = self.statusMenu
+        statusMenu.autoenablesItems = false
+        versionMenuItem.title = "Version: \(appVersion())"
         Current.defaults().register(defaults: DefaultPreferences)
-
+        statusItem.refreshVisibility()
+        
         stateMachine.state = .validatingLicense
-    }
-
-    override func awakeFromNib() {
+        
         if Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue) {
             NSApp.activate(ignoringOtherApps: true)
             preferencesController.showWindow(nil)
-            return
-        } else {
-            statusItem = {
-                let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-                statusItem.menu = statusMenu
-                statusItem.image = NSImage(named: "MenuIcon")
-                statusItem.alternateImage = NSImage(named: "MenuIconHighlight")
-                statusItem.highlightMode = true
-                return statusItem
-            }()
-            statusMenu.autoenablesItems = false
-            versionMenuItem.title = "Version: \(appVersion())"
+        }
+    }
+    
+    func applicationDidBecomeActive(_ notification: Notification) {
+        if Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue) {
+            NSApp.activate(ignoringOtherApps: true)
+            preferencesController.showWindow(nil)
         }
     }
 
