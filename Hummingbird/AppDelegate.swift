@@ -56,14 +56,13 @@ extension AppDelegate {
     }
 
     override func awakeFromNib() {
-        statusItem = {
-            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            statusItem.menu = statusMenu
-            statusItem.button?.image = NSImage(named: "MenuIcon")
-            return statusItem
-        }()
-        statusMenu.autoenablesItems = false
-        versionMenuItem.title = "Version: \(appVersion())"
+        if Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue) {
+            addStatusItemToMenubar()
+        } else {
+            NSApp.activate(ignoringOtherApps: true)
+            preferencesController.showWindow(nil)
+            return
+        }
     }
 
 }
@@ -85,6 +84,34 @@ extension AppDelegate: NSMenuDelegate {
             sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
         }
     }
+}
+
+// MARK:- Manage status item
+
+extension AppDelegate {
+
+    func addStatusItemToMenubar() {
+        statusItem = {
+            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            statusItem.menu = statusMenu
+            statusItem.button?.image = NSImage(named: "MenuIcon")
+            return statusItem
+        }()
+        statusMenu.autoenablesItems = false
+        versionMenuItem.title = "Version: \(appVersion())"
+    }
+
+    func removeStatusItemFromMenubar() {
+        guard let statusItem = statusItem else { return }
+        NSStatusBar.system.removeStatusItem(statusItem)
+    }
+
+    func updateStatusItemVisibility() {
+        Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
+            ? addStatusItemToMenubar()
+            : removeStatusItemFromMenubar()
+    }
+
 }
 
 

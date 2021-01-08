@@ -31,6 +31,9 @@
 		5A4619182286C4DA0078E1B2 /* ModifiertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4619172286C4DA0078E1B2 /* ModifiertTests.swift */; };
 		5A46191C2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
 		5A46191D2286C90B0078E1B2 /* Date+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A46191B2286C90B0078E1B2 /* Date+ext.swift */; };
+		5A4ADE8525A848B100060686 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A45FBCC227B281E00DC184E /* AppDelegate.swift */; };
+		5A4ADE8825A848BF00060686 /* TipJarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A78DD1022F2FBF600D0F23D /* TipJarController.swift */; };
+		5A4ADE8B25A848C600060686 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA93C94231953AF00B268CF /* RegistrationController.swift */; };
 		5A4E24A5234900BF00A27B8F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E24A4234900BF00A27B8F /* Functions.swift */; };
 		5A4E24A62349035000A27B8F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4E24A4234900BF00A27B8F /* Functions.swift */; };
 		5A5E275E232BBB35000F54E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5E275D232BBB35000F54E9 /* Constants.swift */; };
@@ -313,7 +316,6 @@
 				6ED47B5D183BF3E800859244 /* Sources */,
 				6ED47B5E183BF3E800859244 /* Frameworks */,
 				6ED47B5F183BF3E800859244 /* Resources */,
-				5A7A88FD22814AE000731048 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -396,26 +398,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		5A7A88FD22814AE000731048 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "git status\n#version=$(git describe --always --tags --dirty)\nversion=$(git rev-parse --short @)\necho version: $version\ninfo_plist=$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info.plist\nif [ $CONFIGURATION == \"Debug\" ]; then\n  /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $version\" $info_plist\nfi\n#/usr/libexec/PlistBuddy -c \"Add :GitVersion string $version\" $info_plist\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		65CF015E1F229C34002259F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -429,10 +411,13 @@
 				5A16ED092333A05500AF12CE /* FeatureFlags.swift in Sources */,
 				5A45FBCE227B301E00DC184E /* Tracker.swift in Sources */,
 				5AE57A4822F72C090015B090 /* LicensingTests.swift in Sources */,
+				5A4ADE8525A848B100060686 /* AppDelegate.swift in Sources */,
+				5A4ADE8825A848BF00060686 /* TipJarController.swift in Sources */,
 				5A33F7B7250A450100956DD3 /* Corner.swift in Sources */,
 				5A8F9111227C418200B78C47 /* Modifiers.swift in Sources */,
 				5A4619182286C4DA0078E1B2 /* ModifiertTests.swift in Sources */,
 				5A8F9121227C81E600B78C47 /* CGPoint+ext.swift in Sources */,
+				5A4ADE8B25A848C600060686 /* RegistrationController.swift in Sources */,
 				5AB3A6FA2334E6AD00D40DBF /* Protocols.swift in Sources */,
 				5A45FBD1227B4BCE00DC184E /* PreferencesController.swift in Sources */,
 				5A2229A3228BE59600E4B95B /* Environment.swift in Sources */,
@@ -579,7 +564,7 @@
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1.7;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
@@ -679,7 +664,7 @@
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1.7;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
@@ -884,7 +869,7 @@
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1.7;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;
@@ -908,7 +893,7 @@
 				INFOPLIST_FILE = "Hummingbird/Hummingbird-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.1.7;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.finestructure.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Hummingbird;
 				SDKROOT = macosx;

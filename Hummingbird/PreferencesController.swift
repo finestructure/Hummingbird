@@ -31,6 +31,8 @@ class PreferencesController: NSWindowController {
 
     @IBOutlet weak var resizeFromNearestCorner: NSButton!
     @IBOutlet weak var resizeInfoLabel: NSTextField!
+    
+    @IBOutlet weak var showMenuIcon: NSButton!
 
     @IBOutlet weak var registrationStatusLabel: NSTextField!
     @IBOutlet weak var versionLabel: NSTextField!
@@ -47,7 +49,7 @@ class PreferencesController: NSWindowController {
         super.showWindow(sender)
         updateCopy()
     }
-
+    
 
     @IBAction func modifierClicked(_ sender: NSButton) {
         let moveButtons = [moveAlt, moveCommand, moveControl, moveFn, moveShift]
@@ -94,6 +96,19 @@ class PreferencesController: NSWindowController {
         Current.defaults().set(value, forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
         updateCopy()
     }
+    
+    @IBAction func hideMenuIconClicked(_ sender: Any) {
+        let value: NSNumber = {
+            var v = Current.defaults().bool(forKey:
+                DefaultsKeys.showMenuIcon.rawValue)
+            v.toggle()
+            return NSNumber(booleanLiteral: v)
+        }()
+        Current.defaults().set(value, forKey:
+            DefaultsKeys.showMenuIcon.rawValue)
+        updateCopy()
+        (NSApp.delegate as? AppDelegate)?.updateStatusItemVisibility()
+    }
 }
 
 extension PreferencesController: NSWindowDelegate {
@@ -120,6 +135,9 @@ extension PreferencesController: NSWindowDelegate {
         }
 
         resizeFromNearestCorner.state = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
+            ? .on : .off
+        
+        showMenuIcon.state = Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
             ? .on : .off
 
         updateCopy()
