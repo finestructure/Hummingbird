@@ -56,12 +56,12 @@ extension AppDelegate {
     }
 
     override func awakeFromNib() {
-        if Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue) {
+        if Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue) {
+            addStatusItemToMenubar()
+        } else {
             NSApp.activate(ignoringOtherApps: true)
             preferencesController.showWindow(nil)
             return
-        } else {
-            addStatusItemToMenubar()
         }
     }
 
@@ -107,9 +107,9 @@ extension AppDelegate {
     }
 
     func updateStatusItemVisibility() {
-        Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue)
-            ? removeStatusItemFromMenubar()
-            : addStatusItemToMenubar()
+        Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
+            ? addStatusItemToMenubar()
+            : removeStatusItemFromMenubar()
     }
 
 }

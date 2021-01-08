@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesController" customModule="Hummingbird" customModuleProvider="target">
             <connections>
+                <outlet property="hideMenuIcon" destination="pNU-or-TOn" id="maybe-some-special-id"/>
                 <outlet property="moveAlt" destination="Sj9-Rc-bDN" id="UaS-BH-HzV"/>
                 <outlet property="moveCommand" destination="ihP-uA-QNF" id="zfQ-wo-1XF"/>
                 <outlet property="moveControl" destination="f0u-93-rmH" id="RUw-k3-LWp"/>
@@ -19,7 +20,6 @@
                 <outlet property="resizeControl" destination="Vho-Wo-heQ" id="hHk-K6-Pom"/>
                 <outlet property="resizeFn" destination="ZoB-Ah-hDB" id="0dw-ya-nGD"/>
                 <outlet property="resizeFromNearestCorner" destination="bBy-AW-VTy" id="N3f-hX-Ymd"/>
-                <outlet property="hideMenuIcon" destination="pNU-or-TOn" id="maybe-some-special-id"/>
                 <outlet property="resizeInfoLabel" destination="kts-J2-yLG" id="FrF-JX-KO1"/>
                 <outlet property="resizeShift" destination="t0H-b4-ute" id="J8n-RE-hLE"/>
                 <outlet property="versionLabel" destination="eE9-Pq-pG9" id="Cny-Dl-tDQ"/>
@@ -32,7 +32,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="421" height="313"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="421" height="313"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -199,7 +199,7 @@
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pNU-or-TOn">
                         <rect key="frame" x="30" y="68" width="198" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Hide menu icon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="veU-QV-ewB">
+                        <buttonCell key="cell" type="check" title="Show menu icon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="veU-QV-ewB">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>

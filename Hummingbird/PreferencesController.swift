@@ -100,12 +100,12 @@ class PreferencesController: NSWindowController {
     @IBAction func hideMenuIconClicked(_ sender: Any) {
         let value: NSNumber = {
             var v = Current.defaults().bool(forKey:
-                DefaultsKeys.hideMenuIcon.rawValue)
+                DefaultsKeys.showMenuIcon.rawValue)
             v.toggle()
             return NSNumber(booleanLiteral: v)
         }()
         Current.defaults().set(value, forKey:
-            DefaultsKeys.hideMenuIcon.rawValue)
+            DefaultsKeys.showMenuIcon.rawValue)
         updateCopy()
         (NSApp.delegate as? AppDelegate)?.updateStatusItemVisibility()
     }
@@ -137,7 +137,7 @@ extension PreferencesController: NSWindowDelegate {
         resizeFromNearestCorner.state = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
             ? .on : .off
         
-        hideMenuIcon.state = Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue)
+        hideMenuIcon.state = Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
             ? .on : .off
 
         updateCopy()
