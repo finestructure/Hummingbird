@@ -107,6 +107,7 @@ class PreferencesController: NSWindowController {
         Current.defaults().set(value, forKey:
             DefaultsKeys.hideMenuIcon.rawValue)
         updateCopy()
+        (NSApp.delegate as? AppDelegate)?.updateStatusItemVisibility()
     }
 }
 

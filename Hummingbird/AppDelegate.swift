@@ -61,14 +61,7 @@ extension AppDelegate {
             preferencesController.showWindow(nil)
             return
         } else {
-            statusItem = {
-                let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-                statusItem.menu = statusMenu
-                statusItem.button?.image = NSImage(named: "MenuIcon")
-                return statusItem
-            }()
-            statusMenu.autoenablesItems = false
-            versionMenuItem.title = "Version: \(appVersion())"
+            addStatusItemToMenubar()
         }
     }
 
@@ -91,6 +84,34 @@ extension AppDelegate: NSMenuDelegate {
             sendCoffeeMenuItem.isHidden = Current.featureFlags.commercial
         }
     }
+}
+
+// MARK:- Manage status item
+
+extension AppDelegate {
+
+    func addStatusItemToMenubar() {
+        statusItem = {
+            let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            statusItem.menu = statusMenu
+            statusItem.button?.image = NSImage(named: "MenuIcon")
+            return statusItem
+        }()
+        statusMenu.autoenablesItems = false
+        versionMenuItem.title = "Version: \(appVersion())"
+    }
+
+    func removeStatusItemFromMenubar() {
+        guard let statusItem = statusItem else { return }
+        NSStatusBar.system.removeStatusItem(statusItem)
+    }
+
+    func updateStatusItemVisibility() {
+        Current.defaults().bool(forKey: DefaultsKeys.hideMenuIcon.rawValue)
+            ? removeStatusItemFromMenubar()
+            : addStatusItemToMenubar()
+    }
+
 }
 
 
