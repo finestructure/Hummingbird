@@ -313,7 +313,6 @@
 				6ED47B5D183BF3E800859244 /* Sources */,
 				6ED47B5E183BF3E800859244 /* Frameworks */,
 				6ED47B5F183BF3E800859244 /* Resources */,
-				5A7A88FD22814AE000731048 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -395,26 +394,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5A7A88FD22814AE000731048 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "git status\n#version=$(git describe --always --tags --dirty)\nversion=$(git rev-parse --short @)\necho version: $version\ninfo_plist=$BUILT_PRODUCTS_DIR/$PRODUCT_NAME.app/Contents/Info.plist\nif [ $CONFIGURATION == \"Debug\" ]; then\n  /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $version\" $info_plist\nfi\n#/usr/libexec/PlistBuddy -c \"Add :GitVersion string $version\" $info_plist\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		65CF015E1F229C34002259F2 /* Sources */ = {
