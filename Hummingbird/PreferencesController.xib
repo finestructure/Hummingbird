@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesController" customModule="Hummingbird" customModuleProvider="target">
             <connections>
-                <outlet property="hideMenuIcon" destination="pNU-or-TOn" id="maybe-some-special-id"/>
                 <outlet property="moveAlt" destination="Sj9-Rc-bDN" id="UaS-BH-HzV"/>
                 <outlet property="moveCommand" destination="ihP-uA-QNF" id="zfQ-wo-1XF"/>
                 <outlet property="moveControl" destination="f0u-93-rmH" id="RUw-k3-LWp"/>
@@ -22,6 +21,7 @@
                 <outlet property="resizeFromNearestCorner" destination="bBy-AW-VTy" id="N3f-hX-Ymd"/>
                 <outlet property="resizeInfoLabel" destination="kts-J2-yLG" id="FrF-JX-KO1"/>
                 <outlet property="resizeShift" destination="t0H-b4-ute" id="J8n-RE-hLE"/>
+                <outlet property="showMenuIcon" destination="pNU-or-TOn" id="maybe-some-special-id"/>
                 <outlet property="versionLabel" destination="eE9-Pq-pG9" id="Cny-Dl-tDQ"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>

@@ -32,7 +32,7 @@ class PreferencesController: NSWindowController {
     @IBOutlet weak var resizeFromNearestCorner: NSButton!
     @IBOutlet weak var resizeInfoLabel: NSTextField!
     
-    @IBOutlet weak var hideMenuIcon: NSButton!
+    @IBOutlet weak var showMenuIcon: NSButton!
 
     @IBOutlet weak var registrationStatusLabel: NSTextField!
     @IBOutlet weak var versionLabel: NSTextField!
@@ -137,7 +137,7 @@ extension PreferencesController: NSWindowDelegate {
         resizeFromNearestCorner.state = Current.defaults().bool(forKey: DefaultsKeys.resizeFromNearestCorner.rawValue)
             ? .on : .off
         
-        hideMenuIcon.state = Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
+        showMenuIcon.state = Current.defaults().bool(forKey: DefaultsKeys.showMenuIcon.rawValue)
             ? .on : .off
 
         updateCopy()
