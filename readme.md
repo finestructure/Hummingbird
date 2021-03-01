@@ -19,7 +19,7 @@ Or use [Homebrew](https://brew.sh):
 
 ```
 brew tap finestructure/Hummingbird
-brew cask install Hummingbird
+brew install --cask Hummingbird
 ```
 
 Hummingbird has been tested on macOS 10.14 Mojave and 10.15 Catalina but it should run on earlier macOS versions as well (macOS 10.11 or higher).
