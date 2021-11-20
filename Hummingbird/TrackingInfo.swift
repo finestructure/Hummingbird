@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Cocoa
 
 class TrackingInfo {
     var time: CFTimeInterval = 0
