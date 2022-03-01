@@ -48,6 +48,10 @@ Hummingbird is open source but if you'd like to support the app or simply don't 
 
 Every sale helps me to keep working on Hummingbird and if you find it useful, please spread the word!
 
+## Known Limitations
+
+Hummingbird is using the macOS Accessibility APIs in order to discover windows and update their position and size. Some apps seem to be creating windows that don't participate in this mechanism and therefore are invisible to Hummingbird. See [issue #5](https://github.com/finestructure/Hummingbird/issues/5) for more details in what apps might be affected.
+
 ## Contributing
 
 [Contributions](contributing.md) welcome!
